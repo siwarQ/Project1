@@ -1,5 +1,8 @@
 package model;
 
+/*
+ * siwar
+ */
 public class Card {
 	
 	/* (non-Javadoc)

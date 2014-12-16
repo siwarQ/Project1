@@ -29,6 +29,10 @@ public class ModelLogic implements Serializable  {
 	private static SysData sData; 
 	/**Serilizing the ModelLogic class*/
 	private static final long serialVersionUID = 1L;
+	/** the current game */
+	private game currentGame;
+	/** indication of winning */
+	private boolean flag = false;
 	
 	//***************************************** Constructors ******************************************
 	/**
@@ -65,11 +69,11 @@ public class ModelLogic implements Serializable  {
         }
         
         public game startGame(){
-        game g = new game(1); // creating game 1
-		g.setDeck(sData.getCards()); // setting the deck to the one returning from getCards() func
-		g.OpenRound(); // openning a new round
-		g.Deal(); // activating DEAL FUNCTION
-        return g; // returning the game which created
+        this.currentGame = new game(1); // creating game 1
+        this.currentGame.setDeck(sData.getCards()); // setting the deck to the one returning from getCards() func
+        this.currentGame.OpenRound(); // openning a new round
+        this.currentGame.Deal(); // activating DEAL FUNCTION
+        return this.currentGame; // returning the game which created
 	}
 	
 	public  void buildCards(){
@@ -130,6 +134,29 @@ public class ModelLogic implements Serializable  {
 		
 		sData.setCards(arr);	
 		
+	}
+	
+	
+	public Card hitFunc(){
+		Card card;
+		Player p = this.currentGame.getPlayer();
+		Round round = this.currentGame.getRounds().get(this.currentGame.sizeOfCurrentRound);
+		
+		
+		card = round.hit();
+		int amountOfCurrentCards = round.getPlayerHand().getAmountOfCards();
+		if (card != null){
+			if (amountOfCurrentCards == 21){
+				this.flag = true;
+				p.setWinningCounter(p.getWinningCounter() +1); // update the players winning counter
+			}
+			return card;
+		}
+		return null;		
+	}
+	
+	public boolean getFlag(){
+		return this.flag;
 	}
         
 	//********************************** Layer's closure procedure methods ****************************

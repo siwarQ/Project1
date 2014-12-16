@@ -122,12 +122,15 @@ public class Hand {
 	
 	// function which add a card to the dealer/player's hand
 	public boolean addCard(Card c){ 
+		////////////////////////////////////////////////////////CHECK ASSSS
 		
+		// submit changes so we can check if player winning/loosing
+		this.amountOfCards += c.getValue();
 		if (isLegal())
 		{
 			
 			this.cards.add(c);
-			this.amountOfCards ++;
+			
 			return true;			
 		}
 		else return false;

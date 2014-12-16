@@ -162,10 +162,11 @@ public class game {
 	
 	
 	// this function opens a new round and calls the shuffle function 
-	public void OpenRound(){
+	public Round OpenRound(){
 		Round r = new Round(); ///// you must enter dealer hand and player hand
 		this.Deck=r.shuffle(this.Deck);	
 		this.rounds.add(r);
+		return r;
 		
 	}
 	

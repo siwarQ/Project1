@@ -143,6 +143,20 @@ public class Round {
 		
 		
 	}
+	
+	
+	public Card  hit(){
+		
+		Card c= this.deck.remove(0);
+		if (this.PlayerHand.addCard(c)){
+			//// check things
+			return c;
+		}
+		else {
+			return null;
+		}
+		
+	}
 
 	
 	}

@@ -1,10 +1,7 @@
 package model;
 
 
-
-
 public class Card {
-	
 	//***************************************** Variables ******************************************
 	/**KEY field, Card's valu*/
 	private int value;

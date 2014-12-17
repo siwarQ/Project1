@@ -64,6 +64,8 @@ public class gameFrame extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+        JPlayer = new javax.swing.JLabel();
+        JDealer = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -119,6 +121,18 @@ public class gameFrame extends javax.swing.JFrame {
         jLabel7.setText("jLabel7");
         jLabel7.setBounds(330, 320, 120, 150);
         jDesktopPane1.add(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        JPlayer.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        JPlayer.setForeground(new java.awt.Color(255, 255, 255));
+        JPlayer.setText("jLabel8");
+        JPlayer.setBounds(720, 180, 140, 110);
+        jDesktopPane1.add(JPlayer, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        JDealer.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        JDealer.setForeground(new java.awt.Color(255, 255, 255));
+        JDealer.setText("jLabel9");
+        JDealer.setBounds(680, 120, 180, 90);
+        jDesktopPane1.add(JDealer, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -176,6 +190,27 @@ public class gameFrame extends javax.swing.JFrame {
         jButton4.setVisible(true);
         jLabel1.add(jButton2);
         jLabel1.add(jButton4);
+                
+        String playerAmount =Integer.toString(view.getPlayerHand());
+        JPlayer.setText("Player-"+playerAmount);
+        jLabel1.add(JPlayer);
+        JPlayer.setVisible(true);
+        
+        String delearAmount =Integer.toString(view.getDealerHand());
+        JDealer.setText("Delear-"+delearAmount);
+        jLabel1.add(JDealer);
+        JDealer.setVisible(true);
+        
+         if (view.checkWinOnStart()== 1){
+            System.err.println("win");
+            jButton2.setVisible(false);
+        }
+         else
+         {
+         jButton2.setVisible(true);
+         jLabel1.add(jButton2);
+         }
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -248,6 +283,8 @@ public class gameFrame extends javax.swing.JFrame {
      */
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel JDealer;
+    private javax.swing.JLabel JPlayer;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;

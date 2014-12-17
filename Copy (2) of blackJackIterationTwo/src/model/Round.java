@@ -122,7 +122,7 @@ public class Round {
      /*return the amunt of cards for delear hand*/
     public int getDelaerAmount()
     {
-     return this.dealerHand.getCards().get(0).getValue();
+     return this.dealerHand.getCards().get(1).getValue();
     }
 	
 	//function calculates score for round

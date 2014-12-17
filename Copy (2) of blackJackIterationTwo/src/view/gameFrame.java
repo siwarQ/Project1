@@ -37,9 +37,9 @@ public class gameFrame extends javax.swing.JFrame {
          this.setResizable(false);
          
         
-         jButton1.setOpaque(false);
-         jButton1.setContentAreaFilled(false);
-         jButton1.setBorderPainted(false);
+         dealBtn.setOpaque(false);
+         dealBtn.setContentAreaFilled(false);
+         dealBtn.setBorderPainted(false);
         //jButton1.setBackground(Color.GREEN.darker());
       
     }
@@ -54,30 +54,32 @@ public class gameFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
-        jButton1 = new javax.swing.JButton();
+        dealBtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        hitBtn = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        standBtn = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         JPlayer = new javax.swing.JLabel();
         JDealer = new javax.swing.JLabel();
+        jplayerStatus = new javax.swing.JLabel();
+        jDealerStatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setBackground(new java.awt.Color(82, 0, 0));
-        jButton1.setForeground(new java.awt.Color(137, 0, 0));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        dealBtn.setBackground(new java.awt.Color(82, 0, 0));
+        dealBtn.setForeground(new java.awt.Color(137, 0, 0));
+        dealBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                dealBtnActionPerformed(evt);
             }
         });
-        jButton1.setBounds(620, 460, 70, 30);
-        jDesktopPane1.add(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        dealBtn.setBounds(620, 460, 70, 30);
+        jDesktopPane1.add(dealBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLabel2.setBounds(600, 104, 70, 100);
         jDesktopPane1.add(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLabel3.setBounds(570, 120, 80, 110);
@@ -96,27 +98,27 @@ public class gameFrame extends javax.swing.JFrame {
         jLabel5.setBounds(554, 270, 90, 130);
         jDesktopPane1.add(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jButton2.setText("jButton2");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        hitBtn.setText("jButton2");
+        hitBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                hitBtnActionPerformed(evt);
             }
         });
-        jButton2.setBounds(620, 473, 73, 70);
-        jDesktopPane1.add(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        hitBtn.setBounds(620, 473, 73, 70);
+        jDesktopPane1.add(hitBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel6.setText("jLabel6");
         jLabel6.setBounds(150, 320, 120, 150);
         jDesktopPane1.add(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jButton4.setText("jButton4");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        standBtn.setText("jButton4");
+        standBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                standBtnActionPerformed(evt);
             }
         });
-        jButton4.setBounds(533, 473, 80, 70);
-        jDesktopPane1.add(jButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        standBtn.setBounds(533, 473, 80, 70);
+        jDesktopPane1.add(standBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel7.setText("jLabel7");
         jLabel7.setBounds(330, 320, 120, 150);
@@ -133,6 +135,18 @@ public class gameFrame extends javax.swing.JFrame {
         JDealer.setText("jLabel9");
         JDealer.setBounds(680, 120, 180, 90);
         jDesktopPane1.add(JDealer, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jplayerStatus.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jplayerStatus.setForeground(new java.awt.Color(255, 255, 255));
+        jplayerStatus.setText("jLabel8");
+        jplayerStatus.setBounds(360, 300, 110, 50);
+        jDesktopPane1.add(jplayerStatus, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jDealerStatus.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jDealerStatus.setForeground(new java.awt.Color(255, 255, 255));
+        jDealerStatus.setText("jLabel9");
+        jDealerStatus.setBounds(410, 179, 210, 60);
+        jDesktopPane1.add(jDealerStatus, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -156,9 +170,8 @@ public class gameFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void dealBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dealBtnActionPerformed
         // TODO add your handling code here:
-        System.err.println("FUCKKKKKKKKKKKKKKKKKKKKKK");
         game g = view.loadStringCard(); // calling deal method
         ArrayList<Card> playerC = g.getRounds().get(g.sizeOfCurrentRound).getPlayerHand().getCards(); // players hand
         ArrayList<Card> dealerC = g.getRounds().get(g.sizeOfCurrentRound).getDealerHand().getCards(); // dealers hand
@@ -184,12 +197,12 @@ public class gameFrame extends javax.swing.JFrame {
         jLabel1.add(jLabel4);
         jLabel5.setIcon(cardIcon2);
         jLabel1.add(jLabel5);
-        jButton1.setVisible(false);
+        dealBtn.setVisible(false);
         jLabel1.setIcon(x);
-        jButton2.setVisible(true);
-        jButton4.setVisible(true);
-        jLabel1.add(jButton2);
-        jLabel1.add(jButton4);
+        hitBtn.setVisible(true);
+        standBtn.setVisible(true);
+        jLabel1.add(hitBtn);
+        jLabel1.add(standBtn);
                 
         String playerAmount =Integer.toString(view.getPlayerHand());
         JPlayer.setText("Player-"+playerAmount);
@@ -203,22 +216,40 @@ public class gameFrame extends javax.swing.JFrame {
         
          if (view.checkWinOnStart()== 1){
             System.err.println("win");
-            jButton2.setVisible(false);
+            jplayerStatus.setText("Win!");
+            jLabel1.add(jplayerStatus);
+            jplayerStatus.setVisible(true);
+            hitBtn.setVisible(false);
         }
          else
          {
-         jButton2.setVisible(true);
-         jLabel1.add(jButton2);
+         hitBtn.setVisible(true);
+         jLabel1.add(hitBtn);
          }
 
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_dealBtnActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel1MouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void updatedPlayerCardsInHit()
+    {
+       String playerAmount =Integer.toString(view.getPlayerHand());
+        JPlayer.setText("Player-"+playerAmount);
+        jLabel1.add(JPlayer);
+        JPlayer.setVisible(true);       
+    }
+    
+    private void updatedDelearCardsInHit()
+    {
+        String delearAmount =Integer.toString(view.getDealerHand());
+        JDealer.setText("Delear-"+delearAmount);
+        jLabel1.add(JDealer);
+        JDealer.setVisible(true); 
+    }
+    private void hitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hitBtnActionPerformed
         // TODO add your handling code here:
         //System.err.println("in the next button");
         String s = view.hitButton();
@@ -230,30 +261,36 @@ public class gameFrame extends javax.swing.JFrame {
         //c.pa
         jLabel1.add(c);
         c.setVisible(true);
-       /* if (jLabel6!= null){
-        jLabel6.setIcon(nextCard);
-        jLabel1.add(jLabel6);
-        }
-        else{
-            jLabel7.setIcon(nextCard);
-            jLabel1.add(jLabel7);
-        }*/
         if (view.checkWin()== -1){
-            System.err.println("lost");
-            jButton2.setVisible(false);
+            jplayerStatus.setText("Bust!");
+            jLabel1.add(jplayerStatus);
+            jplayerStatus.setVisible(true);
+            hitBtn.setVisible(false);
         }
         if (view.checkWin()== 1){
-            System.err.println("win");
-            jButton2.setVisible(false);
+            jplayerStatus.setText("Win!");
+            jLabel1.add(jplayerStatus);
+            jplayerStatus.setVisible(true);
+            hitBtn.setVisible(false);
         }
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
+        updatedPlayerCardsInHit();
+        updatedDelearCardsInHit();   
+    }//GEN-LAST:event_hitBtnActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void updateSumOfCardForDealer()
+    { 
+        String delearAmount =Integer.toString(view.getDealerHandAgterStand());
+        JDealer.setText("Delear-"+delearAmount);
+        jLabel1.add(JDealer);
+        JDealer.setVisible(true);
+    }
+    private void standBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_standBtnActionPerformed
         // TODO add your handling code here:
         ImageIcon cardIcon4 = new ImageIcon(getClass().getResource(backCard));
         jLabel3.setIcon(cardIcon4);
         jLabel1.add(jLabel3);
+        updateSumOfCardForDealer();
+        
         
         ArrayList<String> arr = this.view.standButton();
         if (arr.isEmpty())
@@ -267,16 +304,23 @@ public class gameFrame extends javax.swing.JFrame {
         }
         if (view.checkWin() == 1){
             System.err.println("Player wins");
-            jButton4.setVisible(false);
+            jplayerStatus.setText("Win!");
+            jLabel1.add(jplayerStatus);
+            jplayerStatus.setVisible(true);
+            standBtn.setVisible(false);
         }
         if (view.checkWin() == -1){
             System.err.println("Dealer wins");
-            jButton4.setVisible(false);
+            jDealerStatus.setText("Win!");
+            jLabel1.add(jDealerStatus);
+            jDealerStatus.setVisible(true);
+            standBtn.setVisible(false);
         }
         
+        updateSumOfCardForDealer();
             
         
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_standBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -285,9 +329,9 @@ public class gameFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JDealer;
     private javax.swing.JLabel JPlayer;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton dealBtn;
+    private javax.swing.JButton hitBtn;
+    private javax.swing.JLabel jDealerStatus;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -296,5 +340,7 @@ public class gameFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jplayerStatus;
+    private javax.swing.JButton standBtn;
     // End of variables declaration//GEN-END:variables
 }

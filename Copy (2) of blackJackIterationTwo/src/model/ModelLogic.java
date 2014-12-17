@@ -220,6 +220,12 @@ public class ModelLogic implements Serializable  {
         return round.getDelaerAmount();       
     }
      
+       public int getDealerHandAfterStand()
+    {
+        Round round = this.currentGame.getRounds().get(this.currentGame.sizeOfCurrentRound);
+        return round.getDelaerAmountAfterStand();       
+    }
+     
      public int checkWinOnStart()
      {
         return this.currentGame.getwinOnStart();

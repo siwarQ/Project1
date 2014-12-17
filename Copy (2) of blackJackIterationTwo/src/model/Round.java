@@ -32,7 +32,7 @@ public class Round {
 		Round.setSerialNum(Round.getSerialNum() + 1);
 		this.totalScore=totalScore;
 		this.statusOfPlayer=statusOfPlaye;
-		this.setDealerHand(dealerHand);
+		this.dealerHand=dealerHand;
 		this.PlayerHand=PlayerHand;
 		this.deck = new ArrayList <Card>();	
 	}
@@ -123,6 +123,11 @@ public class Round {
     public int getDelaerAmount()
     {
      return this.dealerHand.getCards().get(1).getValue();
+    }
+      /*return the amunt of cards for delear hand after stand button is choose*/
+    public int getDelaerAmountAfterStand()
+    {
+     return this.dealerHand.getAmountOfCards();
     }
 	
 	//function calculates score for round

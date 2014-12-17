@@ -114,7 +114,10 @@ public class ControllerLogic implements Serializable {
        {
         return model.getDealerHand();
        }
-       
+            public int getDealerHandAfterStand()
+       {
+        return model.getDealerHandAfterStand();
+       }
 
      	//********************************** Layer's closure procedure methods ****************************
         

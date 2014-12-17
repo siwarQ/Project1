@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+
 import utils.MyFileLogWriter;
 
 public class game {
@@ -20,6 +21,8 @@ public class game {
 	private int scoreForGame;
 	/**size of current round*/
     public int sizeOfCurrentRound=0;
+    
+    public int winOnStart=0;
 	
     
   
@@ -163,6 +166,13 @@ public class game {
 		this.scoreForGame = scoreForGame;
 	}
 	
+    protected int getwinOnStart() {
+	return winOnStart;
+}
+    
+      protected void setwinOnStart(int winOnStart ) {
+	this.winOnStart =winOnStart;
+}
 	
 	// this function opens a new round and calls the shuffle function 
 	public void OpenRound(){
@@ -175,7 +185,6 @@ public class game {
 	
 	// This function gives both the dealer and the player two cards
 	public void Deal(){
-		
 		//saving all cards for the first iteration
 		Card c1 = this.Deck.remove(0); 
 		Card c2 = this.Deck.remove(0);
@@ -188,6 +197,10 @@ public class game {
 		playerTemp.addCard(c2);
 		dealer.addCard(c3);
 		dealer.addCard(c4);
+                if (playerTemp.getAmountOfCards()==21)
+                {
+                 setwinOnStart(1);
+                }
 		//setting the size of current round
 		this.sizeOfCurrentRound = rounds.size()-1;
 		//setting the dealer's and players hand

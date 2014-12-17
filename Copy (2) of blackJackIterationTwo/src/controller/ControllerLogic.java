@@ -99,6 +99,22 @@ public class ControllerLogic implements Serializable {
         {
                 return model.getFlag();
          }
+        
+       public int checkWinOnStart()
+        {
+           return model.checkWinOnStart();
+        }
+        
+       public int getPlayerHand()
+       {
+        return model.getPlayerHand();
+       }
+       
+        public int getDealerHand()
+       {
+        return model.getDealerHand();
+       }
+       
 
      	//********************************** Layer's closure procedure methods ****************************
         

@@ -73,6 +73,10 @@ public class ViewLogic implements Serializable {
              return controller.getNextGame(); // activating the start game functions in model which activates the deal function
              
          }
+         public int checkWinOnStart()
+         {
+            return controller.checkWinOnStart();
+         }
          
           /*
             * Hit function        
@@ -101,6 +105,15 @@ public class ViewLogic implements Serializable {
          {
             return controller.checkWin();
          }
+         public int getPlayerHand()
+        {
+         return controller.getPlayerHand();
+        }
+        
+         public int getDealerHand()
+        {
+         return controller.getDealerHand();
+        }
        //********************************** Layer's closure procedure methods ****************************
          
          /*

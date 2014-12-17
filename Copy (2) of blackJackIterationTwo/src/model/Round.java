@@ -113,7 +113,17 @@ public class Round {
 	public static void setSerialNum(int serialNum) {
 		Round.serialNum = serialNum;
 	}
-	
+    /*return the amunt of cards for player hand*/
+    public int getPlayerAmount()
+    {
+     return this.PlayerHand.getAmountOfCards();
+    }
+    
+     /*return the amunt of cards for delear hand*/
+    public int getDelaerAmount()
+    {
+     return this.dealerHand.getCards().get(0).getValue();
+    }
 	
 	//function calculates score for round
 	public int calculateScoreForRound()

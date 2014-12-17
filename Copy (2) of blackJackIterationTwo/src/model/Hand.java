@@ -113,7 +113,7 @@ public class Hand {
 	// function which checks if amount of values is legal
 	public boolean isLegal(){
             if (this.TypeOfHand.equals(model.TypeOfHand.User)){
-		if (this.amountOfCards >= 21){
+		if (this.amountOfCards > 21){
 			return false;
 		}
 		else 
@@ -131,17 +131,20 @@ public class Hand {
 	
 	// function which add a card to the dealer/player's hand
 	public boolean addCard(Card c){ 
-		////////////////////////////////////////////////////////CHECK ASSSS
-		
+		if (c.getLetter()== Letter.A)
+                {
+                    if ((amountOfCards+11)<=21)
+                    {
+                        c.setValue(11);
+                      System.err.println("The cards Value:"+c.getValue());
+                    }
+                }  
 		// submit changes so we can check if player winning/loosing
 		this.amountOfCards += c.getValue();
-                System.err.println("The amount is:"+this.amountOfCards);
 		if (isLegal())
 		{
-			
-			this.cards.add(c);
-			
-			return true;			
+                    this.cards.add(c);
+                    return true;			
 		}
                 else{
                     this.cards.add(c);

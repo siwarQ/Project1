@@ -207,6 +207,24 @@ public class ModelLogic implements Serializable  {
 		return this.flag;
                 
 	}
+	
+    public int getPlayerHand()
+    {
+        Round round = this.currentGame.getRounds().get(this.currentGame.sizeOfCurrentRound);
+        return round.getPlayerAmount();       
+    }
+    
+     public int getDealerHand()
+    {
+        Round round = this.currentGame.getRounds().get(this.currentGame.sizeOfCurrentRound);
+        return round.getDelaerAmount();       
+    }
+     
+     public int checkWinOnStart()
+     {
+        return this.currentGame.getwinOnStart();
+     }
+   
        
         
 	//********************************** Layer's closure procedure methods ****************************

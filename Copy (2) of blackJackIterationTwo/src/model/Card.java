@@ -2,6 +2,7 @@ package model;
 
 
 public class Card {
+	//HELLO LEE
 	// hello leee
 	//***************************************** Variables ******************************************
 	/**KEY field, Card's valu*/

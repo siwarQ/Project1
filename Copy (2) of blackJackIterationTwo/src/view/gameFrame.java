@@ -72,8 +72,9 @@ public class gameFrame extends javax.swing.JFrame {
                         this.playersHand.add((new JLabel()));
                         jLabel1.add(this.playersHand.get(i));
                         this.playersHand.get(i).setIcon(imageIcon);
-                        this.playersHand.get(i).setBounds(500 + 40*(i), 300,imageIcon.getIconWidth(),  imageIcon.getIconHeight());
-                        
+                        this.playersHand.get(i).setBounds(500 + 40*(i), 300-(i*10),imageIcon.getIconWidth(),  imageIcon.getIconHeight());
+                     
+             
                         this.playersHand.get(i).setVisible(true);
                         i++;
                     }
@@ -96,7 +97,7 @@ public class gameFrame extends javax.swing.JFrame {
                         this.dealersHand.add(new JLabel());
                         jLabel1.add(this.dealersHand.get(j));
                         this.dealersHand.get(j).setIcon(imageIcon);
-                        this.dealersHand.get(j).setBounds(500 + 40*(j), 100,imageIcon.getIconWidth(),  imageIcon.getIconHeight());
+                        this.dealersHand.get(j).setBounds(500 + 40*(j), 100-(j*10),imageIcon.getIconWidth(),  imageIcon.getIconHeight());
                         this.dealersHand.get(j).setVisible(true);
                         j++;
                     }
@@ -159,20 +160,20 @@ public class gameFrame extends javax.swing.JFrame {
         jLabel5.setBounds(554, 270, 90, 130);
         jDesktopPane1.add(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        hitBtn.setText("jButton2");
+        hitBtn.setLabel("");
         hitBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hitBtnActionPerformed(evt);
             }
         });
-        hitBtn.setBounds(620, 473, 73, 70);
+        hitBtn.setBounds(620, 473, 33, 70);
         jDesktopPane1.add(hitBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel6.setText("jLabel6");
         jLabel6.setBounds(150, 320, 120, 150);
         jDesktopPane1.add(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        standBtn.setText("jButton4");
+        standBtn.setLabel("");
         standBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 standBtnActionPerformed(evt);

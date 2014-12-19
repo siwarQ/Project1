@@ -112,7 +112,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="hitBtn">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jButton2"/>
+            <Property name="label" type="java.lang.String" value=""/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hitBtnActionPerformed"/>
@@ -135,7 +135,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="standBtn">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jButton4"/>
+            <Property name="label" type="java.lang.String" value=""/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="standBtnActionPerformed"/>

@@ -4,10 +4,15 @@
  */
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JToggleButton;
+import javax.swing.Timer;
 import model.game;
 
 /**
@@ -25,6 +30,8 @@ public class gameFrame extends javax.swing.JFrame {
         private boolean cardAfterDeal = false;
         public ArrayList<JLabel> playersHand = new ArrayList<>() ;
         public ArrayList<JLabel> dealersHand = new ArrayList<>() ;
+        final JToggleButton b = new JToggleButton("Start/Stop");// creating the button
+        //final JToggleButton deal = new JToggleButton("DEAL");// creating the button
         
         
 	/**
@@ -46,8 +53,74 @@ public class gameFrame extends javax.swing.JFrame {
          settingTranspert(dealBtn);
          settingTranspert(hitBtn);
          settingTranspert(standBtn);
+         
+         runAnimation();
         //jButton1.setBackground(Color.GREEN.darker());
       
+    }
+    
+    
+       private void runAnimation(){
+        final ImageIcon[] frames = {
+            //ImageIO.read((ImageInputStream) new ImageIcon(getClass().getResource("small.png"))),
+            // ImageIO.read(new URL("small.png")),
+            new ImageIcon(getClass().getResource("test1.jpg")),
+            new ImageIcon(getClass().getResource("test2.jpg"))
+           
+        };
+        Runnable r = new Runnable() {
+            
+
+            @Override
+            public void run() {
+                //JPanel gui = new JPanel(new BorderLayout()); // creating the frame
+
+                final JLabel animation = new JLabel(frames[0]); // creating the label and giving him the first index in label
+                animation.setBounds(700, 200, frames[0].getIconHeight(), frames[0].getIconWidth());
+                jLabel1.add(animation, BorderLayout.CENTER);// adding the first label to the center
+                animation.setVisible(true);
+
+                ActionListener animate = new ActionListener() { 
+
+                    private int index = 0;
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (index<frames.length-1) {
+                            index++;
+                        } else {
+                            index = 0;
+                        }
+                        animation.setIcon(frames[index]);
+                        animation.setBounds(600, 200, frames[index].getIconHeight(), frames[index].getIconWidth());
+                        animation.setVisible(true);//////////////////////////////
+                    }
+                };
+               final Timer timer = new Timer(200,animate);
+
+                //final JToggleButton b = new JToggleButton("Start/Stop");// creating the button
+                ActionListener startStop = new ActionListener() { // creating the action listener
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (b.isSelected()) { // if the button is selected
+                            timer.start();
+                        } else {
+                            timer.stop();
+                        }
+                    }
+                };
+                //jplayerStatus.addAncestorListener(s);
+                b.addActionListener(startStop); // adding for the button b the action listener
+                dealBtn.addActionListener(startStop);
+                jLabel1.add(b, BorderLayout.PAGE_END); //adding to gui the button with his place
+                b.setBounds(800, 480, 70, 30);
+                b.setVisible(true);
+
+                //JOptionPane.showMessageDialog(null, gui);
+            }
+        };
+        r.run();
     }
     
     private void settingTranspert(JButton button){
@@ -140,7 +213,7 @@ public class gameFrame extends javax.swing.JFrame {
                 dealBtnActionPerformed(evt);
             }
         });
-        dealBtn.setBounds(620, 460, 70, 30);
+        dealBtn.setBounds(620, 480, 70, 30);
         jDesktopPane1.add(dealBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLabel2.setBounds(600, 104, 70, 100);
         jDesktopPane1.add(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -155,31 +228,29 @@ public class gameFrame extends javax.swing.JFrame {
                 jLabel1MouseClicked(evt);
             }
         });
-        jLabel1.setBounds(0, -50, 1220, 630);
+        jLabel1.setBounds(0, 0, 1220, 590);
         jDesktopPane1.add(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLabel5.setBounds(554, 270, 90, 130);
         jDesktopPane1.add(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        hitBtn.setLabel("jButton2");
         hitBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hitBtnActionPerformed(evt);
             }
         });
-        hitBtn.setBounds(620, 473, 73, 70);
+        hitBtn.setBounds(620, 463, 80, 60);
         jDesktopPane1.add(hitBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel6.setText("jLabel6");
         jLabel6.setBounds(150, 320, 120, 150);
         jDesktopPane1.add(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        standBtn.setLabel("jButton4");
         standBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 standBtnActionPerformed(evt);
             }
         });
-        standBtn.setBounds(533, 473, 80, 70);
+        standBtn.setBounds(550, 453, 60, 70);
         jDesktopPane1.add(standBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel7.setText("jLabel7");
@@ -189,13 +260,13 @@ public class gameFrame extends javax.swing.JFrame {
         JPlayer.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         JPlayer.setForeground(new java.awt.Color(255, 255, 255));
         JPlayer.setText("jLabel8");
-        JPlayer.setBounds(720, 180, 140, 110);
+        JPlayer.setBounds(720, 310, 170, 50);
         jDesktopPane1.add(JPlayer, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         JDealer.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         JDealer.setForeground(new java.awt.Color(255, 255, 255));
         JDealer.setText("jLabel9");
-        JDealer.setBounds(680, 120, 180, 90);
+        JDealer.setBounds(680, 120, 140, 30);
         jDesktopPane1.add(JDealer, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jplayerStatus.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -214,19 +285,17 @@ public class gameFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1213, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 581, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -271,7 +340,9 @@ public class gameFrame extends javax.swing.JFrame {
         jLabel1.add(JPlayer);
         JPlayer.setVisible(true);*/
         //SIWAR
-        
+        //runAnimation();
+        dealBtn.setText("");
+        hitBtn.setText("");
         System.err.println("FUCKKKKKKKKKKKKKKKKKKKKKK");
         
         game Game= view.loadStringCard(); // calling deal method

@@ -160,20 +160,20 @@ public class gameFrame extends javax.swing.JFrame {
         jLabel5.setBounds(554, 270, 90, 130);
         jDesktopPane1.add(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        hitBtn.setLabel("");
+        hitBtn.setLabel("jButton2");
         hitBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hitBtnActionPerformed(evt);
             }
         });
-        hitBtn.setBounds(620, 473, 33, 70);
+        hitBtn.setBounds(620, 473, 73, 70);
         jDesktopPane1.add(hitBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel6.setText("jLabel6");
         jLabel6.setBounds(150, 320, 120, 150);
         jDesktopPane1.add(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        standBtn.setLabel("");
+        standBtn.setLabel("jButton4");
         standBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 standBtnActionPerformed(evt);

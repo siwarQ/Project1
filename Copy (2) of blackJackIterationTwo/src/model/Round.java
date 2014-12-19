@@ -163,21 +163,59 @@ public class Round {
 	
 public Card  hit(){
 		
-		Card c= this.deck.remove(0);
+		/*Card c= this.deck.remove(0);
 		if (!this.PlayerHand.addCard(c)) // returns false if hand is not legal
                     setCheck(false);
+                return c;*/
+    Card c= this.deck.get(0);
+               // if (this.PlayerHand.isLegal(=) =)
+		if (this.PlayerHand.isLegal(this.PlayerHand.getAmountOfCards())){ // returns false if hand is not legal
+                   if(!this.PlayerHand.addCard(c)){
+                    //if (!this.PlayerHand.isLegal(c.getValue()+ this.PlayerHand.getAmountOfCards()))// checking if the player lost or not
+                       setCheck(false);
+                   }
+                    this.deck.remove(0);
+                    System.err.println("The sum of cards after hit: "+this.PlayerHand.getAmountOfCards());
+                }
+                   
+                
+                else {
+                    if (!this.PlayerHand.isLegal(c.getValue()+ this.PlayerHand.getAmountOfCards()))// checking if the player lost or not
+                       setCheck(false);
+                    System.err.println("The sum of cards after hit: "+this.PlayerHand.getAmountOfCards());
+                   }
+                
+                
                 return c;
 		
 	}
 
 public ArrayList<Card> stand(){
     
-    ArrayList<Card> dealerCards = new ArrayList<>();
+  /*  ArrayList<Card> dealerCards = new ArrayList<>();
     /////// buid a function in dealer hand
     Card c= this.deck.remove(0);
     while (this.dealerHand.addCard(c)){
         dealerCards.add(c);
         c = this.deck.remove(0); //////////////////////test what if the deck is empty        
+    }
+    
+    setCheck(false);
+    
+    return dealerCards;*/
+    
+    //SIWAR
+    
+    ArrayList<Card> dealerCards = new ArrayList<>();
+    /////// buid a function in dealer hand
+    Card c= this.deck.get(0);
+    while ( this.dealerHand.isLegal(this.dealerHand.getAmountOfCards())){
+        this.dealerHand.addCard(c);
+        dealerCards.add(c);
+        
+        this.deck.remove(0); //////////////////////test what if the deck is empty   
+        c = this.deck.get(0);
+        System.err.println("CARD OF DEALER: "+ c.toString());
     }
     
     setCheck(false);

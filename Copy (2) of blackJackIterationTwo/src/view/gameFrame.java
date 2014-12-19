@@ -6,8 +6,8 @@ package view;
 
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
-import model.Card;
 import model.game;
 
 /**
@@ -22,7 +22,9 @@ public class gameFrame extends javax.swing.JFrame {
 	private static final long serialVersionUID = 1L;
         /**view logic instance */
         private ViewLogic view;
-        private String backCard;
+        private boolean cardAfterDeal = false;
+        public ArrayList<JLabel> playersHand = new ArrayList<>() ;
+        public ArrayList<JLabel> dealersHand = new ArrayList<>() ;
         
         
 	/**
@@ -32,16 +34,75 @@ public class gameFrame extends javax.swing.JFrame {
         // initlizing method
         initComponents();
         view = v;
-        backCard = null;
+        //backCard = null;
         //setting label design
          this.setResizable(false);
          
         
-         dealBtn.setOpaque(false);
-         dealBtn.setContentAreaFilled(false);
-         dealBtn.setBorderPainted(false);
+          /*jButton1.setOpaque(false);
+         jButton1.setContentAreaFilled(false);
+         jButton1.setBorderPainted(false);*/
+         
+         settingTranspert(dealBtn);
+         settingTranspert(hitBtn);
+         settingTranspert(standBtn);
         //jButton1.setBackground(Color.GREEN.darker());
       
+    }
+    
+    private void settingTranspert(JButton button){
+        button.setOpaque(false);
+        button.setContentAreaFilled(false);
+        button.setBorderPainted(false);      
+    }
+    
+    /** This function sets the Right Label's for the specifec time ones its called */
+    private void settingStringsOfArr(String whose){
+        //LAODING IMAGES FOR CARDS FUNCTION
+        ArrayList<String> sources = new ArrayList<>();
+            switch (whose) {
+                case "playersHand":
+                    sources = view.getPlayerSHand();
+                    jLabel4.setVisible(false);
+                    jLabel5.setVisible(false);
+                    int i=0;
+                    while (i<sources.size()){
+                        System.err.println("this is the arr labels in player: "+ sources.toString());
+                        ImageIcon imageIcon = new ImageIcon(getClass().getResource(sources.get(i)));
+                        this.playersHand.add((new JLabel()));
+                        jLabel1.add(this.playersHand.get(i));
+                        this.playersHand.get(i).setIcon(imageIcon);
+                        this.playersHand.get(i).setBounds(500 + 40*(i), 300,imageIcon.getIconWidth(),  imageIcon.getIconHeight());
+                        
+                        this.playersHand.get(i).setVisible(true);
+                        i++;
+                    }
+                    break;
+                case "dealersHand":
+                    sources = view.getDealerSHand();
+                    jLabel2.setVisible(false);
+                    jLabel3.setVisible(false);
+                    int j =0;
+                    while (j<sources.size()){
+                        System.err.println("this is the arr labels in dealer: "+ sources.toString());
+                        ImageIcon imageIcon;
+                        if (cardAfterDeal){
+                             imageIcon= new ImageIcon(getClass().getResource("hiddenCard.jpg"));
+                             cardAfterDeal = false;
+                        }
+                        else{
+                            imageIcon = new ImageIcon(getClass().getResource(sources.get(j)));
+                        }
+                        this.dealersHand.add(new JLabel());
+                        jLabel1.add(this.dealersHand.get(j));
+                        this.dealersHand.get(j).setIcon(imageIcon);
+                        this.dealersHand.get(j).setBounds(500 + 40*(j), 100,imageIcon.getIconWidth(),  imageIcon.getIconHeight());
+                        this.dealersHand.get(j).setVisible(true);
+                        j++;
+                    }
+                    break;
+            }
+            
     }
 
     /**
@@ -172,7 +233,7 @@ public class gameFrame extends javax.swing.JFrame {
 
     private void dealBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dealBtnActionPerformed
         // TODO add your handling code here:
-        game g = view.loadStringCard(); // calling deal method
+        /*game g = view.loadStringCard(); // calling deal method
         ArrayList<Card> playerC = g.getRounds().get(g.sizeOfCurrentRound).getPlayerHand().getCards(); // players hand
         ArrayList<Card> dealerC = g.getRounds().get(g.sizeOfCurrentRound).getDealerHand().getCards(); // dealers hand
         //setting the right labels
@@ -207,8 +268,32 @@ public class gameFrame extends javax.swing.JFrame {
         String playerAmount =Integer.toString(view.getPlayerHand());
         JPlayer.setText("Player-"+playerAmount);
         jLabel1.add(JPlayer);
-        JPlayer.setVisible(true);
+        JPlayer.setVisible(true);*/
+        //SIWAR
         
+        System.err.println("FUCKKKKKKKKKKKKKKKKKKKKKK");
+        
+        game Game= view.loadStringCard(); // calling deal method
+        Game.getRounds().get(Game.sizeOfCurrentRound).getDealerHand().getCards().get(0).getImage();
+        this.cardAfterDeal = true;
+        settingStringsOfArr("playersHand");
+        settingStringsOfArr("dealersHand");
+        String menu= "xxx2.png"; 
+        
+        ImageIcon x = new ImageIcon(getClass().getResource(menu));
+        
+        dealBtn.setVisible(false);
+        jLabel1.setIcon(x);
+        hitBtn.setVisible(true);
+        standBtn.setVisible(true);
+        jLabel1.add(hitBtn);
+        jLabel1.add(standBtn);
+        
+        ///LEE
+        String playerAmount =Integer.toString(view.getPlayerHand());
+        JPlayer.setText("Player-"+playerAmount);
+        jLabel1.add(JPlayer);
+        JPlayer.setVisible(true);
         String delearAmount =Integer.toString(view.getDealerHand());
         JDealer.setText("Delear-"+delearAmount);
         jLabel1.add(JDealer);
@@ -250,7 +335,7 @@ public class gameFrame extends javax.swing.JFrame {
         JDealer.setVisible(true); 
     }
     private void hitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hitBtnActionPerformed
-        // TODO add your handling code here:
+        /*// TODO add your handling code here:
         //System.err.println("in the next button");
         String s = view.hitButton();
         ImageIcon nextCard; 
@@ -272,7 +357,32 @@ public class gameFrame extends javax.swing.JFrame {
             jLabel1.add(jplayerStatus);
             jplayerStatus.setVisible(true);
             hitBtn.setVisible(false);
+        }*/
+        //SIWAR
+         // HIT FUNCTION
+        String s = view.hitButton(); // getting next card
+        System.err.println("what is the card after hit button: "+s);
+        settingStringsOfArr("playersHand");//setting the card's labels
+        
+        if (view.checkWin()== -1){
+            jplayerStatus.setText("Bust!");
+            jLabel1.add(jplayerStatus);
+            jplayerStatus.setVisible(true);
+            hitBtn.setVisible(false);
+            standBtn.setVisible(false);
+            updatedPlayerCardsInHit();
+            updatedDelearCardsInHit();  
+            return;
         }
+        if (view.checkWin()== 1){
+            jplayerStatus.setText("Win!");
+            jLabel1.add(jplayerStatus);
+            jplayerStatus.setVisible(true);
+            hitBtn.setVisible(false);
+            standBtn.setVisible(false);
+        }
+        
+        ///LEE
         updatedPlayerCardsInHit();
         updatedDelearCardsInHit();   
     }//GEN-LAST:event_hitBtnActionPerformed
@@ -286,7 +396,7 @@ public class gameFrame extends javax.swing.JFrame {
     }
     private void standBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_standBtnActionPerformed
         // TODO add your handling code here:
-        ImageIcon cardIcon4 = new ImageIcon(getClass().getResource(backCard));
+       /* ImageIcon cardIcon4 = new ImageIcon(getClass().getResource(backCard));
         jLabel3.setIcon(cardIcon4);
         jLabel1.add(jLabel3);
         updateSumOfCardForDealer();
@@ -315,8 +425,36 @@ public class gameFrame extends javax.swing.JFrame {
             jLabel1.add(jDealerStatus);
             jDealerStatus.setVisible(true);
             standBtn.setVisible(false);
+        }*/
+        //SIWAR 
+        ArrayList<String> arr = this.view.standButton();
+        if (arr.isEmpty()){
+            System.err.println("NULLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
         }
         
+        for (String s: arr){
+            System.err.println("Cards After Stand: "+s);
+        }
+        settingStringsOfArr("dealersHand");
+        if (view.checkWin() == 1){
+            System.err.println("Player wins");
+            jplayerStatus.setText("Win!");
+            jLabel1.add(jplayerStatus);
+            jplayerStatus.setVisible(true);
+            standBtn.setVisible(false);
+            hitBtn.setVisible(false);
+        }
+        if (view.checkWin() == -1){
+            System.err.println("Dealer wins");
+            jDealerStatus.setText("Win!");
+            jLabel1.add(jDealerStatus);
+            jDealerStatus.setVisible(true);
+            standBtn.setVisible(false);
+            hitBtn.setVisible(false);
+        }
+        
+        
+        //LEE
         updateSumOfCardForDealer();
             
         

@@ -145,7 +145,7 @@ public class ModelLogic implements Serializable  {
 	
 	
 	public String hitFunc(){
-            System.err.println("ENTERRING HIT FUNC");
+           /* System.err.println("ENTERRING HIT FUNC");
 		Card card;
 //		Player p = this.currentGame.getPlayer();
                 if (this.currentGame== null)
@@ -169,13 +169,45 @@ public class ModelLogic implements Serializable  {
                     this.flag = -1; 
                     
                 }
+                return card.getImage();*/
+            //SIWAR 
+            System.err.println("ENTERRING HIT FUNC");
+		Card card;
+//		Player p = this.currentGame.getPlayer();
+                if (this.currentGame== null)
+                    System.err.println("here is the problem");
+                //System.err.println("size of array: "+ this.currentGame.toString());
+                System.err.println("size of round: "+this.currentGame.getRounds().size());
+		Round round = this.currentGame.getRounds().get(this.currentGame.sizeOfCurrentRound);
+		
+		
+		card = round.hit();
+		this.amountOfPlayerCards = round.getPlayerHand().getAmountOfCards();
+                
+                if (round.isCheck()){
+                    if (this.amountOfPlayerCards == 21){
+			this.flag = 1;
+                    }
+                    else{
+                        if (this.amountOfPlayerCards > 21){
+                            this.flag = -1;
+                        }
+                    }
+                }
+                else{
+                    if (this.amountOfPlayerCards > 21){
+                            this.flag = -1;
+                        }
+                    
+                    
+                }
                 return card.getImage();
 				
 	}
 
         /*StandFunc compares the amount of cards between the dealer and the player and returns the array of cards */
         public ArrayList<String> standFunc(){
-            ArrayList<String> arr = new ArrayList<>();
+          /*  ArrayList<String> arr = new ArrayList<>();
             ArrayList<Card> dealerCards = new ArrayList<>();
             Round round = this.currentGame.getRounds().get(this.currentGame.sizeOfCurrentRound);
             //call for stand() function in Round class
@@ -197,8 +229,59 @@ public class ModelLogic implements Serializable  {
                 this.flag = -1;
             else
                 this.flag = 1;
+            return arr;*/
+            
+            ArrayList<String> arr = new ArrayList<>();
+            ArrayList<Card> dealerCards = new ArrayList<>();
+            Round round = this.currentGame.getRounds().get(this.currentGame.sizeOfCurrentRound);
+            //call for stand() function in Round class
+            dealerCards = round.stand();
+            
+            // supplying the string array
+            for (Card c : dealerCards){
+               arr.add(c.getImage());
+            }
+            // get the amount of dealer cards in order to check it and compare it to the player's amount of cards
+            this.amountOfPlayerCards = round.getPlayerHand().getAmountOfCards();
+            this.amountOfDealerCards = round.getDealerHand().getAmountOfCards();
+            System.err.println("the player's sum: "+ this.amountOfPlayerCards);
+            System.err.println("the dealer's sum: "+ this.amountOfDealerCards);
+            //if the dealer's amount of cards is more than 21: the dealer loses
+            if (this.amountOfDealerCards  > 21){
+                this.flag = 1;
+            }
+           
+            //if the dealer's amount of cards is equal to 21: the dealer wins
+            else  if (this.amountOfDealerCards == 21)
+                this.flag = -1;
+            //if the dealers amount of cards is more than or equal to the player's amount of cards: the dealer wins
+            else if (this.amountOfDealerCards >= this.amountOfPlayerCards)
+                this.flag = -1;
+            else if (this.amountOfDealerCards < this.amountOfPlayerCards)
+                this.flag = 1;
+            else
+                this.flag = 1;
             return arr;
         }
+        
+        public ArrayList<String> PlayerHand(){
+            Round round = this.currentGame.getRounds().get(this.currentGame.sizeOfCurrentRound);
+            ArrayList<String> arr = new ArrayList<>();
+            for (Card c : round.getPlayerHand().getCards() ){
+                arr.add(c.getImage());
+            }
+            return arr ;
+        }
+        
+        public ArrayList<String> DealerHand(){
+            Round round = this.currentGame.getRounds().get(this.currentGame.sizeOfCurrentRound);
+            ArrayList<String> arr = new ArrayList<>();
+            for (Card c : round.getDealerHand().getCards() ){
+                arr.add(c.getImage());
+            }
+            return arr;
+        }
+        
         
         
         

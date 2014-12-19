@@ -11,7 +11,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import model.Card;
 
 import model.game;
 
@@ -99,6 +98,12 @@ public class ViewLogic implements Serializable {
              ArrayList<String> arr = this.controller.stand();
              return arr;
              
+         }
+          public ArrayList<String> getPlayerSHand(){
+             return controller.getPlayersHand();
+         }
+          public ArrayList<String> getDealerSHand(){
+             return controller.getDealerSHand();
          }
          
          public int checkWin()

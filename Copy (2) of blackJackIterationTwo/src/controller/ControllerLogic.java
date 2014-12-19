@@ -95,6 +95,13 @@ public class ControllerLogic implements Serializable {
              return model.standFunc();
         }
         
+         public ArrayList<String> getPlayersHand(){
+             return model.PlayerHand();
+        } 
+        public ArrayList<String> getDealerSHand(){
+             return model.DealerHand();
+        }
+        
         public int checkWin()
         {
                 return model.getFlag();

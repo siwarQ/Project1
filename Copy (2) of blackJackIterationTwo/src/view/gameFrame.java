@@ -440,7 +440,8 @@ public class gameFrame extends javax.swing.JFrame {
            // jplayerStatus.setText("Bust!");  
              try {
                 InputStream in;
-                in = new FileInputStream("C:\\Users\\Lee\\git\\Project1\\Copy (2) of blackJackIterationTwo\\src\\view\\lost.wav");
+//                in = new FileInputStream("C:\\Users\\Lee\\git\\Project1\\Copy (2) of blackJackIterationTwo\\src\\view\\lost.wav");
+               in = this.getClass().getResourceAsStream("../Sounds/lost.wav");
                 AudioStream a = new AudioStream(in);
                 AudioPlayer.player.start(a);
              ImageIcon test1 = new ImageIcon(getClass().getResource("bust.gif"));
@@ -459,7 +460,8 @@ public class gameFrame extends javax.swing.JFrame {
         if (view.checkWin()== 1){
             try {
                 InputStream in;
-                in = new FileInputStream("C:\\Users\\Lee\\git\\Project1\\Copy (2) of blackJackIterationTwo\\src\\view\\Ta Da1.wav");
+              //  in = new FileInputStream("C:\\Users\\Lee\\git\\Project1\\Copy (2) of blackJackIterationTwo\\src\\view\\Ta Da1.wav");
+                in = this.getClass().getResourceAsStream("../Sounds/Ta Da1.wav");
                 AudioStream a = new AudioStream(in);
                 AudioPlayer.player.start(a);
                 ImageIcon test = new ImageIcon(getClass().getResource("win5.gif"));
@@ -502,8 +504,9 @@ public class gameFrame extends javax.swing.JFrame {
         if (view.checkWin() == 1){
                try {
                 InputStream in;
-                in = new FileInputStream("C:\\Users\\Lee\\git\\Project1\\Copy (2) of blackJackIterationTwo\\src\\view\\Ta Da1.wav");
-                AudioStream a = new AudioStream(in);
+              //  in = new FileInputStream("C:\\Users\\Lee\\git\\Project1\\Copy (2) of blackJackIterationTwo\\src\\view\\Ta Da1.wav");
+                 in = this.getClass().getResourceAsStream("../Sounds/Ta Da1.wav");
+                 AudioStream a = new AudioStream(in);
                 AudioPlayer.player.start(a);
             ImageIcon test = new ImageIcon(getClass().getResource("win5.gif"));
             jplayerStatus.setIcon(test);
@@ -556,7 +559,8 @@ public class gameFrame extends javax.swing.JFrame {
          if (view.checkWinOnStart()== 1){
              try {
              InputStream in;
-             in = new FileInputStream("C:\\Users\\Lee\\git\\Project1\\Copy (2) of blackJackIterationTwo\\src\\view\\Ta Da1.wav");
+            // in = new FileInputStream("C:\\Users\\Lee\\git\\Project1\\Copy (2) of blackJackIterationTwo\\src\\view\\Ta Da1.wav");
+             in = this.getClass().getResourceAsStream("../Sounds/Ta Da1.wav");
              AudioStream a = new AudioStream(in);
              AudioPlayer.player.start(a); 
             ImageIcon test = new ImageIcon(getClass().getResource("win5.gif"));

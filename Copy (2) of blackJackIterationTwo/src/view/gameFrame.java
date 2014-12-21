@@ -13,7 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JToggleButton;
 import javax.swing.Timer;
-import model.game;
+
 
 /**
  *
@@ -33,6 +33,7 @@ public class gameFrame extends javax.swing.JFrame {
         Timer timer;
         JToggleButton b = new JToggleButton("Start/Stop");// creating the 
         public int tellHimToStop = 0;
+        public int flagNotShuffle = 0;
         //final JToggleButton deal = new JToggleButton("DEAL");// creating the button
         
         
@@ -47,7 +48,8 @@ public class gameFrame extends javax.swing.JFrame {
         //setting label design
          this.setResizable(false);
          
-        
+        playersHand = new ArrayList<>() ;
+        dealersHand = new ArrayList<>() ;
           /*jButton1.setOpaque(false);
          jButton1.setContentAreaFilled(false);
          jButton1.setBorderPainted(false);*/
@@ -76,21 +78,17 @@ public class gameFrame extends javax.swing.JFrame {
       
     }
     
-    
+    //siwar
        private void runAnimation(){
-//        dealBtn.setText("");
+
         hitBtn.setText("");
-        
-        game Game= view.loadStringCard(); // calling deal method
-        Game.getRounds().get(Game.sizeOfCurrentRound).getDealerHand().getCards().get(0).getImage();
-        //this.cardAfterDeal = false;
+ 
         Runnable r = new Runnable() {
             
 
             @Override
             public void run() {
                 
-                //JPanel gui = new JPanel(new BorderLayout()); // creating the frame
                 ImageIcon im = new ImageIcon(getClass().getResource("hiddenCard.jpg"));
                 final JLabel animation = new JLabel(im); // creating the label and giving him the first index in label
                 animation.setBounds(800, 120, im.getIconHeight(), im.getIconWidth());
@@ -100,32 +98,60 @@ public class gameFrame extends javax.swing.JFrame {
                 ActionListener animate = new ActionListener() { 
                 
                     private int index = 0;
+                    private int whichWay= 0;
 
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                       
                         ImageIcon im = new ImageIcon(getClass().getResource("hiddenCard.jpg"));
                         if (index<20) {
                         index++;
+                        if (whichWay == 0){
                         animation.setIcon(im);
                         animation.setBounds(800-index*10, 120+ index*10, im.getIconHeight(), im.getIconWidth());
                         animation.setVisible(true);//////////////////////////////
+                        }
+                        else {
+                        animation.setIcon(im);
+                        animation.setBounds(800-index*10, 120, im.getIconHeight(), im.getIconWidth());
+                        animation.setVisible(true);//////////////////////////////
+                        }
                         } else {
                             tellHimToStop ++;
-                            index=0;
-                            if (tellHimToStop==2){
+                            
+                            if (tellHimToStop==1){
+                                view.loadStringCard(); // calling deal method
+                                setFirstCardsPlayer(0);
                                 animation.setVisible(false);
-                                settingStringsOfArr("playersHand");
-                                settingStringsOfArr("dealersHand");
-                                settingsAfterDeal();
                                 timer.stop();
-                                b.setVisible(false);
+                                index=0;
                                 
                             }
-                            
-                            
-                      
-                        }
-                        
+                            if (tellHimToStop==2){
+                                setFirstCardsPlayer(1);
+                                animation.setVisible(false);
+                                timer.stop();
+                                whichWay=1;
+                                index=0;
+                                
+                            }
+                            if (tellHimToStop==3){
+                                setFirstCardsDealer(0);
+                                animation.setVisible(false);
+                                timer.stop();
+                                index=0;
+                                
+                            }
+                            if (tellHimToStop==4){
+                                setFirstCardsDealer(1);
+                                animation.setVisible(false);
+                                timer.stop();
+                                settingsAfterDeal();
+                                
+                                
+                            }
+                            b.setVisible(false);
+                        }   
                     }
                 };
                timer = new Timer(15,animate);
@@ -143,7 +169,6 @@ public class gameFrame extends javax.swing.JFrame {
                         }
                     }
                 };
-                //jplayerStatus.addAncestorListener(s);
                 b.addActionListener(startStop); // adding for the button b the action listener
                 
                 jToggleDealBtn.addActionListener(startStop);
@@ -154,8 +179,6 @@ public class gameFrame extends javax.swing.JFrame {
                 //b.setBounds(800, 480, 70, 30);
                 jToggleDealBtn.setVisible(true);
                 b.setVisible(true);
-
-                //JOptionPane.showMessageDialog(null, gui);
             }
         };
         r.run();
@@ -166,7 +189,59 @@ public class gameFrame extends javax.swing.JFrame {
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);      
     }
-    
+    //siwar
+    private void setFirstCardsPlayer(int i){ // setting the first Card
+         ArrayList<String> sources = new ArrayList<>();
+         sources = view.getPlayerSHand();
+         if (i==0){
+         ImageIcon imageIcon = new ImageIcon(getClass().getResource(sources.get(0)));
+         this.playersHand.add((new JLabel()));
+         jLabel1.add(this.playersHand.get(0));
+         this.playersHand.get(0).setIcon(imageIcon);
+         this.playersHand.get(0).setBounds(515, 250, 100,  imageIcon.getIconHeight()+100);
+         
+         this.playersHand.get(0).setVisible(true);
+         cardAfterDeal =1;
+         runAnimation();
+         
+         }
+         else{
+          
+         ImageIcon imageIcon = new ImageIcon(getClass().getResource(sources.get(1)));
+         this.playersHand.add((new JLabel()));
+         jLabel1.add(this.playersHand.get(1));
+         this.playersHand.get(1).setIcon(imageIcon);
+         this.playersHand.get(1).setBounds(540, 230, 100,  imageIcon.getIconHeight()+100);
+  
+         this.playersHand.get(1).setVisible(true);
+             
+         }
+    }
+   //siwar
+     private void setFirstCardsDealer(int num){ // setting the first Card
+         ArrayList<String> sources = new ArrayList<>();
+         sources = view.getDealerSHand();
+         if (num==0){
+         ImageIcon imageIcon = new ImageIcon(getClass().getResource(sources.get(0)));
+         this.dealersHand.add((new JLabel()));
+         jLabel1.add(this.dealersHand.get(0));
+         this.dealersHand.get(0).setIcon(imageIcon);
+         this.dealersHand.get(0).setBounds(515, 55, 100,  imageIcon.getIconHeight()+100);
+         
+         this.dealersHand.get(0).setVisible(true);
+         runAnimation();
+         }
+         else {
+          ImageIcon imageIcon = new ImageIcon(getClass().getResource("hiddenCard.jpg"));
+         this.dealersHand.add((new JLabel()));
+         jLabel1.add(this.dealersHand.get(1));
+         this.dealersHand.get(1).setIcon(imageIcon);
+         this.dealersHand.get(1).setBounds(540, 35, 100,  imageIcon.getIconHeight()+100);
+        
+         this.dealersHand.get(1).setVisible(true);
+         runAnimation();   
+         }
+     }
     /** This function sets the Right Label's for the specifec time ones its called */
     private void settingStringsOfArr(String whose){
         //LAODING IMAGES FOR CARDS FUNCTION
@@ -174,8 +249,7 @@ public class gameFrame extends javax.swing.JFrame {
             switch (whose) {
                 case "playersHand":
                     sources = view.getPlayerSHand();
-                    jLabel4.setVisible(false);
-                    jLabel5.setVisible(false);
+
                     int j=0;
                     while (j< sources.size()){
                         ImageIcon imageIcon = new ImageIcon(getClass().getResource(sources.get(j)));
@@ -190,16 +264,11 @@ public class gameFrame extends javax.swing.JFrame {
                         System.err.println("this is the arr labels in player: "+ sources.toString());
                         
                         jLabel1.add(this.playersHand.get(i));
-                       
-             
-                        
                         i--;
                     }
                     break;
                 case "dealersHand":
                     sources = view.getDealerSHand();
-                    jLabel2.setVisible(false);
-                    jLabel3.setVisible(false);
                     int k =0;
                     while (k<sources.size()){
                         System.err.println("this is the arr labels in dealer: "+ sources.toString());
@@ -234,11 +303,7 @@ public class gameFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         hitBtn = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         standBtn = new javax.swing.JButton();
@@ -251,13 +316,6 @@ public class gameFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel2.setBounds(600, 104, 70, 100);
-        jDesktopPane1.add(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLabel3.setBounds(570, 120, 80, 110);
-        jDesktopPane1.add(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLabel4.setBounds(580, 260, 80, 110);
-        jDesktopPane1.add(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/xxx.png"))); // NOI18N
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -266,8 +324,6 @@ public class gameFrame extends javax.swing.JFrame {
         });
         jLabel1.setBounds(0, 0, 1220, 590);
         jDesktopPane1.add(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLabel5.setBounds(554, 270, 90, 130);
-        jDesktopPane1.add(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         hitBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -482,10 +538,6 @@ public class gameFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jDealerStatus;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JToggleButton jToggleDealBtn;

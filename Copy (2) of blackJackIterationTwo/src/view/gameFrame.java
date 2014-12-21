@@ -3,16 +3,25 @@
  * and open the template in the editor.
  */
 package view;
-
+import sun.audio.*;
+import java.io.*;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.print.DocFlavor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JToggleButton;
 import javax.swing.Timer;
+
 
 
 /**
@@ -313,6 +322,7 @@ public class gameFrame extends javax.swing.JFrame {
         jplayerStatus = new javax.swing.JLabel();
         jDealerStatus = new javax.swing.JLabel();
         jToggleDealBtn = new javax.swing.JToggleButton();
+        jStars = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -352,30 +362,31 @@ public class gameFrame extends javax.swing.JFrame {
         JPlayer.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         JPlayer.setForeground(new java.awt.Color(255, 255, 255));
         JPlayer.setText("jLabel8");
-        JPlayer.setBounds(720, 310, 170, 50);
+        JPlayer.setBounds(690, 340, 180, 50);
         jDesktopPane1.add(JPlayer, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         JDealer.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         JDealer.setForeground(new java.awt.Color(255, 255, 255));
         JDealer.setText("jLabel9");
-        JDealer.setBounds(680, 120, 140, 30);
+        JDealer.setBounds(690, 170, 150, 40);
         jDesktopPane1.add(JDealer, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jplayerStatus.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jplayerStatus.setForeground(new java.awt.Color(255, 255, 255));
-        jplayerStatus.setText("jLabel8");
-        jplayerStatus.setBounds(360, 300, 110, 50);
+        jplayerStatus.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jplayerStatus.setForeground(new java.awt.Color(204, 153, 0));
+        jplayerStatus.setBounds(670, 300, 210, 40);
         jDesktopPane1.add(jplayerStatus, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jDealerStatus.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jDealerStatus.setForeground(new java.awt.Color(255, 255, 255));
+        jDealerStatus.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jDealerStatus.setForeground(new java.awt.Color(204, 153, 0));
         jDealerStatus.setText("jLabel9");
-        jDealerStatus.setBounds(410, 179, 210, 60);
+        jDealerStatus.setBounds(700, 129, 160, 50);
         jDesktopPane1.add(jDealerStatus, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jToggleDealBtn.setText("jToggleButton1");
         jToggleDealBtn.setBounds(380, 480, 70, 40);
         jDesktopPane1.add(jToggleDealBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jStars.setBounds(270, 180, 140, 250);
+        jDesktopPane1.add(jStars, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -426,7 +437,14 @@ public class gameFrame extends javax.swing.JFrame {
         settingStringsOfArr("playersHand");//setting the card's labels
         
         if (view.checkWin()== -1){
-            jplayerStatus.setText("Bust!");
+           // jplayerStatus.setText("Bust!");  
+             try {
+                InputStream in;
+                in = new FileInputStream("C:\\Users\\Lee\\git\\Project1\\Copy (2) of blackJackIterationTwo\\src\\view\\lost.wav");
+                AudioStream a = new AudioStream(in);
+                AudioPlayer.player.start(a);
+             ImageIcon test1 = new ImageIcon(getClass().getResource("bust.gif"));
+            jplayerStatus.setIcon(test1);
             jLabel1.add(jplayerStatus);
             jplayerStatus.setVisible(true);
             hitBtn.setVisible(false);
@@ -434,13 +452,26 @@ public class gameFrame extends javax.swing.JFrame {
             updatedPlayerCardsInHit();
             updatedDelearCardsInHit();  
             return;
+              } catch (Exception ex) {
+                Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         if (view.checkWin()== 1){
-            jplayerStatus.setText("Win!");
-            jLabel1.add(jplayerStatus);
-            jplayerStatus.setVisible(true);
-            hitBtn.setVisible(false);
-            standBtn.setVisible(false);
+            try {
+                InputStream in;
+                in = new FileInputStream("C:\\Users\\Lee\\git\\Project1\\Copy (2) of blackJackIterationTwo\\src\\view\\Ta Da1.wav");
+                AudioStream a = new AudioStream(in);
+                AudioPlayer.player.start(a);
+                ImageIcon test = new ImageIcon(getClass().getResource("win5.gif"));
+                jplayerStatus.setIcon(test);
+                //jplayerStatus.setText("Win!");
+                jLabel1.add(jplayerStatus);
+                jplayerStatus.setVisible(true);
+                hitBtn.setVisible(false);
+                standBtn.setVisible(false);
+            } catch (Exception ex) {
+                Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         ///LEE
@@ -461,7 +492,7 @@ public class gameFrame extends javax.swing.JFrame {
         //SIWAR 
         ArrayList<String> arr = this.view.standButton();
         if (arr.isEmpty()){
-            System.err.println("NULLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+            System.err.println("NULL");
         }
         
         for (String s: arr){
@@ -469,12 +500,21 @@ public class gameFrame extends javax.swing.JFrame {
         }
         settingStringsOfArr("dealersHand");
         if (view.checkWin() == 1){
-            System.err.println("Player wins");
-            jplayerStatus.setText("Win!");
+               try {
+                InputStream in;
+                in = new FileInputStream("C:\\Users\\Lee\\git\\Project1\\Copy (2) of blackJackIterationTwo\\src\\view\\Ta Da1.wav");
+                AudioStream a = new AudioStream(in);
+                AudioPlayer.player.start(a);
+            ImageIcon test = new ImageIcon(getClass().getResource("win5.gif"));
+            jplayerStatus.setIcon(test);
+            //jplayerStatus.setText("Win!");
             jLabel1.add(jplayerStatus);
             jplayerStatus.setVisible(true);
             standBtn.setVisible(false);
             hitBtn.setVisible(false);
+             } catch (Exception ex) {
+                Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         if (view.checkWin() == -1){
             System.err.println("Dealer wins");
@@ -514,11 +554,20 @@ public class gameFrame extends javax.swing.JFrame {
         JDealer.setVisible(true);
         
          if (view.checkWinOnStart()== 1){
-            System.err.println("win");
-            jplayerStatus.setText("Win!");
+             try {
+             InputStream in;
+             in = new FileInputStream("C:\\Users\\Lee\\git\\Project1\\Copy (2) of blackJackIterationTwo\\src\\view\\Ta Da1.wav");
+             AudioStream a = new AudioStream(in);
+             AudioPlayer.player.start(a); 
+            ImageIcon test = new ImageIcon(getClass().getResource("win5.gif"));
+            jplayerStatus.setIcon(test);
+            //jplayerStatus.setText("Win!");
             jLabel1.add(jplayerStatus);
             jplayerStatus.setVisible(true);
             hitBtn.setVisible(false);
+              } catch (Exception ex) {
+                Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
          else
          {
@@ -540,6 +589,7 @@ public class gameFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jStars;
     private javax.swing.JToggleButton jToggleDealBtn;
     private javax.swing.JLabel jplayerStatus;
     private javax.swing.JButton standBtn;

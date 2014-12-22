@@ -37,6 +37,11 @@ public class Card {
 		this.setLetter(l);
         this.image = image;
 	}
+        //siwar
+        public Card (int value, Suit suit){ // FOR TESTS
+        	this.value = value;
+        	this.suit = suit;	
+        }
 	
         
         

@@ -80,9 +80,11 @@ public class ControllerLogic implements Serializable {
          * This function starts the game by supplying the openning of the game and deal button
          * This function calls the function in modelLogic which builds the deck of cards
          * After building the cards the fuction return the result of model function "startGame()" which calls the deal function from class game
-        */
+        */ 
+        //siwar
          public game getNextGame(){
-             model.buildCards(); // activating the biulding cards function
+             
+        	// model.buildCards();// ******************************CHANGE THE LOGIC- we cant build card each time we click on a new game
             return model.startGame(); // activating start game function
         }
          

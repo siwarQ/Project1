@@ -54,7 +54,9 @@ public class ModelLogic implements Serializable  {
 	public static ModelLogic getInstance() throws IOException {
 		if(! exists){
 			sData = SysData.getInstance(); // creating the sDatat instance
+			
 			if(sData != null){ 
+				sData.buildCards(); // activating the biulding cards function
 				SysData.executeInput(); // creating the input file
 				exists = true; // accessing this func may be done only once
 				instance  = new ModelLogic(); // creating the model logic instance
@@ -68,25 +70,26 @@ public class ModelLogic implements Serializable  {
 	//***************************************** CRUD Methods ******************************************
     
         public ArrayList<Card> getCards(){
-            buildCards(); // building the cards function
             return sData.getCards(); // returning the deck ready for dealing
         }
         
+       //siwar
         public game startGame(){
         game g = new game(1); // creating game 1
-       
 		g.setDeck(sData.getCards()); // setting the deck to the one returning from getCards() func
-		g.OpenRound(); // openning a new round
-		g.Deal(); // activating DEAL FUNCTION
+		//g.OpenRound(); // openning a new round
+		//g.Deal(); // activating DEAL FUNCTION
+		g.startGame();
                 System.err.print(g.toString());
                 this.currentGame = g;
         return g; // returning the game which created
 	}
 	
-	public  void buildCards(){
+	/*public  void buildCards(){
+	
             
             
-		ArrayList<Card> cardsWithCloverNumbers = new ArrayList<Card>(); //black ones
+		/*ArrayList<Card> cardsWithCloverNumbers = new ArrayList<Card>(); //black ones
 		ArrayList<Card> cardsWithLeafNumbers = new ArrayList<Card>(); // black ones
 		ArrayList<Card> cardsWithHearts = new ArrayList<Card>(); //red ones
 		ArrayList<Card> cardsWithDiamonds = new ArrayList<Card>(); //red ones
@@ -141,7 +144,7 @@ public class ModelLogic implements Serializable  {
 		
 		sData.setCards(arr);	
 		
-	}
+	}*/
 	
 	
 	public String hitFunc(){
@@ -230,7 +233,7 @@ public class ModelLogic implements Serializable  {
             else
                 this.flag = 1;
             return arr;*/
-            
+            //siwar
             ArrayList<String> arr = new ArrayList<>();
             ArrayList<Card> dealerCards = new ArrayList<>();
             Round round = this.currentGame.getRounds().get(this.currentGame.sizeOfCurrentRound);

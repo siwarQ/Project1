@@ -57,11 +57,7 @@ public class gameFrame extends javax.swing.JFrame {
          
         playersHand = new ArrayList<>() ;
         dealersHand = new ArrayList<>() ;
-          /*jButton1.setOpaque(false);
-         jButton1.setContentAreaFilled(false);
-         jButton1.setBorderPainted(false);*/
          
-         //settingTranspert(dealBtn);
          settingTranspert(hitBtn);
          settingTranspert(standBtn);
          
@@ -274,26 +270,37 @@ public class gameFrame extends javax.swing.JFrame {
                         i--;
                     }
                     break;
+                    //siwar
                 case "dealersHand":
                     sources = view.getDealerSHand();
-                    int k =0;
-                    while (k<sources.size()){
+                    //int k =0;
+                     j=0;
+                     
+                    while (j< sources.size()){
                         System.err.println("this is the arr labels in dealer: "+ sources.toString());
                         ImageIcon imageIcon;
                         if (cardAfterDeal==0){
-                            System.err.println("SHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
-                             imageIcon= new ImageIcon(getClass().getResource("hiddenCard.jpg"));
+                           imageIcon= new ImageIcon(getClass().getResource("hiddenCard.jpg"));
                              cardAfterDeal = 1;
                         }
                         else{
-                            imageIcon = new ImageIcon(getClass().getResource(sources.get(k)));
+                            imageIcon = new ImageIcon(getClass().getResource(sources.get(j)));
                         }
-                        this.dealersHand.add(new JLabel());
+                        this.dealersHand.add((new JLabel()));
+                         this.dealersHand.get(j).setIcon(imageIcon);
+                        this.dealersHand.get(j).setBounds(500 + 40*(j), 100-(j*10),imageIcon.getIconWidth(),  imageIcon.getIconHeight());
+                     this.dealersHand.get(j).setVisible(true);
+                        j++;
+                    }
+                    int k=sources.size()-1;
+                    while (k>=0){
+                        
+                        //this.dealersHand.add(new JLabel());
                         jLabel1.add(this.dealersHand.get(k));
-                        this.dealersHand.get(k).setIcon(imageIcon);
+                        /*this.dealersHand.get(k).setIcon(imageIcon);
                         this.dealersHand.get(k).setBounds(500 + 40*(k), 100-(k*10),imageIcon.getIconWidth(),  imageIcon.getIconHeight());
-                        this.dealersHand.get(k).setVisible(true);
-                        k++;
+                        //this.dealersHand.get(k).setVisible(true);*/
+                        k--;
                     }
                     break;
             }

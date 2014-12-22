@@ -66,6 +66,8 @@ public class game {
 		this.scoreForGame = scoreForGame;
 	}
 	
+	
+	
 	//***************************************** GETTERS AND SETTERS******************************************
 	/**
 	 * @return the deck
@@ -173,6 +175,14 @@ public class game {
       protected void setwinOnStart(int winOnStart ) {
 	this.winOnStart =winOnStart;
 }
+      //siwar
+     // this function starts the game
+    protected game startGame(){
+
+  		this.OpenRound(); // openning a new round
+  		this.Deal(); // activating DEAL FUNCTION
+        return this; // returning the game which created
+      }
 	
 	// this function opens a new round and calls the shuffle function 
 	public void OpenRound(){

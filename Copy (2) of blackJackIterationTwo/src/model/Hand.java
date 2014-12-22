@@ -18,13 +18,17 @@ public class Hand {
   	/**
   	 * Full C'tor
   	 */
-	protected Hand(int serialNum, TypeOfHand typeOfHand) {
+	public Hand(int serialNum, TypeOfHand typeOfHand) {
 		super();
 		this.serialNum = serialNum;
 		TypeOfHand = typeOfHand;
 		this.amountOfCards = 0;
 		this.cards = new ArrayList<Card>();
 
+	}
+	
+	public Hand(){
+		
 	}
 	
 	

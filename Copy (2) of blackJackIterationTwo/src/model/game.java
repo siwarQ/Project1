@@ -70,7 +70,7 @@ public class game {
 	/**
 	 * @return the deck
 	 */
-	protected ArrayList<Card> getDeck() {
+	public ArrayList<Card> getDeck() {
 		return Deck;
 	}
 
@@ -166,7 +166,7 @@ public class game {
 		this.scoreForGame = scoreForGame;
 	}
 	
-    protected int getwinOnStart() {
+    public int getwinOnStart() {
 	return winOnStart;
 }
     

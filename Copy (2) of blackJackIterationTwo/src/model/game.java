@@ -23,11 +23,79 @@ public class game {
     public int sizeOfCurrentRound=0;
     
     public int winOnStart=0;
+    
+    
+    /** indication of winning */
+	private int flag = 0;
+        /** total amount of player's cards */
+    private int amountOfPlayerCards = 0;
+        /** total amount of dealer's cards */
+    private int amountOfDealerCards = 0;
 	
     
   
 	
-  //***************************************** Constructors ******************************************
+  /**
+		 * @return the sizeOfCurrentRound
+		 */
+		protected int getSizeOfCurrentRound() {
+			return sizeOfCurrentRound;
+		}
+		/**
+		 * @param sizeOfCurrentRound the sizeOfCurrentRound to set
+		 */
+		protected void setSizeOfCurrentRound(int sizeOfCurrentRound) {
+			this.sizeOfCurrentRound = sizeOfCurrentRound;
+		}
+		/**
+		 * @return the winOnStart
+		 */
+		protected int getWinOnStart() {
+			return winOnStart;
+		}
+		/**
+		 * @param winOnStart the winOnStart to set
+		 */
+		protected void setWinOnStart(int winOnStart) {
+			this.winOnStart = winOnStart;
+		}
+		/**
+		 * @return the flag
+		 */
+		protected int getFlag() {
+			return flag;
+		}
+		/**
+		 * @param flag the flag to set
+		 */
+		protected void setFlag(int flag) {
+			this.flag = flag;
+		}
+		/**
+		 * @return the amountOfPlayerCards
+		 */
+		protected int getAmountOfPlayerCards() {
+			return amountOfPlayerCards;
+		}
+		/**
+		 * @param amountOfPlayerCards the amountOfPlayerCards to set
+		 */
+		protected void setAmountOfPlayerCards(int amountOfPlayerCards) {
+			this.amountOfPlayerCards = amountOfPlayerCards;
+		}
+		/**
+		 * @return the amountOfDealerCards
+		 */
+		protected int getAmountOfDealerCards() {
+			return amountOfDealerCards;
+		}
+		/**
+		 * @param amountOfDealerCards the amountOfDealerCards to set
+		 */
+		protected void setAmountOfDealerCards(int amountOfDealerCards) {
+			this.amountOfDealerCards = amountOfDealerCards;
+		}
+	//***************************************** Constructors ******************************************
   	/**
   	 * Full C'tor
   	 */
@@ -226,6 +294,98 @@ public class game {
         System.out.println();
 		
 	}
+	
+
+	public String hitFunc(){
+
+        //SIWAR 
+        System.err.println("ENTERRING HIT FUNC");
+	Card card;
+            //System.err.println("size of array: "+ this.currentGame.toString());
+            System.err.println("size of round: "+this.getRounds().size());
+	Round round = this.getRounds().get(this.sizeOfCurrentRound);
+	
+	
+	card = round.hit();
+	this.amountOfPlayerCards = round.getPlayerHand().getAmountOfCards();
+            
+            if (round.isCheck()){
+                if (this.amountOfPlayerCards == 21){
+		this.flag = 1;
+                }
+                else{
+                    if (this.amountOfPlayerCards > 21){
+                        this.flag = -1;
+                    }
+                }
+            }
+            else{
+                if (this.amountOfPlayerCards > 21){
+                        this.flag = -1;
+                    }
+                
+                
+            }
+            return card.getImage();
+	}
+	
+	public ArrayList<String> standFunc(){
+        //siwar
+           
+           ArrayList<String> arr = new ArrayList<>();
+           ArrayList<Card> dealerCards = new ArrayList<>();
+           Round round = this.getRounds().get(this.sizeOfCurrentRound);
+           //call for stand() function in Round class
+           dealerCards = round.stand();
+           
+           // supplying the string array
+           for (Card c : dealerCards){
+              arr.add(c.getImage());
+           }
+           // get the amount of dealer cards in order to check it and compare it to the player's amount of cards
+           this.amountOfPlayerCards = round.getPlayerHand().getAmountOfCards();
+           this.amountOfDealerCards = round.getDealerHand().getAmountOfCards();
+           System.err.println("the player's sum: "+ this.amountOfPlayerCards);
+           System.err.println("the dealer's sum: "+ this.amountOfDealerCards);
+           //if the dealer's amount of cards is more than 21: the dealer loses
+           if (this.amountOfDealerCards  > 21){
+               this.flag = 1;
+           }
+          
+           //if the dealer's amount of cards is equal to 21: the dealer wins
+           else  if (this.amountOfDealerCards == 21)
+               this.flag = -1;
+           //if the dealers amount of cards is more than or equal to the player's amount of cards: the dealer wins
+           else if (this.amountOfDealerCards >= this.amountOfPlayerCards)
+               this.flag = -1;
+           else if (this.amountOfDealerCards < this.amountOfPlayerCards)
+               this.flag = 1;
+           else
+               this.flag = 1;
+           return arr;
+       }
+	
+	
+	public ArrayList<String> PlayerHand(){
+        Round round = this.getRounds().get(this.sizeOfCurrentRound);
+        ArrayList<String> arr = new ArrayList<>();
+        for (Card c : round.getPlayerHand().getCards() ){
+            arr.add(c.getImage());
+        }
+        return arr ;
+    }
+    
+    public ArrayList<String> DealerHand(){
+        Round round = this.getRounds().get(this.sizeOfCurrentRound);
+        ArrayList<String> arr = new ArrayList<>();
+        for (Card c : round.getDealerHand().getCards() ){
+            arr.add(c.getImage());
+        }
+        return arr;
+    }
+    
+    
+    
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

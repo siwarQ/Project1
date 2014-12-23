@@ -147,7 +147,7 @@ public class ModelLogic implements Serializable  {
 	}*/
 	
 	
-	public String hitFunc(){
+	/*public String hitFunc(){
            /* System.err.println("ENTERRING HIT FUNC");
 		Card card;
 //		Player p = this.currentGame.getPlayer();
@@ -172,7 +172,7 @@ public class ModelLogic implements Serializable  {
                     this.flag = -1; 
                     
                 }
-                return card.getImage();*/
+                return card.getImage();
             //SIWAR 
             System.err.println("ENTERRING HIT FUNC");
 		Card card;
@@ -208,7 +208,7 @@ public class ModelLogic implements Serializable  {
 				
 	}
 
-        /*StandFunc compares the amount of cards between the dealer and the player and returns the array of cards */
+        /*StandFunc compares the amount of cards between the dealer and the player and returns the array of cards 
         public ArrayList<String> standFunc(){
           /*  ArrayList<String> arr = new ArrayList<>();
             ArrayList<Card> dealerCards = new ArrayList<>();
@@ -232,7 +232,7 @@ public class ModelLogic implements Serializable  {
                 this.flag = -1;
             else
                 this.flag = 1;
-            return arr;*/
+            return arr;
             //siwar
             ArrayList<String> arr = new ArrayList<>();
             ArrayList<Card> dealerCards = new ArrayList<>();
@@ -283,7 +283,38 @@ public class ModelLogic implements Serializable  {
                 arr.add(c.getImage());
             }
             return arr;
-        }
+        }*/
+        
+        public String hitFunc(){
+
+            //SIWAR	
+       		String card = this.currentGame.hitFunc();
+               this.flag= this.currentGame.getFlag();
+               return card;
+       				
+       	}
+
+               /*StandFunc compares the amount of cards between the dealer and the player and returns the array of cards */
+               public ArrayList<String> standFunc(){
+                //siwar
+                   
+                
+               	ArrayList<String> setOfCardsToDealer = this.currentGame.standFunc();
+               	this.flag = this.currentGame.getFlag();
+               	
+               	return setOfCardsToDealer;
+               }
+               
+               public ArrayList<String> PlayerHand(){
+                 
+               	return this.currentGame.PlayerHand();
+               }
+               
+               public ArrayList<String> DealerHand(){
+                  
+               	return this.currentGame.DealerHand();
+               }
+               
         
         
         

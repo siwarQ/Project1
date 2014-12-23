@@ -52,6 +52,13 @@ public class Round {
 		this.totalScore=0;
 		this.deck = new ArrayList <Card>();	
 	}
+	
+	public Round(int serialNum, int totalScore) // for tests
+	{
+		Round.serialNum = serialNum;
+		this.totalScore=totalScore;
+		this.deck = new ArrayList <Card>();	
+	}
 
 	
 	//***************************************** GETTERS AND SETTERS******************************************

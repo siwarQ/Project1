@@ -51,7 +51,7 @@ public class ModelLogic implements Serializable  {
 	 * @return reference to this class's only instance, or null if reference was already returned (singleton).
 	 * @throws GeneralException 
 	 */
-	public static ModelLogic getInstance() throws IOException {
+	public static ModelLogic getInstance() {
 		if(! exists){
 			sData = SysData.getInstance(); // creating the sDatat instance
 			
@@ -347,7 +347,14 @@ public class ModelLogic implements Serializable  {
      {
         return this.currentGame.getwinOnStart();
      }
-   
+     
+     
+     /**
+		 * @return the sData
+		 */
+		public SysData getsData() {
+			return sData;
+		}
        
         
 	//********************************** Layer's closure procedure methods ****************************

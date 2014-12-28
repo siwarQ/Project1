@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JToggleButton;
 import javax.swing.Timer;
+import model.game;
 
 
 
@@ -41,6 +42,8 @@ public class gameFrame extends javax.swing.JFrame {
         JToggleButton b = new JToggleButton("Start/Stop");// creating the 
         public int tellHimToStop = 0;
         public int flagNotShuffle = 0;
+        game g = null;
+        
         //final JToggleButton deal = new JToggleButton("DEAL");// creating the button
         
         
@@ -54,6 +57,9 @@ public class gameFrame extends javax.swing.JFrame {
         //backCard = null;
         //setting label design
          this.setResizable(false);
+         
+        NextLeveljButton.setVisible(false);// setting the next level button not visible
+        
          
         playersHand = new ArrayList<>() ;
         dealersHand = new ArrayList<>() ;
@@ -73,9 +79,42 @@ public class gameFrame extends javax.swing.JFrame {
          b.setOpaque(false);
          b.setContentAreaFilled(false);
          b.setBorderPainted(false);
-         b.setText("");
-         
+         b.setText(""); 
+        
+        //jButton1.setBackground(Color.GREEN.darker());
       
+    }
+      public gameFrame(ViewLogic v, game gi) {
+        // initlizing method
+        initComponents();
+        view = v;
+        g=gi;
+        //backCard = null;
+        //setting label design
+         this.setResizable(false);
+         
+        NextLeveljButton.setVisible(false);// setting the next level button not visible
+        
+         
+        playersHand = new ArrayList<>() ;
+        dealersHand = new ArrayList<>() ;
+         
+         settingTranspert(hitBtn);
+         settingTranspert(standBtn);
+         
+         jToggleDealBtn.setOpaque(false);
+         jToggleDealBtn.setContentAreaFilled(false);
+         jToggleDealBtn.setBorderPainted(false);
+         jToggleDealBtn.setText("");
+      
+         jToggleDealBtn.setVisible(true);
+         runAnimation();
+         jToggleDealBtn= b;
+         jLabel1.add(jToggleDealBtn);
+         b.setOpaque(false);
+         b.setContentAreaFilled(false);
+         b.setBorderPainted(false);
+         b.setText(""); 
         
         //jButton1.setBackground(Color.GREEN.darker());
       
@@ -123,7 +162,16 @@ public class gameFrame extends javax.swing.JFrame {
                             tellHimToStop ++;
                             
                             if (tellHimToStop==1){
-                                view.loadStringCard(); // calling deal method
+                                if (g==null){
+                                g = view.loadStringCard(); // calling deal method
+                                    System.err.println("");
+                                 System.err.println("game 1");
+                                }
+                                else {
+                                    view.nextRound();
+                                            System.err.println("game2");
+                                }
+                                
                                 setFirstCardsPlayer(0);
                                 animation.setVisible(false);
                                 timer.stop();
@@ -327,6 +375,7 @@ public class gameFrame extends javax.swing.JFrame {
         jplayerStatus = new javax.swing.JLabel();
         jDealerStatus = new javax.swing.JLabel();
         jToggleDealBtn = new javax.swing.JToggleButton();
+        NextLeveljButton = new javax.swing.JButton();
         jStars = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -390,6 +439,15 @@ public class gameFrame extends javax.swing.JFrame {
         jToggleDealBtn.setText("jToggleButton1");
         jToggleDealBtn.setBounds(380, 480, 70, 40);
         jDesktopPane1.add(jToggleDealBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        NextLeveljButton.setText("Next Level");
+        NextLeveljButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NextLeveljButtonActionPerformed(evt);
+            }
+        });
+        NextLeveljButton.setBounds(20, 260, 130, 23);
+        jDesktopPane1.add(NextLeveljButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jStars.setBounds(270, 180, 140, 250);
         jDesktopPane1.add(jStars, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -422,7 +480,7 @@ public class gameFrame extends javax.swing.JFrame {
        String playerAmount =Integer.toString(view.getPlayerHand());
         JPlayer.setText("Player-"+playerAmount);
         jLabel1.add(JPlayer);
-        JPlayer.setVisible(true);       
+        JPlayer.setVisible(true);     
     }
     
     private void updatedDelearCardsInHit()
@@ -456,7 +514,9 @@ public class gameFrame extends javax.swing.JFrame {
             hitBtn.setVisible(false);
             standBtn.setVisible(false);
             updatedPlayerCardsInHit();
-            updatedDelearCardsInHit();  
+            updatedDelearCardsInHit();
+            NextLeveljButton.setVisible(true);
+            jLabel1.add(NextLeveljButton);
             return;
               } catch (Exception ex) {
                 Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -476,6 +536,8 @@ public class gameFrame extends javax.swing.JFrame {
                 jplayerStatus.setVisible(true);
                 hitBtn.setVisible(false);
                 standBtn.setVisible(false);
+                NextLeveljButton.setVisible(true);
+                jLabel1.add(NextLeveljButton);
             } catch (Exception ex) {
                 Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -520,6 +582,8 @@ public class gameFrame extends javax.swing.JFrame {
             jplayerStatus.setVisible(true);
             standBtn.setVisible(false);
             hitBtn.setVisible(false);
+            NextLeveljButton.setVisible(true);
+            jLabel1.add(NextLeveljButton);
              } catch (Exception ex) {
                 Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -531,6 +595,8 @@ public class gameFrame extends javax.swing.JFrame {
             jDealerStatus.setVisible(true);
             standBtn.setVisible(false);
             hitBtn.setVisible(false);
+            NextLeveljButton.setVisible(true);
+            jLabel1.add(NextLeveljButton);
         }
         
         
@@ -539,6 +605,18 @@ public class gameFrame extends javax.swing.JFrame {
             
         
     }//GEN-LAST:event_standBtnActionPerformed
+
+    private void NextLeveljButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextLeveljButtonActionPerformed
+        // TODO add your handling code here:
+        /*this.dispose();
+        new gameFrame(view).setVisible(true);*/
+        this.dispose();
+        //System.err.print("HERE BEFORE NEW: "+view.calculateScoreForGame());
+        new wainFrame(view, g).setVisible(true);
+        
+        
+        
+    }//GEN-LAST:event_NextLeveljButtonActionPerformed
 
     private void settingsAfterDeal(){
         String menu= "xxx2.png"; 
@@ -574,6 +652,9 @@ public class gameFrame extends javax.swing.JFrame {
             jLabel1.add(jplayerStatus);
             jplayerStatus.setVisible(true);
             hitBtn.setVisible(false);
+            standBtn.setVisible(false);
+            NextLeveljButton.setVisible(true);
+            jLabel1.add(NextLeveljButton);
               } catch (Exception ex) {
                 Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -592,6 +673,7 @@ public class gameFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JDealer;
     private javax.swing.JLabel JPlayer;
+    private javax.swing.JButton NextLeveljButton;
     private javax.swing.JButton hitBtn;
     private javax.swing.JLabel jDealerStatus;
     private javax.swing.JDesktopPane jDesktopPane1;

@@ -77,6 +77,18 @@ public class ViewLogic implements Serializable {
             return controller.checkWinOnStart();
          }
          
+         public void nextRound(){
+              controller.nextRound();
+         }
+         
+         public int calculateScoreForGame(){
+             return controller.calculateScoreForGame();
+         }
+         
+         public void setCurrentGame(game currentGame) {
+		controller.setCurrentGame(currentGame);
+	}
+         
           /*
             * Hit function        
          * This function hits the player with a card

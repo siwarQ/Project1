@@ -1,6 +1,9 @@
-/view/
-/Sounds/
-/blackJakBckForJuint/
-/controller/
-/model/
-/utils/
+/Sounds
+/blackJakBckForJuint
+/controller
+/model
+/utils
+/view
+/totalScoreLevelFrame.form
+/totalScoreLevelFrame$1.class
+/totalScoreLevelFrame.class

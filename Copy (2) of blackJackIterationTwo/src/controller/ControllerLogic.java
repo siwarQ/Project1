@@ -88,6 +88,18 @@ public class ControllerLogic implements Serializable {
             return model.startGame(); // activating start game function
         }
          
+         public void nextRound(){
+             model.nextRound();
+         }
+         
+         public int calculateScoreForGame(){
+             return model.calculateScoreForGame();
+         }
+         
+         public void setCurrentGame(game currentGame) {
+		model.setCurrentGame(currentGame);
+	}
+         
         public String hit(){
             //System.err.println("say whatr");
             return model.hitFunc();

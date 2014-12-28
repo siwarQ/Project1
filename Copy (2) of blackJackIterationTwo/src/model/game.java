@@ -32,7 +32,44 @@ public class game {
         /** total amount of dealer's cards */
     private int amountOfDealerCards = 0;
 	
-    
+  //***************************************** Constructors ******************************************
+  	/**
+  	 * Full C'tor
+  	 */
+	protected game(int serialNumber, Player player, ArrayList<Card> deck) {
+		super();
+                MyFileLogWriter.initializeMyFileWriter();
+		this.serialNumber = serialNumber;
+		this.rounds = new ArrayList<>();
+		this.counterOfRounds =0 ;
+		this.player = player;
+		this.scoreForGame = 0;
+		this.Deck = deck;
+	}
+        protected game(){
+            
+        }
+	public game(int serialNumber) {
+			super();
+	         MyFileLogWriter.initializeMyFileWriter();
+			this.serialNumber = serialNumber;
+			this.rounds = new ArrayList<>();
+			this.counterOfRounds =0 ;
+			this.player = new Player();
+			this.scoreForGame = 0;
+			this.Deck = new ArrayList<>();
+		}
+	protected game(int serialNumber, ArrayList<Round> rounds,
+			int counterOfRounds, Player player, int scoreForGame) {
+                        
+		super();
+        MyFileLogWriter.initializeMyFileWriter();
+		this.serialNumber = serialNumber;
+		this.rounds = rounds;
+		this.counterOfRounds = counterOfRounds;
+		this.player = player;
+		this.scoreForGame = scoreForGame;
+	}
   
 	
   /**
@@ -95,44 +132,7 @@ public class game {
 		protected void setAmountOfDealerCards(int amountOfDealerCards) {
 			this.amountOfDealerCards = amountOfDealerCards;
 		}
-	//***************************************** Constructors ******************************************
-  	/**
-  	 * Full C'tor
-  	 */
-	protected game(int serialNumber, Player player, ArrayList<Card> deck) {
-		super();
-                MyFileLogWriter.initializeMyFileWriter();
-		this.serialNumber = serialNumber;
-		this.rounds = new ArrayList<>();
-		this.counterOfRounds =0 ;
-		this.player = player;
-		this.scoreForGame = 0;
-		this.Deck = deck;
-	}
-        protected game(){
-            
-        }
-	public game(int serialNumber) {
-			super();
-	         MyFileLogWriter.initializeMyFileWriter();
-			this.serialNumber = serialNumber;
-			this.rounds = new ArrayList<>();
-			this.counterOfRounds =0 ;
-			this.player = new Player();
-			this.scoreForGame = 0;
-			this.Deck = new ArrayList<>();
-		}
-	protected game(int serialNumber, ArrayList<Round> rounds,
-			int counterOfRounds, Player player, int scoreForGame) {
-                        
-		super();
-        MyFileLogWriter.initializeMyFileWriter();
-		this.serialNumber = serialNumber;
-		this.rounds = rounds;
-		this.counterOfRounds = counterOfRounds;
-		this.player = player;
-		this.scoreForGame = scoreForGame;
-	}
+	
 	
 	
 	
@@ -247,8 +247,8 @@ public class game {
      // this function starts the game
     protected game startGame(){
 
-  		this.OpenRound(); // openning a new round
-  		this.Deal(); // activating DEAL FUNCTION
+  	this.OpenRound(); // openning a new round
+  	this.Deal(); // activating DEAL FUNCTION
         return this; // returning the game which created
       }
 	
@@ -397,12 +397,17 @@ public class game {
 				+ ", player=" + player + ", scoreForGame=" + scoreForGame
 				+ ", sizeOfCurrentRound=" + sizeOfCurrentRound + "]";
 	}
+        
 	// this function calculaters total score for this game
 	public int calculateScoreForGame(){
 		int totalScore = 0;
-		for (Round r : this.rounds) {
-			totalScore += r.getTotalScore();			
+		for (int i=0; i< this.rounds.size(); i++) {
+                    //System.err.println("ROUND:::::::"+r.toString());
+                    this.rounds.get(i).calculateScoreForRound();
+                  
+                    totalScore += this.rounds.get(i).getTotalScore();			
 		}
+                setScoreForGame(totalScore);
 		return totalScore;
 		
 	

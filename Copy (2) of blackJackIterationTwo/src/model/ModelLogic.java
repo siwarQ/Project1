@@ -15,11 +15,7 @@ import utils.MyFileLogWriter;
  * @author siwar
  */
 public class ModelLogic implements Serializable  {
-    
-    /**
-	 * 
-	 */
-	
+    	
 	//***************************************** Variables *********************************************
 	/**Singleton instance of this class, loaded on the first execution of ModelLogic.getInstance()*/
 	private static ModelLogic instance;
@@ -42,6 +38,7 @@ public class ModelLogic implements Serializable  {
 		MyFileLogWriter.initializeMyFileWriter();
                 currentGame = new game();
 	}
+	
 	//***************************************** Methods ***********************************************
 	/**
 	 * The method creates this class's instance & provides access to it, by returning a reference (singleton).
@@ -75,10 +72,27 @@ public class ModelLogic implements Serializable  {
         game g = new game(1); // creating game 1
 		g.setDeck(sData.getCards()); // setting the deck to the one returning from getCards() func
 		g.startGame();
-                System.err.print(g.toString());
+                //System.err.print(g.toString());
                 this.currentGame = g;
+                this.calculateScoreForGame();
         return g; // returning the game which created
 	}
+        
+        
+        public void nextRound(){
+        	this.currentGame.setDeck(sData.getCards()); // setting the first deck for a new round
+        	this.currentGame.startGame();
+        	//this.currentGame.Deal(); // deal func
+                this.currentGame.calculateScoreForGame();
+        	
+        }
+        
+        public int calculateScoreForGame(){
+            //System.err.print("In the model logic: "+currentGame.getScoreForGame());
+            return currentGame.getScoreForGame();
+            
+        }
+                    
 
         
         public String hitFunc(){
@@ -86,20 +100,20 @@ public class ModelLogic implements Serializable  {
             //SIWAR	
        		String card = this.currentGame.hitFunc();
                this.flag= this.currentGame.getFlag();
+               this.currentGame.calculateScoreForGame();
                return card;
        				
        	}
-
-               /*StandFunc compares the amount of cards between the dealer and the player and returns the array of cards */
-               public ArrayList<String> standFunc(){
-                //siwar
-                   
-                
-               	ArrayList<String> setOfCardsToDealer = this.currentGame.standFunc();
-               	this.flag = this.currentGame.getFlag();
-               	
-               	return setOfCardsToDealer;
-               }
+        
+        
+        /*StandFunc compares the amount of cards between the dealer and the player and returns the array of cards */
+        public ArrayList<String> standFunc(){
+        //siwar
+        	ArrayList<String> setOfCardsToDealer = this.currentGame.standFunc();
+            this.flag = this.currentGame.getFlag();
+            this.currentGame.calculateScoreForGame();
+            return setOfCardsToDealer;
+        }
                
                public ArrayList<String> PlayerHand(){
                  
@@ -110,6 +124,19 @@ public class ModelLogic implements Serializable  {
                   
                	return this.currentGame.DealerHand();
                }
+               
+               /**
+	 * @return the currentGame
+	 */
+	protected game getCurrentGame() {
+		return currentGame;
+	}
+	/**
+	 * @param currentGame the currentGame to set
+	 */
+	public void setCurrentGame(game currentGame) {
+		this.currentGame = currentGame;
+	}
                
         
         
@@ -141,6 +168,7 @@ public class ModelLogic implements Serializable  {
      
      public int checkWinOnStart()
      {
+         this.currentGame.calculateScoreForGame();
         return this.currentGame.getwinOnStart();
      }
      

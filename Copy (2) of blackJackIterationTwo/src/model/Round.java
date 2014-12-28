@@ -8,6 +8,7 @@ public class Round {
 	//***************************************** Variables ******************************************
 		/**KEY field, Round's serialNumber*/
 	private static int serialNum=0;
+        private int code;
 	// total score
 	private int totalScore;
 	// status: winning/loosing
@@ -34,7 +35,7 @@ public class Round {
 		this.statusOfPlayer=statusOfPlaye;
 		this.dealerHand=dealerHand;
 		this.PlayerHand=PlayerHand;
-		this.deck = new ArrayList <Card>();	
+		this.deck = new ArrayList <>();	
 	}
 	
 	public Round(int serialNum,Hand dealerHand, Hand PlayerHand)
@@ -48,9 +49,12 @@ public class Round {
 	
 	public Round()
 	{
-		Round.setSerialNum(Round.getSerialNum() + 1);
+		this.code = ++serialNum;
+                System.err.println(getSerialNum());
+                setSerialNum(serialNum);
+                        //Round.setSerialNum(Round.getSerialNum() + 1);
 		this.totalScore=0;
-		this.deck = new ArrayList <Card>();	
+		this.deck = new ArrayList <>();	
 	}
 	
 	public Round(int serialNum, int totalScore) // for tests
@@ -141,10 +145,15 @@ public class Round {
 	public int calculateScoreForRound()
 	{
 		int sum = 0;
-		if (getSerialNum() % 2 == 0 )
+                totalScore = this.PlayerHand.getAmountOfCards();
+                 
+		if (code % 2 == 0 )
 			sum = totalScore *2;
 		else
 			sum = totalScore * 3;
+                
+                System.err.println("-----------------------------------------THE SUM IN ROUND: "+code+"are:"+ sum);
+                this.totalScore = sum;
 		return sum;	
 	}
 	
@@ -199,17 +208,7 @@ public Card  hit(){
 
 public ArrayList<Card> stand(){
     
-  /*  ArrayList<Card> dealerCards = new ArrayList<>();
-    /////// buid a function in dealer hand
-    Card c= this.deck.remove(0);
-    while (this.dealerHand.addCard(c)){
-        dealerCards.add(c);
-        c = this.deck.remove(0); //////////////////////test what if the deck is empty        
-    }
-    
-    setCheck(false);
-    
-    return dealerCards;*/
+
     
     //SIWAR
     

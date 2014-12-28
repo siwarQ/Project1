@@ -32,7 +32,9 @@ public class SysData implements Serializable  {
 	/**Stores all the players*/
 	private ArrayList<Player> players; 
 	/**Stores all the cards*/
-    private  ArrayList<Card> cards;
+        private  ArrayList<Card> cards;
+        
+        private game currentGame;
     
 
 	//***************************************** Constructors ******************************************
@@ -59,6 +61,7 @@ public class SysData implements Serializable  {
     
     //siwar
     protected void buildCards(){
+        currentGame = new game(1);
     	ArrayList<Card> cardsWithCloverNumbers = new ArrayList<Card>(); //black ones
 		ArrayList<Card> cardsWithLeafNumbers = new ArrayList<Card>(); // black ones
 		ArrayList<Card> cardsWithHearts = new ArrayList<Card>(); //red ones
@@ -124,6 +127,9 @@ public class SysData implements Serializable  {
 	 */
 	public ArrayList<Card> getCards() {
 		return cards;
+	}
+        public game getGame() {
+		return currentGame;
 	}
       
 	/**

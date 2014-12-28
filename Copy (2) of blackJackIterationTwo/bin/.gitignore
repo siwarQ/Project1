@@ -1,6 +1,6 @@
-/Sounds
-/controller
-/model
-/utils
-/view
-/blackJakBckForJuint
+/view/
+/Sounds/
+/blackJakBckForJuint/
+/controller/
+/model/
+/utils/

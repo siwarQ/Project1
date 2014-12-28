@@ -169,7 +169,7 @@ public class gameFrame extends javax.swing.JFrame {
                                 }
                                 else {
                                     view.nextRound();
-                                            System.err.println("game2");
+                                    System.err.println("game2");
                                 }
                                 
                                 setFirstCardsPlayer(0);

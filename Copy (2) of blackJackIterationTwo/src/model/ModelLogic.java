@@ -74,7 +74,7 @@ public class ModelLogic implements Serializable  {
 		g.startGame();
                 //System.err.print(g.toString());
                 this.currentGame = g;
-                this.calculateScoreForGame();
+                //this.calculateScoreForGame();
         return g; // returning the game which created
 	}
         
@@ -82,13 +82,16 @@ public class ModelLogic implements Serializable  {
         public void nextRound(){
         	this.currentGame.setDeck(sData.getCards()); // setting the first deck for a new round
         	this.currentGame.startGame();
+                this.currentGame.setCounterOfRounds(this.currentGame.getCounterOfRounds()+1);
+                
         	//this.currentGame.Deal(); // deal func
-                this.currentGame.calculateScoreForGame();
+                //this.currentGame.calculateScoreForGame();
         	
         }
         
         public int calculateScoreForGame(){
             //System.err.print("In the model logic: "+currentGame.getScoreForGame());
+            currentGame.calculateScoreForGame();
             return currentGame.getScoreForGame();
             
         }
@@ -100,7 +103,7 @@ public class ModelLogic implements Serializable  {
             //SIWAR	
        		String card = this.currentGame.hitFunc();
                this.flag= this.currentGame.getFlag();
-               this.currentGame.calculateScoreForGame();
+              // this.currentGame.calculateScoreForGame();
                return card;
        				
        	}
@@ -111,7 +114,7 @@ public class ModelLogic implements Serializable  {
         //siwar
         	ArrayList<String> setOfCardsToDealer = this.currentGame.standFunc();
             this.flag = this.currentGame.getFlag();
-            this.currentGame.calculateScoreForGame();
+            //this.currentGame.calculateScoreForGame();
             return setOfCardsToDealer;
         }
                
@@ -168,7 +171,7 @@ public class ModelLogic implements Serializable  {
      
      public int checkWinOnStart()
      {
-         this.currentGame.calculateScoreForGame();
+         //this.currentGame.calculateScoreForGame();
         return this.currentGame.getwinOnStart();
      }
      

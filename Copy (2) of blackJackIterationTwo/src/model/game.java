@@ -254,9 +254,12 @@ public class game {
 	
 	// this function opens a new round and calls the shuffle function 
 	public void OpenRound(){
+            this.winOnStart = 0;
 		Round r = new Round(); ///// you must enter dealer hand and player hand
 		this.Deck=r.shuffle(this.Deck);	
+                
 		this.rounds.add(r);
+                
 		
 	}
 	
@@ -269,8 +272,8 @@ public class game {
 		Card c3= this.Deck.remove(0);
 		Card c4 =this.Deck.remove(0);
 		//adding them to each player and dealer's hand
-		Hand playerTemp = new Hand(0, TypeOfHand.User);
-		Hand dealer = new Hand(1, TypeOfHand.Dealer);
+		Hand playerTemp = new Hand(TypeOfHand.User);
+		Hand dealer = new Hand(TypeOfHand.Dealer);
 		playerTemp.addCard(c1);
 		playerTemp.addCard(c2);
 		dealer.addCard(c3);
@@ -286,12 +289,14 @@ public class game {
 		rounds.get(sizeOfCurrentRound).setPlayerHand(playerTemp);
                 
                 
+                
         // for the tests in the first itiration
         System.out.println("Test for the results after shuffling the deck -> two cards for player and two for the dealer: ");
         System.out.println();
 		System.out.println("Dealer:"+rounds.get(sizeOfCurrentRound).getDealerHand().toString());
 		System.out.println("Player:"+rounds.get(sizeOfCurrentRound).getPlayerHand().toString());
         System.out.println();
+        //this.sizeOfCurrentRound++;
 		
 	}
 	
@@ -309,20 +314,31 @@ public class game {
 	card = round.hit();
 	this.amountOfPlayerCards = round.getPlayerHand().getAmountOfCards();
             
-            if (round.isCheck()){
-                if (this.amountOfPlayerCards == 21){
+        if (round.isCheck()){
+            if (this.amountOfPlayerCards == 21){
 		this.flag = 1;
+               // return;
+                
                 }
                 else{
                     if (this.amountOfPlayerCards > 21){
                         this.flag = -1;
                     }
+                    else
+                        this.flag=0;
                 }
             }
             else{
+            
                 if (this.amountOfPlayerCards > 21){
                         this.flag = -1;
                     }
+                else if (this.amountOfPlayerCards<21){
+                    this.flag =0;
+                            
+                }else if (this.amountOfDealerCards==21){
+                    this.flag=1;
+                }
                 
                 
             }

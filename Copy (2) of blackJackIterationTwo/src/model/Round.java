@@ -1,6 +1,7 @@
 package model;
 import java.util.ArrayList;
 import java.util.Collections;
+import static model.Round.getSerialNum;
 
 
 
@@ -51,7 +52,7 @@ public class Round {
 	{
 		this.code = ++serialNum;
                 System.err.println(getSerialNum());
-                setSerialNum(serialNum);
+                //setSerialNum(serialNum);
                         //Round.setSerialNum(Round.getSerialNum() + 1);
 		this.totalScore=0;
 		this.deck = new ArrayList <>();	
@@ -178,14 +179,9 @@ public class Round {
 	}
 	
 public Card  hit(){
-		
-		/*Card c= this.deck.remove(0);
-		if (!this.PlayerHand.addCard(c)) // returns false if hand is not legal
-                    setCheck(false);
-                return c;*/
+	
     Card c= this.deck.get(0);
-               // if (this.PlayerHand.isLegal(=) =)
-		if (this.PlayerHand.isLegal(this.PlayerHand.getAmountOfCards())){ // returns false if hand is not legal
+              if (this.PlayerHand.isLegal(this.PlayerHand.getAmountOfCards())){ // returns false if hand is not legal
                    if(!this.PlayerHand.addCard(c)){
                     //if (!this.PlayerHand.isLegal(c.getValue()+ this.PlayerHand.getAmountOfCards()))// checking if the player lost or not
                        setCheck(false);

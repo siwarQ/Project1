@@ -31,7 +31,7 @@ public class testHand {
 		Card c1 = new Card(1, Color.BLACK, Suit.CLOVER, Letter.A, "1BC.png");
 		Card c2 = new Card(10, Color.BLACK, Suit.CLOVER, Letter.J, "11BC.png");
 		Card c3 = new Card(3, Color.BLACK, Suit.CLOVER, (3+"BC.png"));
-		Hand h1  = new Hand (2,TypeOfHand.User);
+		Hand h1  = new Hand (TypeOfHand.User);
 		h1.addCard(c1);
 		h1.addCard(c2);
 		h1.addCard(c3);
@@ -44,7 +44,7 @@ public class testHand {
 		Card c1 = new Card(1, Color.BLACK, Suit.CLOVER, Letter.A, "1BC.png");
 		Card c2 = new Card(10, Color.BLACK, Suit.CLOVER, Letter.J, "11BC.png");
 		Card c3 = new Card(3, Color.BLACK, Suit.CLOVER, (3+"BC.png"));
-		Hand h1  = new Hand (2,TypeOfHand.User);
+		Hand h1  = new Hand (TypeOfHand.User);
 		h1.addCard(c2);
 		h1.addCard(c3);
 		h1.addCard(c1);
@@ -59,7 +59,7 @@ public class testHand {
 		Card c2 = new Card(10, Color.BLACK, Suit.CLOVER, Letter.J, "11BC.png");
 		Card c3 = new Card(3, Color.BLACK, Suit.CLOVER, (3+"BC.png"));
 		Card c4 = new Card(10, Color.BLACK, Suit.CLOVER, Letter.J, "11BC.png");
-		Hand h1  = new Hand (2,TypeOfHand.User);
+		Hand h1  = new Hand (TypeOfHand.User);
 		h1.addCard(c2);
 		h1.addCard(c3);
 		h1.addCard(c1);
@@ -76,7 +76,7 @@ public class testHand {
 		Card c3 = new Card(3, Color.BLACK, Suit.CLOVER, (3+"BC.png"));
 		Card c4 = new Card(10, Color.BLACK, Suit.CLOVER, Letter.J, "11BC.png");
 		Card c5 = new Card(10, Color.BLACK, Suit.CLOVER, Letter.K, "11BC.png");
-		Hand h1  = new Hand (2,TypeOfHand.User);
+		Hand h1  = new Hand (TypeOfHand.User);
 		h1.addCard(c2);
 		h1.addCard(c3);
 		h1.addCard(c1);
@@ -92,7 +92,7 @@ public class testHand {
 		Card c2 = new Card(10, Color.BLACK, Suit.CLOVER, Letter.J, "11BC.png");
 		Card c3 = new Card(3, Color.BLACK, Suit.CLOVER, (3+"BC.png"));
 		Card c4 = new Card(10, Color.BLACK, Suit.CLOVER, Letter.K, "11BC.png");
-		Hand h1  = new Hand (2,TypeOfHand.Dealer);
+		Hand h1  = new Hand (TypeOfHand.Dealer);
 		h1.addCard(c2);
 		h1.addCard(c3);
 		h1.addCard(c1);
@@ -109,7 +109,7 @@ public class testHand {
 		Card c3 = new Card(3, Color.BLACK, Suit.CLOVER, (3+"BC.png"));
 		Card c4 = new Card(10, Color.BLACK, Suit.CLOVER, Letter.K, "11BC.png");
 		Card c5 = new Card(10, Color.BLACK, Suit.CLOVER, Letter.Q, "11BC.png"); // if we add also this than it would be faild
-		Hand h1  = new Hand (2,TypeOfHand.Dealer);
+		Hand h1  = new Hand (TypeOfHand.Dealer);
 		h1.addCard(c2);
 		h1.addCard(c3);
 		h1.addCard(c1);
@@ -122,7 +122,7 @@ public class testHand {
 	//Testing the function isLegal for the dealer, expected value true - legal to add
 	public void testLegalAmount1() {
 		//Card c1 = new Card(1, Color.BLACK, Suit.CLOVER, Letter.A, "1BC.png");
-		Hand h1  = new Hand (2,TypeOfHand.Dealer);
+		Hand h1  = new Hand (TypeOfHand.Dealer);
 		assertTrue("true", h1.isLegal(16));
 	}
 	
@@ -132,7 +132,7 @@ public class testHand {
 	//Testing the function isLegal for the dealer, expected value false - not legal to add
 	public void testLegalAmount3() {
 		//Card c1 = new Card(1, Color.BLACK, Suit.CLOVER, Letter.A, "1BC.png");
-		Hand h1  = new Hand (2,TypeOfHand.Dealer);
+		Hand h1  = new Hand (TypeOfHand.Dealer);
 		assertFalse("false", h1.isLegal(18));
 	}
 	
@@ -140,7 +140,7 @@ public class testHand {
 	//Testing the function isLegal for the player, expected value true - legal to add
 	public void testLegalAmount2() {
 		//Card c1 = new Card(1, Color.BLACK, Suit.CLOVER, Letter.A, "1BC.png");
-		Hand h2  = new Hand (3,TypeOfHand.User);
+		Hand h2  = new Hand (TypeOfHand.User);
 		//h2.isLegal(2);
 		assertTrue("true", h2.isLegal(20));
 	}
@@ -149,7 +149,7 @@ public class testHand {
 	//Testing the function isLegal for the player, expected value false - not legal to add
 	public void testLegalAmount4() {
 		//Card c1 = new Card(1, Color.BLACK, Suit.CLOVER, Letter.A, "1BC.png");
-		Hand h2  = new Hand (3,TypeOfHand.User);
+		Hand h2  = new Hand (TypeOfHand.User);
 		//h2.isLegal(2);
 		assertFalse("false", h2.isLegal(22));
 	}

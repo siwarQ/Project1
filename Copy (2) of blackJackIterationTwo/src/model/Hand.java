@@ -6,7 +6,8 @@ public class Hand {
 	
 	//***************************************** Variables ******************************************
 	/**KEY field, Hand's serialNumber*/
-	private int serialNum;
+	private static int serialNum=0;
+        private int code;
 	/**type of hand: dealer/player*/
 	private TypeOfHand TypeOfHand ;
 	/**cards existing in this hand*/
@@ -18,12 +19,12 @@ public class Hand {
   	/**
   	 * Full C'tor
   	 */
-	public Hand(int serialNum, TypeOfHand typeOfHand) {
+	public Hand(TypeOfHand typeOfHand) {
 		super();
-		this.serialNum = serialNum;
+		this.code = ++serialNum;
 		TypeOfHand = typeOfHand;
 		this.amountOfCards = 0;
-		this.cards = new ArrayList<Card>();
+		this.cards = new ArrayList<>();
 
 	}
 	

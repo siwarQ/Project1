@@ -140,9 +140,21 @@ public class ControllerLogic implements Serializable {
        {
         return model.getDealerHand();
        }
-            public int getDealerHandAfterStand()
+        
+        
+       public int getDealerHandAfterStand()
        {
         return model.getDealerHandAfterStand();
+       }
+       
+       
+       
+       public int getNumberOfWinnings(){
+    	   return model.getWinningsCounter();
+       }
+       
+       public int getNumberOfLosts(){
+    	   return model.getLostsCounter();
        }
 
      	//********************************** Layer's closure procedure methods ****************************

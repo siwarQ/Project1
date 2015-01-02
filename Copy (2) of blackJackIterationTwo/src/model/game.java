@@ -33,7 +33,8 @@ public class game {
     private int amountOfDealerCards = 0;
     
     private boolean status;
-    
+    private int numOfWinnings = 0;
+    private int numOfLoses = 0;
 	
   //***************************************** Constructors ******************************************
   	/**
@@ -438,6 +439,7 @@ public class game {
 		{	
 		 System.err.println("wonnnnnnnnnnnn");
 		 scoreForGame+=score;
+		 this.numOfWinnings++;
 		
 		}
 		else
@@ -457,9 +459,34 @@ public class game {
 				System.err.println("loserrrrrrrrrrrr");
 				scoreForGame-=score; 
 			}
+			this.numOfLoses++;
 						
 		}
 		return scoreForGame;	
+	}
+	/**
+	 * @return the numOfWinnings
+	 */
+	protected int getNumOfWinnings() {
+		return numOfWinnings;
+	}
+	/**
+	 * @param numOfWinnings the numOfWinnings to set
+	 */
+	protected void setNumOfWinnings(int numOfWinnings) {
+		this.numOfWinnings = numOfWinnings;
+	}
+	/**
+	 * @return the numOfLoses
+	 */
+	protected int getNumOfLoses() {
+		return numOfLoses;
+	}
+	/**
+	 * @param numOfLoses the numOfLoses to set
+	 */
+	protected void setNumOfLoses(int numOfLoses) {
+		this.numOfLoses = numOfLoses;
 	}
 	
 	

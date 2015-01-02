@@ -136,10 +136,22 @@ public class ViewLogic implements Serializable {
         {
          return controller.getDealerHand();
         }
+         
+         
+         
            public int getDealerHandAgterStand()
         {
          return controller.getDealerHandAfterStand();
         }
+           
+           
+           public int getNumberOfWinnings(){
+        	   return controller.getNumberOfWinnings();
+           }
+           
+           public int getNumberOfLosts(){
+        	   return controller.getNumberOfLosts();
+           }
        //********************************** Layer's closure procedure methods ****************************
          
          /*

@@ -82,6 +82,7 @@ public class gameFrame extends javax.swing.JFrame {
          b.setText(""); 
         
         //jButton1.setBackground(Color.GREEN.darker());
+         
       
     }
       public gameFrame(ViewLogic v, game gi) {
@@ -227,9 +228,16 @@ public class gameFrame extends javax.swing.JFrame {
                 jLabel1.add(b, BorderLayout.PAGE_END); //adding to gui the button with his place
                 b.setBounds(620, 480, 70, 40);
                 
+                
                 //b.setBounds(800, 480, 70, 30);
                 jToggleDealBtn.setVisible(true);
                 b.setVisible(true);
+                jTextField1.setText(view.getNumberOfWinnings()+"");
+                jTextField2.setText(view.getNumberOfLosts()+"");
+                jTextField1.setVisible(true);
+                jLabel1.add(jTextField1);
+                jTextField2.setVisible(true);
+                jLabel1.add(jTextField2);
             }
         };
         r.run();
@@ -377,6 +385,8 @@ public class gameFrame extends javax.swing.JFrame {
         jToggleDealBtn = new javax.swing.JToggleButton();
         NextLeveljButton = new javax.swing.JButton();
         jStars = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -437,6 +447,11 @@ public class gameFrame extends javax.swing.JFrame {
         jDesktopPane1.add(jDealerStatus, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jToggleDealBtn.setText("jToggleButton1");
+        jToggleDealBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleDealBtnActionPerformed(evt);
+            }
+        });
         jToggleDealBtn.setBounds(380, 480, 70, 40);
         jDesktopPane1.add(jToggleDealBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -450,6 +465,14 @@ public class gameFrame extends javax.swing.JFrame {
         jDesktopPane1.add(NextLeveljButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jStars.setBounds(270, 180, 140, 250);
         jDesktopPane1.add(jStars, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jTextField1.setText("jTextField1");
+        jTextField1.setBounds(30, 220, 59, 20);
+        jDesktopPane1.add(jTextField1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jTextField2.setText("jTextField2");
+        jTextField2.setBounds(50, 450, 59, 20);
+        jDesktopPane1.add(jTextField2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -622,6 +645,10 @@ public class gameFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_NextLeveljButtonActionPerformed
 
+    private void jToggleDealBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleDealBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleDealBtnActionPerformed
+
     private void settingsAfterDeal(){
         String menu= "xxx2.png"; 
         ImageIcon x = new ImageIcon(getClass().getResource(menu));
@@ -686,6 +713,8 @@ public class gameFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jStars;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JToggleButton jToggleDealBtn;
     private javax.swing.JLabel jplayerStatus;
     private javax.swing.JButton standBtn;

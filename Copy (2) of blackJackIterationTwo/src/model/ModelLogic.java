@@ -88,11 +88,8 @@ public class ModelLogic implements Serializable  {
         public void nextRound(){
         	this.currentGame.setDeck(sData.getCards()); // setting the first deck for a new round
         	this.currentGame.startGame();
-                this.currentGame.setCounterOfRounds(this.currentGame.getCounterOfRounds()+1);
-                
-        	//this.currentGame.Deal(); // deal func
-                //this.currentGame.calculateScoreForGame();
-        	
+            this.currentGame.setCounterOfRounds(this.currentGame.getCounterOfRounds()+1);
+
         }
         
         public int calculateScoreForGame(){
@@ -100,6 +97,22 @@ public class ModelLogic implements Serializable  {
             currentGame.calculateScoreForGame();
             return currentGame.getScoreForGame();
             
+        }
+        
+        public int getWinningsCounter(){
+        	if (this.currentGame !=null){
+        		return this.currentGame.getNumOfWinnings();
+        	}
+        	
+        	return 0;
+        }
+        
+        public int getLostsCounter(){
+        	if (this.currentGame !=null){
+        		return this.currentGame.getNumOfLoses();
+        	}
+        	
+        	return 0;
         }
                     
 

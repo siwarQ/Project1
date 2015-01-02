@@ -22,6 +22,8 @@ public class Round {
 	private ArrayList<Card> deck;
         // boolean check
     private boolean check = true;
+    
+    private int status;
 	
 	
 
@@ -67,7 +69,6 @@ public class Round {
 
 	
 	//***************************************** GETTERS AND SETTERS******************************************
-	
 	
 	/**
 	 * @param deck the deck to set
@@ -149,11 +150,11 @@ public class Round {
                 totalScore = this.PlayerHand.getAmountOfCards();
                  
 		if (code % 2 == 0 )
-			sum = totalScore *2;
+			sum = totalScore *3;
 		else
-			sum = totalScore * 3;
+			sum = totalScore * 2;
                 
-                System.err.println("-----------------------------------------THE SUM IN ROUND: "+code+"are:"+ sum);
+                System.err.println("-----------------------------------------THE SUM IN ROUND: "+code+"are:"+ sum); 
                 this.totalScore = sum;
 		return sum;	
 	}

@@ -508,6 +508,7 @@ public class gameFrame extends javax.swing.JFrame {
                 AudioStream a = new AudioStream(in);
                 AudioPlayer.player.start(a);
              ImageIcon test1 = new ImageIcon(getClass().getResource("bust.gif"));
+             view.setStatus(false);
             jplayerStatus.setIcon(test1);
             jLabel1.add(jplayerStatus);
             jplayerStatus.setVisible(true);
@@ -530,6 +531,7 @@ public class gameFrame extends javax.swing.JFrame {
                 AudioStream a = new AudioStream(in);
                 AudioPlayer.player.start(a);
                 ImageIcon test = new ImageIcon(getClass().getResource("win5.gif"));
+                view.setStatus(true);
                 jplayerStatus.setIcon(test);
                 //jplayerStatus.setText("Win!");
                 jLabel1.add(jplayerStatus);
@@ -545,7 +547,7 @@ public class gameFrame extends javax.swing.JFrame {
         
         ///LEE
         updatedPlayerCardsInHit();
-        updatedDelearCardsInHit();   
+        updatedDelearCardsInHit();    
     }//GEN-LAST:event_hitBtnActionPerformed
 
     private void updateSumOfCardForDealer()
@@ -576,6 +578,7 @@ public class gameFrame extends javax.swing.JFrame {
                  AudioStream a = new AudioStream(in);
                 AudioPlayer.player.start(a);
             ImageIcon test = new ImageIcon(getClass().getResource("win5.gif"));
+            view.setStatus(true);
             jplayerStatus.setIcon(test);
             //jplayerStatus.setText("Win!");
             jLabel1.add(jplayerStatus);
@@ -591,6 +594,7 @@ public class gameFrame extends javax.swing.JFrame {
         if (view.checkWin() == -1){
             System.err.println("Dealer wins");
             jDealerStatus.setText("Win!");
+            view.setStatus(false);
             jLabel1.add(jDealerStatus);
             jDealerStatus.setVisible(true);
             standBtn.setVisible(false);
@@ -647,6 +651,7 @@ public class gameFrame extends javax.swing.JFrame {
              AudioStream a = new AudioStream(in);
              AudioPlayer.player.start(a); 
             ImageIcon test = new ImageIcon(getClass().getResource("win5.gif"));
+             view.setStatus(true);
             jplayerStatus.setIcon(test);
             //jplayerStatus.setText("Win!");
             jLabel1.add(jplayerStatus);

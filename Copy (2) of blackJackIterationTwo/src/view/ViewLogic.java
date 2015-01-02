@@ -72,6 +72,11 @@ public class ViewLogic implements Serializable {
              return controller.getNextGame(); // activating the start game functions in model which activates the deal function
              
          }
+         
+         public void setStatus(boolean s)
+         {
+        	 controller.setStatus(s);
+         }
          public int checkWinOnStart()
          {
             return controller.checkWinOnStart();

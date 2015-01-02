@@ -14,7 +14,7 @@ public class game {
 	/**deck of the game*/
 	private ArrayList <Card> Deck;
 	/**counter of rounds*/
-	private int counterOfRounds;
+	private int counterOfRounds=0;
 	/**player involved*/
 	private Player player;
 	/**total score of game*/
@@ -31,6 +31,8 @@ public class game {
     private int amountOfPlayerCards = 0;
         /** total amount of dealer's cards */
     private int amountOfDealerCards = 0;
+    
+    private boolean status;
 	
   //***************************************** Constructors ******************************************
   	/**
@@ -133,7 +135,15 @@ public class game {
 			this.amountOfDealerCards = amountOfDealerCards;
 		}
 	
-	
+	 protected void setStatus(boolean s)
+	 {
+		 this.status=s;
+	 }
+	 
+	 protected boolean getStatus()
+	 {
+		 return this.status;
+	 }
 	
 	
 	//***************************************** GETTERS AND SETTERS******************************************
@@ -413,21 +423,44 @@ public class game {
 				+ ", player=" + player + ", scoreForGame=" + scoreForGame
 				+ ", sizeOfCurrentRound=" + sizeOfCurrentRound + "]";
 	}
+	
+	
         
 	// this function calculaters total score for this game
 	public int calculateScoreForGame(){
-		int totalScore = 0;
-		for (int i=0; i< this.rounds.size(); i++) {
-                    //System.err.println("ROUND:::::::"+r.toString());
-                    this.rounds.get(i).calculateScoreForRound();
-                  
-                    totalScore += this.rounds.get(i).getTotalScore();			
-		}
-                setScoreForGame(totalScore);
-		return totalScore;
-		
 	
+		int size =this.rounds.size()-1;
+		int score =this.rounds.get(size).calculateScoreForRound();
+		System.err.println("what am i-------------------------"+this.getStatus());
+		//if (this.rounds.get(size).isCheck() || this.flag!=1 )
+		if (this.getStatus())
+		{	
+		 System.err.println("wonnnnnnnnnnnn");
+		 scoreForGame+=score;
+		
+		}
+		else
+		{
+			if (scoreForGame==0)
+			{
+				System.err.println("score 0");
+				return scoreForGame;
+			}
+			else if (scoreForGame-score<0)
+			{
+				System.err.println("score minussssssssss");
+				scoreForGame=0;
+			}
+			else 
+			{
+				System.err.println("loserrrrrrrrrrrr");
+				scoreForGame-=score; 
+			}
+						
+		}
+		return scoreForGame;	
 	}
+	
 	
 	
 }

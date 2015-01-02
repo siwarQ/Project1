@@ -67,6 +67,12 @@ public class ModelLogic implements Serializable  {
             return sData.getCards(); // returning the deck ready for dealing
         }
         
+        public void setStatus(boolean s)
+        {
+        this.currentGame.setStatus(s);	
+        }
+        
+        
        //siwar
         public game startGame(){
         game g = new game(1); // creating game 1

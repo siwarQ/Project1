@@ -33,6 +33,7 @@ public class game {
     private int amountOfDealerCards = 0;
     
     private boolean status;
+    
 	
   //***************************************** Constructors ******************************************
   	/**

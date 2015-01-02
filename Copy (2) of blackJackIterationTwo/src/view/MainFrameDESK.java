@@ -4,6 +4,9 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+import model.Player;
+
 /**
  *
  * @author USER
@@ -15,6 +18,7 @@ public class MainFrameDESK extends javax.swing.JFrame {
 	 */
     
     private ViewLogic view;
+    private  Player p;
 	private static final long serialVersionUID = 1L;
 	/**
      * Creates new form NewJFrame2
@@ -27,7 +31,7 @@ public class MainFrameDESK extends javax.swing.JFrame {
         jButton1.setOpaque(false);
          jButton1.setContentAreaFilled(false);
          jButton1.setBorderPainted(false);
-        
+     
     }
 
     /**
@@ -41,6 +45,11 @@ public class MainFrameDESK extends javax.swing.JFrame {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jButton1 = new javax.swing.JButton();
+        nameText = new javax.swing.JTextField();
+        passwordText = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -55,6 +64,37 @@ public class MainFrameDESK extends javax.swing.JFrame {
         });
         jButton1.setBounds(560, 410, 150, 270);
         jDesktopPane1.add(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        nameText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nameTextActionPerformed(evt);
+            }
+        });
+        nameText.setBounds(120, 440, 110, 20);
+        jDesktopPane1.add(nameText, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        passwordText.setBounds(120, 480, 110, 20);
+        jDesktopPane1.add(passwordText, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("User Name: ");
+        jLabel2.setBounds(40, 430, 60, 30);
+        jDesktopPane1.add(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("PassWord: ");
+        jLabel3.setBounds(40, 470, 60, 40);
+        jDesktopPane1.add(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jButton2.setText("Register");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jButton2.setBounds(150, 520, 80, 23);
+        jDesktopPane1.add(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/mainMenu.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -84,19 +124,63 @@ public class MainFrameDESK extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
        // view.setCurrentGame(null);
-       gameFrame game = new gameFrame(view);
+       if (nameText.getText().equals("") && passwordText.getText().equals(""))
+       {
+        JOptionPane.showMessageDialog(this, "Please fill in User Name and Password", "Error", JOptionPane.ERROR_MESSAGE);        
+       return;
+       }
+        if (checkPlayer())
+        {
+       gameFrame game = new gameFrame(view,p);
        game.setVisible(true);
        this.setVisible(false);
+        }
+        else
+        {
+             JOptionPane.showMessageDialog(this, "InValid User Name/Password. Please try again. ", "Error", JOptionPane.ERROR_MESSAGE);
+             return;
+        }
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void nameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nameTextActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+       newUser nu = new newUser(view);
+       nu.setVisible(true);
+       
+     
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private boolean checkPlayer()
+    {
+        String userName = nameText.getText();
+        String passWord = passwordText.getText();
+        Player checking = view.checkLogIn(userName, passWord);
+        if (checking!=null){
+            p=checking;
+            return true;
+        }
+        else
+            return false; 
+        
+    }
     /**
      * @param args the command line arguments
      */
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField nameText;
+    private javax.swing.JTextField passwordText;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,6 +4,7 @@
  */
 package model;
 
+import controller.systemManager;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -30,7 +31,7 @@ public class SysData implements Serializable  {
 	/**serlizing the sysData class*/
 	private static final long serialVersionUID = 1L;	
 	/**Stores all the players*/
-	private ArrayList<Player> players; 
+	private static ArrayList<Player> players= new ArrayList<>(); 
 	/**Stores all the cards*/
         private  ArrayList<Card> cards;
         
@@ -42,9 +43,9 @@ public class SysData implements Serializable  {
 	 * Full C'tor, for singleton support. 
 	 */
     private SysData(){
-        players = new ArrayList<Player>();
+        players = new ArrayList<>();
         cards= new ArrayList<Card>();
-       
+      
     }
 
 
@@ -52,6 +53,7 @@ public class SysData implements Serializable  {
         executeInput(); // creating the output file
 		if(instance==null){
 			instance = new SysData(); // creating sysData instance
+                         //players = new ArrayList<>();  
 			return instance; // returning the instance of sData
 		}
         else{
@@ -59,8 +61,36 @@ public class SysData implements Serializable  {
         }
 	}
     
-    //siwar
+    
+    
+         
+        public Player checkLogIn(String name, String passWord){ //////////////////////////////////////////////////////////////
+                  Player p1= new Player("leew", "100", "lee", "amiel");
+                  System.err.println(p1.toString());
+                  players.add(p1);
+        	for(Player p: players){
+        		if (p.getUserName().equals(name) && p.getPassWord().equals(passWord)){
+        			System.err.println("Player: "+ p.toString());
+                               // s= p.getUserName();
+        			return p;
+        			
+        			
+        		}
+        	}
+        	System.err.println("no players");
+        	return null;      	
+        }
+      public boolean addNewUser( String userName, String pass, String firstName, String lastName)
+         {
+             Player p = new Player(userName, pass, firstName, lastName);
+             if ( players.add(p))
+                 return true;
+             else
+                 return false;
+         }
+    
     protected void buildCards(){
+        
         currentGame = new game(1);
     	ArrayList<Card> cardsWithCloverNumbers = new ArrayList<Card>(); //black ones
 		ArrayList<Card> cardsWithLeafNumbers = new ArrayList<Card>(); // black ones

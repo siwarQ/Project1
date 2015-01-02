@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JToggleButton;
 import javax.swing.Timer;
+import model.Player;
 import model.game;
 
 
@@ -35,6 +36,7 @@ public class gameFrame extends javax.swing.JFrame {
 	private static final long serialVersionUID = 1L;
         /**view logic instance */
         private ViewLogic view;
+        private  Player p;
         private int cardAfterDeal = 0;
         public ArrayList<JLabel> playersHand = new ArrayList<>() ;
         public ArrayList<JLabel> dealersHand = new ArrayList<>() ;
@@ -50,10 +52,12 @@ public class gameFrame extends javax.swing.JFrame {
 	/**
      * Creates new form gameFrame
      */
-    public gameFrame(ViewLogic v) {
+    public gameFrame(ViewLogic v,Player player) {
         // initlizing method
         initComponents();
         view = v;
+        p= player;
+        System.err.println("suprise------------"+p.toString());
         //backCard = null;
         //setting label design
          this.setResizable(false);

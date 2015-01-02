@@ -447,6 +447,7 @@ public class game {
 			if (scoreForGame==0)
 			{
 				System.err.println("score 0");
+                                this.numOfLoses++;
 				return scoreForGame;
 			}
 			else if (scoreForGame-score<0)

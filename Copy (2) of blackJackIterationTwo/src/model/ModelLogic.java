@@ -22,13 +22,17 @@ public class ModelLogic implements Serializable  {
 	/**Boolean flag for class instance existence (singleton)*/
 	private static boolean exists = false;
 	/**SysData reference pointer*/
-	private static SysData sData; 
+	private static SysData sData ; 
 	/**Serilizing the ModelLogic class*/
 	private static final long serialVersionUID = 1L;
 	/** the current game */
 	private game currentGame;
 	/** indication of winning */
 	private int flag = 0;
+	
+	private Player player;
+        
+        private static ArrayList<Player> players;
 
 	//***************************************** Constructors ******************************************
 	/**
@@ -51,6 +55,7 @@ public class ModelLogic implements Serializable  {
 			
 			if(sData != null){ 
 				sData.buildCards(); // activating the biulding cards function
+                                
 				SysData.executeInput(); // creating the input file
 				exists = true; // accessing this func may be done only once
 				instance  = new ModelLogic(); // creating the model logic instance
@@ -73,10 +78,18 @@ public class ModelLogic implements Serializable  {
         }
         
         
-       //siwar
+        
+      public Player checkLogIn(String name, String passWord){
+          this.player = sData.checkLogIn(name, passWord);
+        return  this.player;
+      }
+        public boolean addNewUser( String userName, String pass, String firstName, String lastName)
+         {
+             return sData.addNewUser(userName, pass, firstName, lastName);
+         }
         public game startGame(){
-        game g = new game(1); // creating game 1
-		g.setDeck(sData.getCards()); // setting the deck to the one returning from getCards() func
+        game g = new game(1, this.player, sData.getCards()); // creating game 1
+		//g.setDeck(sData.getCards()); // setting the deck to the one returning from getCards() func
 		g.startGame();
                 //System.err.print(g.toString());
                 this.currentGame = g;

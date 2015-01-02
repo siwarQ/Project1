@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import model.Card;
 
 import model.ModelLogic;
+import model.Player;
 import model.game;
 import utils.Constants;
 import view.ViewLogic;
@@ -91,6 +92,16 @@ public class ControllerLogic implements Serializable {
          public void setStatus(boolean s)
          {
         	model.setStatus(s); 
+         }
+         
+         
+         public Player checkLogIn(String userName, String passWord){
+             return model.checkLogIn(userName, passWord);
+             
+         }
+          public boolean addNewUser( String userName, String pass, String firstName, String lastName)
+         {
+             return model.addNewUser(userName, pass, firstName, lastName);
          }
          
          public void nextRound(){

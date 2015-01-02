@@ -23,14 +23,23 @@ public class Player {
   	/**
   	 * Full C'tor
   	 */
-	protected Player(String iD, String userName, String passWord,
+	protected Player(String userName, String passWord,
 			String firstName, String lastName) {
-		super();
-		ID = iD;
+	
 		this.userName = userName;
 		this.passWord = passWord;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.maxScore = 0;
+		this.winningCounter =0;
+		this.loosingCounter = 0;
+	}
+	
+	protected Player(String userName, String passWord){
+		
+		//this.ID=null;
+		this.userName = userName;
+		this.passWord = passWord;
 		this.maxScore = 0;
 		this.winningCounter =0;
 		this.loosingCounter = 0;

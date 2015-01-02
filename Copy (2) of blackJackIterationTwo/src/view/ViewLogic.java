@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import model.Player;
 
 import model.game;
 
@@ -71,6 +72,14 @@ public class ViewLogic implements Serializable {
              
              return controller.getNextGame(); // activating the start game functions in model which activates the deal function
              
+         }
+         public boolean addNewUser( String userName, String pass, String firstName, String lastName)
+         {
+             return controller.addNewUser(userName, pass, firstName, lastName);
+         }
+         
+         public Player checkLogIn(String userName, String passWord){
+             return controller.checkLogIn(userName, passWord);             
          }
          
          public void setStatus(boolean s)

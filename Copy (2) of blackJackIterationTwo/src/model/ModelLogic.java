@@ -118,23 +118,18 @@ public class ModelLogic implements Serializable  {
          }
         
         public game startGame(){
-            System.err.println("SIZE: -------------------"+sData.getCards().size());
+ 
             this.deckCounter = 0;
             ArrayList<Card> temp = sData.getCards();
         game g = new game(1, this.player, temp); // creating game 1
-        System.err.println("thhhhhhhhhhhhhheeeee plaaaaaayerrrrrr"+this.player.toString());
-		//g.setDeck(sData.getCards()); // setting the deck to the one returning from getCards() func
 		g.startGame();
-                //System.err.print(g.toString());
                 this.currentGame = g;
-                //this.calculateScoreForGame();
         return g; // returning the game which created
 	}
         
         
         public void nextRound(){
-            System.err.println();
-            System.err.println("SIZE: -------------------"+sData.getCards().size());
+            this.currentGame.setNewRecord(false);
             ArrayList<Card> temp = sData.getCards();
         	this.currentGame.setDeck(temp); // setting the first deck for a new round
         	this.currentGame.startGame();
@@ -143,10 +138,13 @@ public class ModelLogic implements Serializable  {
         }
         
         public int calculateScoreForGame(){
-            //System.err.print("In the model logic: "+currentGame.getScoreForGame());
-            currentGame.calculateScoreForGame();
-            return currentGame.getScoreForGame();
+           return currentGame.calculateScoreForGame();
+           // return currentGame.getScoreForGame();
             
+        }
+        
+        public boolean checkNewRecord(){
+            return currentGame.getNewRecord();
         }
         
         public int getWinningsCounter(){

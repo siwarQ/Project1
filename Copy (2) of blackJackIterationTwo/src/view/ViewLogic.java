@@ -99,6 +99,10 @@ public class ViewLogic implements Serializable {
             return controller.checkWinOnStart();
          }
          
+         public boolean checkNewRecord(){
+            return controller.checkNewRecord();
+        }
+         
          public void nextRound(){
               controller.nextRound();
          }

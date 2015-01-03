@@ -6,7 +6,8 @@ package view;
 import sun.audio.*;
 
 import java.awt.BorderLayout;
-import java.awt.Label;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -60,15 +61,21 @@ public class gameFrame extends javax.swing.JFrame {
      */
     public gameFrame(ViewLogic v,Player player) {
         // initlizing method
+        
         initComponents();
+        
+        
         view = v;
         p= player;
         System.err.println("suprise------------"+p.toString());
         //backCard = null;
+        
+        dealBtn.setVisible(false);
+        settingTranspert(dealBtn);
         //setting label design
          this.setResizable(false);
          
-        NextLeveljButton.setVisible(false);// setting the next level button not visible
+      
         
          
         playersHand = new ArrayList<>() ;
@@ -78,7 +85,7 @@ public class gameFrame extends javax.swing.JFrame {
          settingTranspert(standBtn);
          settingTranspert(clearBtn);
          clearBtn.setVisible(false);
-         
+         cubsLabel.setOpaque(false);
          jToggleDealBtn.setOpaque(false);
          jToggleDealBtn.setContentAreaFilled(false);
          jToggleDealBtn.setBorderPainted(false);
@@ -87,7 +94,7 @@ public class gameFrame extends javax.swing.JFrame {
          jToggleDealBtn.setVisible(true);
          runAnimation();
          jToggleDealBtn= b;
-         scoreTxt.add(jToggleDealBtn);
+         homeLabel.add(jToggleDealBtn);
          b.setOpaque(false);
          b.setContentAreaFilled(false);
          b.setBorderPainted(false);
@@ -105,8 +112,9 @@ public class gameFrame extends javax.swing.JFrame {
         //backCard = null;
         //setting label design
          this.setResizable(false);
-         
-        NextLeveljButton.setVisible(false);// setting the next level button not visible
+         dealBtn.setVisible(false);
+         settingTranspert(dealBtn);
+      
         
          
         playersHand = new ArrayList<>() ;
@@ -123,7 +131,7 @@ public class gameFrame extends javax.swing.JFrame {
          jToggleDealBtn.setVisible(true);
          runAnimation();
          jToggleDealBtn= b;
-         scoreTxt.add(jToggleDealBtn);
+         homeLabel.add(jToggleDealBtn);
          b.setOpaque(false);
          b.setContentAreaFilled(false);
          b.setBorderPainted(false);
@@ -147,7 +155,7 @@ public class gameFrame extends javax.swing.JFrame {
                 ImageIcon im = new ImageIcon(getClass().getResource("hiddenCard.jpg"));
                 final JLabel animation = new JLabel(im); // creating the label and giving him the first index in label
                 animation.setBounds(800, 120, im.getIconHeight(), im.getIconWidth());
-                scoreTxt.add(animation, BorderLayout.CENTER);// adding the first label to the center
+                homeLabel.add(animation, BorderLayout.CENTER);// adding the first label to the center
                 animation.setVisible(false);
 
                 ActionListener animate = new ActionListener() { 
@@ -237,17 +245,25 @@ public class gameFrame extends javax.swing.JFrame {
                 b.addActionListener(startStop); // adding for the button b the action listener
                 
                 jToggleDealBtn.addActionListener(startStop);
-                scoreTxt.add(jToggleDealBtn, BorderLayout.PAGE_END);
-                scoreTxt.add(b, BorderLayout.PAGE_END); //adding to gui the button with his place
+                homeLabel.add(jToggleDealBtn, BorderLayout.PAGE_END);
+                homeLabel.add(b, BorderLayout.PAGE_END); //adding to gui the button with his place
                 b.setBounds(620, 480, 70, 40);
                 jToggleDealBtn.setVisible(true);
                 b.setVisible(true);
+                jTextField1.setBounds(1020,170,60,20);
+                jTextField2.setBounds(1090, 170,60,20);
+                jTextField1.setForeground(Color.WHITE);
+                jTextField1.setOpaque(false);
+                jTextField1.setBorder(null);
+                jTextField2.setForeground(Color.WHITE);
+                jTextField2.setOpaque(false);
+                jTextField2.setBorder(null);
                 jTextField1.setText(view.getNumberOfWinnings()+"");
                 jTextField2.setText(view.getNumberOfLosts()+"");
                 jTextField1.setVisible(true);
-                scoreTxt.add(jTextField1);
+                homeLabel.add(jTextField1);
                 jTextField2.setVisible(true);
-                scoreTxt.add(jTextField2);
+                homeLabel.add(jTextField2);
             }
         };
         r.run();
@@ -265,7 +281,7 @@ public class gameFrame extends javax.swing.JFrame {
          if (i==0){
          ImageIcon imageIcon = new ImageIcon(getClass().getResource(sources.get(0)));
          this.playersHand.add((new JLabel()));
-         scoreTxt.add(this.playersHand.get(0));
+         homeLabel.add(this.playersHand.get(0));
          this.playersHand.get(0).setIcon(imageIcon);
          this.playersHand.get(0).setBounds(515, 250, 100,  imageIcon.getIconHeight()+100);
          
@@ -278,7 +294,7 @@ public class gameFrame extends javax.swing.JFrame {
           
          ImageIcon imageIcon = new ImageIcon(getClass().getResource(sources.get(1)));
          this.playersHand.add((new JLabel()));
-         scoreTxt.add(this.playersHand.get(1));
+         homeLabel.add(this.playersHand.get(1));
          this.playersHand.get(1).setIcon(imageIcon);
          this.playersHand.get(1).setBounds(540, 230, 100,  imageIcon.getIconHeight()+100);
   
@@ -293,7 +309,7 @@ public class gameFrame extends javax.swing.JFrame {
          if (num==0){
          ImageIcon imageIcon = new ImageIcon(getClass().getResource(sources.get(0)));
          this.dealersHand.add((new JLabel()));
-         scoreTxt.add(this.dealersHand.get(0));
+         homeLabel.add(this.dealersHand.get(0));
          this.dealersHand.get(0).setIcon(imageIcon);
          this.dealersHand.get(0).setBounds(515, 55, 100,  imageIcon.getIconHeight()+100);
          
@@ -303,7 +319,7 @@ public class gameFrame extends javax.swing.JFrame {
          else {
           ImageIcon imageIcon = new ImageIcon(getClass().getResource("hiddenCard.jpg"));
          this.dealersHand.add((new JLabel()));
-         scoreTxt.add(this.dealersHand.get(1));
+         homeLabel.add(this.dealersHand.get(1));
          this.dealersHand.get(1).setIcon(imageIcon);
          this.dealersHand.get(1).setBounds(540, 35, 100,  imageIcon.getIconHeight()+100);
         
@@ -332,7 +348,7 @@ public class gameFrame extends javax.swing.JFrame {
                     while (i>=0){
                         System.err.println("this is the arr labels in player: "+ sources.toString());
                         
-                        scoreTxt.add(this.playersHand.get(i));
+                        homeLabel.add(this.playersHand.get(i));
                         i--;
                     }
                     break;
@@ -361,7 +377,7 @@ public class gameFrame extends javax.swing.JFrame {
                     int k=sources.size()-1;
                     while (k>=0){
                         
-                        scoreTxt.add(this.dealersHand.get(k));
+                        homeLabel.add(this.dealersHand.get(k));
                        
                         k--;
                     }
@@ -380,7 +396,9 @@ public class gameFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
-        scoreTxt = new javax.swing.JLabel();
+        dealBtn = new javax.swing.JButton();
+        cubsLabel = new javax.swing.JLabel();
+        homeLabel = new javax.swing.JLabel();
         clearBtn = new javax.swing.JButton();
         standBtn = new javax.swing.JButton();
         hitBtn = new javax.swing.JButton();
@@ -391,18 +409,17 @@ public class gameFrame extends javax.swing.JFrame {
         jplayerStatus = new javax.swing.JLabel();
         jDealerStatus = new javax.swing.JLabel();
         jToggleDealBtn = new javax.swing.JToggleButton();
-        NextLeveljButton = new javax.swing.JButton();
         jStars = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
+            }
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
             }
         });
 
@@ -412,14 +429,27 @@ public class gameFrame extends javax.swing.JFrame {
             }
         });
 
-        scoreTxt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/xxx.png"))); // NOI18N
-        scoreTxt.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                scoreTxtMouseClicked(evt);
+        dealBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dealBtnActionPerformed(evt);
             }
         });
-        scoreTxt.setBounds(0, 0, 1220, 590);
-        jDesktopPane1.add(scoreTxt, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        dealBtn.setBounds(620, 490, 70, 30);
+        jDesktopPane1.add(dealBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        cubsLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\Tal\\Desktop\\kobb.png")); // NOI18N
+        cubsLabel.setText("jLabel1");
+        cubsLabel.setBounds(970, 80, 180, 90);
+        jDesktopPane1.add(cubsLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        homeLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/xxx.png"))); // NOI18N
+        homeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                homeLabelMouseClicked(evt);
+            }
+        });
+        homeLabel.setBounds(0, 0, 1220, 590);
+        jDesktopPane1.add(homeLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         clearBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -484,15 +514,6 @@ public class gameFrame extends javax.swing.JFrame {
         });
         jToggleDealBtn.setBounds(380, 480, 70, 40);
         jDesktopPane1.add(jToggleDealBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        NextLeveljButton.setText("Next Level");
-        NextLeveljButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NextLeveljButtonActionPerformed(evt);
-            }
-        });
-        NextLeveljButton.setBounds(20, 260, 130, 23);
-        jDesktopPane1.add(NextLeveljButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jStars.setBounds(270, 180, 140, 250);
         jDesktopPane1.add(jStars, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -524,15 +545,15 @@ public class gameFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void scoreTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scoreTxtMouseClicked
+    private void homeLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeLabelMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_scoreTxtMouseClicked
+    }//GEN-LAST:event_homeLabelMouseClicked
 
     private void updatedPlayerCardsInHit()
     {
        String playerAmount =Integer.toString(view.getPlayerHand());
         JPlayer.setText("Player-"+playerAmount);
-        scoreTxt.add(JPlayer);
+        homeLabel.add(JPlayer);
         JPlayer.setVisible(true);     
     }
     
@@ -540,7 +561,7 @@ public class gameFrame extends javax.swing.JFrame {
     {
         String delearAmount =Integer.toString(view.getDealerHand());
         JDealer.setText("Delear-"+delearAmount);
-        scoreTxt.add(JDealer);
+        homeLabel.add(JDealer);
         JDealer.setVisible(true); 
     }
     private void hitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hitBtnActionPerformed
@@ -562,18 +583,16 @@ public class gameFrame extends javax.swing.JFrame {
              ImageIcon test1 = new ImageIcon(getClass().getResource("bust.gif"));
              view.setStatus(false);
             jplayerStatus.setIcon(test1);
-            scoreTxt.add(jplayerStatus);
+            homeLabel.add(jplayerStatus);
             jplayerStatus.setVisible(true);
             hitBtn.setVisible(false);
             standBtn.setVisible(false);
             updatedPlayerCardsInHit();
             updatedDelearCardsInHit();
-            NextLeveljButton.setVisible(true);
-            scoreTxt.add(NextLeveljButton);
-            scoreTxt.setIcon(dealClearImgIcon);
+            homeLabel.setIcon(dealClearImgIcon);
             settingTranspert(clearBtn);
             clearBtn.setVisible(true);
-            scoreTxt.add(clearBtn);
+            homeLabel.add(clearBtn);
             return;
               } catch (Exception ex) {
                 Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -590,15 +609,14 @@ public class gameFrame extends javax.swing.JFrame {
                 view.setStatus(true);
                 jplayerStatus.setIcon(test);
                 //jplayerStatus.setText("Win!");
-                scoreTxt.add(jplayerStatus);
+                homeLabel.add(jplayerStatus);
                 jplayerStatus.setVisible(true);
                 hitBtn.setVisible(false);
                 standBtn.setVisible(false);
-                NextLeveljButton.setVisible(true);
-                scoreTxt.add(NextLeveljButton);
-                scoreTxt.setIcon(dealClearImgIcon);
+                homeLabel.setIcon(dealClearImgIcon);
+                settingTranspert(clearBtn);
                 clearBtn.setVisible(true);
-                scoreTxt.add(clearBtn);
+                homeLabel.add(clearBtn);
             } catch (Exception ex) {
                 Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -613,7 +631,7 @@ public class gameFrame extends javax.swing.JFrame {
     { 
         String delearAmount =Integer.toString(view.getDealerHandAgterStand());
         JDealer.setText("Delear-"+delearAmount);
-        scoreTxt.add(JDealer);
+        homeLabel.add(JDealer);
         JDealer.setVisible(true);
     }
     private void standBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_standBtnActionPerformed
@@ -640,16 +658,14 @@ public class gameFrame extends javax.swing.JFrame {
             view.setStatus(true);
             jplayerStatus.setIcon(test);
             //jplayerStatus.setText("Win!");
-            scoreTxt.add(jplayerStatus);
+            homeLabel.add(jplayerStatus);
             jplayerStatus.setVisible(true);
             standBtn.setVisible(false);
             hitBtn.setVisible(false);
-            NextLeveljButton.setVisible(true);
-            scoreTxt.add(NextLeveljButton);
-            scoreTxt.setIcon(dealClearImgIcon);
+            homeLabel.setIcon(dealClearImgIcon);
             settingTranspert(clearBtn);
             clearBtn.setVisible(true);
-            scoreTxt.add(clearBtn);
+            homeLabel.add(clearBtn);
              } catch (Exception ex) {
                 Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -658,16 +674,14 @@ public class gameFrame extends javax.swing.JFrame {
             System.err.println("Dealer wins");
             jDealerStatus.setText("Win!");
             view.setStatus(false);
-            scoreTxt.add(jDealerStatus);
+            homeLabel.add(jDealerStatus);
             jDealerStatus.setVisible(true);
             standBtn.setVisible(false);
             hitBtn.setVisible(false);
-            NextLeveljButton.setVisible(true);
-            scoreTxt.add(NextLeveljButton);
-            scoreTxt.setIcon(dealClearImgIcon);
+            homeLabel.setIcon(dealClearImgIcon);
             settingTranspert(clearBtn);
             clearBtn.setVisible(true);
-            scoreTxt.add(clearBtn);
+            homeLabel.add(clearBtn);
         }
         
         
@@ -677,28 +691,16 @@ public class gameFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_standBtnActionPerformed
 
-    private void NextLeveljButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextLeveljButtonActionPerformed
-        // TODO add your handling code here:
-        /*this.dispose();
-        new gameFrame(view).setVisible(true);*/
-        this.dispose();
-        //System.err.print("HERE BEFORE NEW: "+view.calculateScoreForGame());
-        new wainFrame(view, g).setVisible(true);
-        
-        
-        
-    }//GEN-LAST:event_NextLeveljButtonActionPerformed
-
     private void jToggleDealBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleDealBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleDealBtnActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        // TODO add your handling code here:
+        view.executeSysExit(); 
     }//GEN-LAST:event_formWindowClosing
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
- view.executeSysExit();        // TODO add your handling code here:
+         view.executeSysExit();        // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosed
 
     private void jDesktopPane1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDesktopPane1MouseExited
@@ -707,45 +709,90 @@ public class gameFrame extends javax.swing.JFrame {
 
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
         // TODO add your handling code here:
-        System.err.println("CLEEEEEEEEEEEEEEEEEEEEEEEARRRRRRRRRRRRRRRRR");
-        //jLabel1.removeNotify();
+        
         jDesktopPane1.removeAll();
         jDesktopPane1.revalidate();
         jDesktopPane1.repaint();
         
-        jDesktopPane1.add(scoreTxt);
-        scoreTxt.removeAll();
-        scoreTxt.setIcon(dealClearImgIcon);
-        scoreTxt.setVisible(true);
+        jDesktopPane1.add(homeLabel);
+        homeLabel.removeAll();
+        homeLabel.setIcon(dealClearImgIcon);
+        homeLabel.setVisible(true);
         
-        //jLabel1.setIcon(dealClearImgIcon);
-       // jLabel1.setVisible(true);
-       // jDesktopPane1.add(jLabel1);
         
-        //jLabel1.setIcon(dealClearImgIcon);
+        JLabel reviewLabel = new JLabel("Total Score:");
+        reviewLabel.setBounds(520, 100, 200, 200);
+        reviewLabel.setForeground(Color.YELLOW);
+        reviewLabel.setVisible(true);
+        Font f = new Font("Serif", Font.BOLD, 24);
+        reviewLabel.setFont(f);
+        int i = view.calculateScoreForGame();
+        
+        String score = i+"";
+        System.err.print("FRAME: "+i);
+        JLabel scoreForRound = new JLabel(score);
+        scoreForRound.setBounds(670, 100, 200, 200);
+        scoreForRound.setForeground(Color.YELLOW);
+        scoreForRound.setFont(f);
+        scoreForRound.setVisible(true);
+        
+        
+        JLabel newRecord = new JLabel();
+        newRecord.setOpaque(false);
+        if (view.checkNewRecord()){
+            System.err.print("new record-----------------------------------------------"+view.checkNewRecord());
+           ImageIcon good = new ImageIcon(getClass().getResource("nr2.gif"));
+            
+            newRecord.setIcon(good);
+            newRecord.setBounds(250, 250, good.getIconWidth(), good.getIconHeight());
+            homeLabel.add(newRecord);
+            newRecord.setVisible(true);
+        }
+        else
+        {
+             System.err.print("old record-----------------------------------------------"+view.checkNewRecord());
+            newRecord.setVisible(false);
+        }
+        
+        
+        homeLabel.add(reviewLabel);
+        homeLabel.add(scoreForRound);
+        dealBtn.setVisible(true);
+        homeLabel.add(dealBtn);
+        
+        //jTextField1.setText(score);
+        
         
         
     }//GEN-LAST:event_clearBtnActionPerformed
+
+    private void dealBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dealBtnActionPerformed
+        
+        this.dispose();
+        new gameFrame(view, g).setVisible(true);
+        //this.dispose();
+                // TODO add your handling code here:
+    }//GEN-LAST:event_dealBtnActionPerformed
 
     private void settingsAfterDeal(){
         String menu= "xxx2.png"; 
         ImageIcon x = new ImageIcon(getClass().getResource(menu));
         
       //  dealBtn.setVisible(false);
-        scoreTxt.setIcon(x);
+        homeLabel.setIcon(x);
         hitBtn.setVisible(true);
         standBtn.setVisible(true);
-        scoreTxt.add(hitBtn);
-        scoreTxt.add(standBtn);
+        homeLabel.add(hitBtn);
+        homeLabel.add(standBtn);
         
         ///LEE
         String playerAmount =Integer.toString(view.getPlayerHand());
         JPlayer.setText("Player-"+playerAmount);
-        scoreTxt.add(JPlayer);
+        homeLabel.add(JPlayer);
         JPlayer.setVisible(true);
         String delearAmount =Integer.toString(view.getDealerHand());
         JDealer.setText("Delear-"+delearAmount);
-        scoreTxt.add(JDealer);
+        homeLabel.add(JDealer);
         JDealer.setVisible(true);
         
          if (view.checkWinOnStart()== 1){
@@ -759,15 +806,14 @@ public class gameFrame extends javax.swing.JFrame {
              view.setStatus(true);
             jplayerStatus.setIcon(test);
             //jplayerStatus.setText("Win!");
-            scoreTxt.add(jplayerStatus);
+            homeLabel.add(jplayerStatus);
             jplayerStatus.setVisible(true);
             hitBtn.setVisible(false);
             standBtn.setVisible(false);
-            NextLeveljButton.setVisible(true);
-            scoreTxt.add(NextLeveljButton);
-            scoreTxt.setIcon(dealClearImgIcon);
+            homeLabel.setIcon(dealClearImgIcon);
+            settingTranspert(clearBtn);
             clearBtn.setVisible(true);
-            scoreTxt.add(clearBtn);
+            homeLabel.add(clearBtn);
               } catch (Exception ex) {
                 Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -775,7 +821,7 @@ public class gameFrame extends javax.swing.JFrame {
          else
          {
          hitBtn.setVisible(true);
-         scoreTxt.add(hitBtn);
+         homeLabel.add(hitBtn);
          }
         // b.setVisible(false);
     }
@@ -786,9 +832,11 @@ public class gameFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JDealer;
     private javax.swing.JLabel JPlayer;
-    private javax.swing.JButton NextLeveljButton;
     private javax.swing.JButton clearBtn;
+    private javax.swing.JLabel cubsLabel;
+    private javax.swing.JButton dealBtn;
     private javax.swing.JButton hitBtn;
+    private javax.swing.JLabel homeLabel;
     private javax.swing.JLabel jDealerStatus;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel6;
@@ -798,7 +846,6 @@ public class gameFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JToggleButton jToggleDealBtn;
     private javax.swing.JLabel jplayerStatus;
-    private javax.swing.JLabel scoreTxt;
     private javax.swing.JButton standBtn;
     // End of variables declaration//GEN-END:variables
 }

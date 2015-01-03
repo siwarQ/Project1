@@ -28,6 +28,7 @@ public class game implements Serializable{
     public int sizeOfCurrentRound=0;
     
     public int winOnStart=0;
+    private boolean newRecord = false;
     
     
     /** indication of winning */
@@ -111,6 +112,14 @@ public class game implements Serializable{
 		protected int getFlag() {
 			return flag;
 		}
+                
+                protected boolean getNewRecord() {
+			return newRecord;
+		}
+                  protected void setNewRecord(boolean s)
+	 {
+		 this.newRecord=s;
+	 }
 		/**
 		 * @param flag the flag to set
 		 */
@@ -146,6 +155,7 @@ public class game implements Serializable{
 	 {
 		 this.status=s;
 	 }
+         
 	 
 	 protected boolean getStatus()
 	 {
@@ -438,19 +448,21 @@ public class game implements Serializable{
 	
      public boolean checkHighScore(int score)
      {
-    	  return this.player.updateHighScore(score);
+         if (this.player.updateHighScore(score)){
+             return true;
+         }
+    	  return false;
      }
 	// this function calculaters total score for this game
 	public int calculateScoreForGame(){
 	
 		int size =this.rounds.size()-1;
 		int score =this.rounds.get(size).calculateScoreForRound();
-		System.err.println("what am i-------------------------"+this.getStatus());
-		//if (this.rounds.get(size).isCheck() || this.flag!=1 )
 		if (this.getStatus())
 		{
 		 scoreForGame+=score;
-		 checkHighScore(scoreForGame);
+                 boolean t =checkHighScore(scoreForGame);	 
+                 this.setNewRecord(t);
 		 this.numOfWinnings++;
 		
 		}

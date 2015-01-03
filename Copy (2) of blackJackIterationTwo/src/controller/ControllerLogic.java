@@ -94,6 +94,10 @@ public class ControllerLogic implements Serializable {
         	model.setStatus(s); 
          }
          
+         public boolean checkNewRecord(){
+            return model.checkNewRecord();
+        }
+         
          
          public Player checkLogIn(String userName, String passWord){
              return model.checkLogIn(userName, passWord);

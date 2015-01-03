@@ -768,12 +768,113 @@ public class gameFrame extends javax.swing.JFrame {
 
     private void dealBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dealBtnActionPerformed
         
-        this.dispose();
-        new gameFrame(view, g).setVisible(true);
-        //this.dispose();
-                // TODO add your handling code here:
+       /* this.dispose();
+        new gameFrame(view, g).setVisible(true);*/
+        jDesktopPane1.removeAll();
+        jDesktopPane1.revalidate();
+        jDesktopPane1.repaint();
+        
+        jDesktopPane1.add(homeLabel);
+        homeLabel.removeAll();
+        homeLabel.setIcon(dealClearImgIcon);
+        homeLabel.setVisible(true);
+        
+        JLabel loadingLabel= new JLabel("Loading...");
+        
+        loadingLabel.setBounds(590, 320, 200, 200);
+        loadingLabel.setForeground(Color.DARK_GRAY);
+        Font f = new Font("Serif", Font.BOLD, 24);
+        loadingLabel.setFont(f);
+        loadingLabel.setVisible(true);
+        
+        JLabel loadingAnimation= new JLabel();
+
+           ImageIcon good = new ImageIcon(getClass().getResource("laoding.gif"));
+            
+            loadingAnimation.setIcon(good);
+            loadingAnimation.setBounds(500,100, good.getIconWidth(), good.getIconHeight());
+            loadingAnimation.setVisible(true);
+            homeLabel.add(loadingAnimation);
+        //loadingRunAnimation();
+            homeLabel.add(loadingLabel);
+            
+        
+
     }//GEN-LAST:event_dealBtnActionPerformed
 
+    private void loadingRunAnimation(){ // loading to the next turn
+        
+ 
+        Runnable r = new Runnable() {
+            
+
+            @Override
+            public void run() {
+                 JLabel loadingAnimation= new JLabel();
+                 ImageIcon good = new ImageIcon(getClass().getResource("laoding.gif"));
+                 loadingAnimation.setIcon(good);
+                 loadingAnimation.setBounds(500,100, good.getIconWidth(), good.getIconHeight());
+                 loadingAnimation.setVisible(true);
+
+                ActionListener animate = new ActionListener() { 
+                
+                    private int index = 0;
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                       
+                        ImageIcon im = new ImageIcon(getClass().getResource("laoding.gif"));
+                        if (index<20) {
+                        index++;
+                        
+                        } else {
+                                timer.stop();
+                                index=0;
+                                openNewRoundFunc();
+                               
+                                
+                                
+                                
+                            }
+                            
+                            }
+                            
+                        };  
+
+               timer = new Timer(15,animate);
+
+                //final JToggleButton b = new JToggleButton("Start/Stop");// creating the button
+                ActionListener startStop = new ActionListener() { // creating the action listener
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (b.isSelected()) { // if the button is selected
+                            timer.start();
+         
+                        } else {
+                            timer.stop();
+                            
+                        }
+                    }
+                };
+                b.addActionListener(startStop); // adding for the button b the action listener
+                
+                jToggleDealBtn.addActionListener(startStop);
+                homeLabel.add(jToggleDealBtn, BorderLayout.PAGE_END);
+                homeLabel.add(b, BorderLayout.PAGE_END); //adding to gui the button with his place
+                b.setBounds(620, 480, 70, 40);
+                
+                
+            };
+        };
+        r.run();
+    }
+
+    private void openNewRoundFunc(){
+
+        this.dispose();
+        new gameFrame(view, g).setVisible(true);
+}
     private void settingsAfterDeal(){
         String menu= "xxx2.png"; 
         ImageIcon x = new ImageIcon(getClass().getResource(menu));

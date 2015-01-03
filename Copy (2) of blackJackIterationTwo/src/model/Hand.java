@@ -21,7 +21,7 @@ public class Hand {
   	 */
 	public Hand(TypeOfHand typeOfHand) {
 		super();
-		this.code = ++serialNum;
+		this.setCode(++serialNum);
 		TypeOfHand = typeOfHand;
 		this.amountOfCards = 0;
 		this.cards = new ArrayList<>();
@@ -167,6 +167,14 @@ public class Hand {
                     //System.err.println("IT IS NOT LEGAL");
                     return false;
                 }
+	}
+
+	public int getCode() {
+		return code;
+	}
+
+	public void setCode(int code) {
+		this.code = code;
 	}
 	
 	

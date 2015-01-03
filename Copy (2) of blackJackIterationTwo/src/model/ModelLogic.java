@@ -34,7 +34,6 @@ public class ModelLogic implements Serializable  {
 	private int flag = 0;
 	
 	private Player player;
-        private int deckCounter;
         
         //private static ArrayList<Player> players;
 
@@ -119,7 +118,7 @@ public class ModelLogic implements Serializable  {
         
         public game startGame(){
  
-            this.deckCounter = 0;
+            //this.deckCounter = 0;
             ArrayList<Card> temp = sData.getCards();
         game g = new game(1, this.player, temp); // creating game 1
 		g.startGame();

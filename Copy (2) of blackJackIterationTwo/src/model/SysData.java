@@ -4,7 +4,6 @@
  */
 package model;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -60,12 +59,12 @@ public class SysData implements Serializable  {
         System.err.println("NOT NULL");
 		if(instance==null){
                     System.err.println("IMMMMMMMMMMMMMMMMMMMMMMMMMMMM//////////////////////");
-                        exists = true;
+                        setExists(true);
 			instance = new SysData(); // creating sysData instance  
 			return instance; // returning the instance of sData
 		}
         else{
-                    exists = true;
+                    setExists(true);
              return instance;
         }
 	}
@@ -262,6 +261,16 @@ public class SysData implements Serializable  {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+	}
+
+
+	public static boolean isExists() {
+		return exists;
+	}
+
+
+	public static void setExists(boolean exists) {
+		SysData.exists = exists;
 	}
  
 }

@@ -46,12 +46,16 @@ public class gameFrame extends javax.swing.JFrame {
         public ArrayList<JLabel> playersHand = new ArrayList<>() ;
         public ArrayList<JLabel> dealersHand = new ArrayList<>() ;
         Timer timer;
+        Timer timerForLoading;
         JToggleButton b = new JToggleButton("Start/Stop");// creating the 
         public int tellHimToStop = 0;
         public int flagNotShuffle = 0;
         game g = null;
         String dealClearMenuSrc= "xxx.png"; 
         ImageIcon dealClearImgIcon = new ImageIcon(getClass().getResource(dealClearMenuSrc));
+        JLabel loadingAnimation= new JLabel();
+                        //ImageIcon im = new ImageIcon(getClass().getResource("laoding.gif"));
+        ImageIcon load = new ImageIcon(getClass().getResource("laoding.gif"));
         
         //final JToggleButton deal = new JToggleButton("DEAL");// creating the button
         
@@ -437,7 +441,6 @@ public class gameFrame extends javax.swing.JFrame {
         dealBtn.setBounds(620, 490, 70, 30);
         jDesktopPane1.add(dealBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        cubsLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\Tal\\Desktop\\kobb.png")); // NOI18N
         cubsLabel.setText("jLabel1");
         cubsLabel.setBounds(970, 80, 180, 90);
         jDesktopPane1.add(cubsLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -748,26 +751,16 @@ public class gameFrame extends javax.swing.JFrame {
             homeLabel.add(newRecord);
             newRecord.setVisible(true);
         }
-        else
-        {
-             System.err.print("old record-----------------------------------------------"+view.checkNewRecord());
-            newRecord.setVisible(false);
-        }
         
         
         homeLabel.add(reviewLabel);
         homeLabel.add(scoreForRound);
         dealBtn.setVisible(true);
-        homeLabel.add(dealBtn);
-        
-        //jTextField1.setText(score);
-        
-        
-        
+        homeLabel.add(dealBtn);   
     }//GEN-LAST:event_clearBtnActionPerformed
 
     private void dealBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dealBtnActionPerformed
-        
+        System.err.println("DEAL BUTTON");
        /* this.dispose();
         new gameFrame(view, g).setVisible(true);*/
         jDesktopPane1.removeAll();
@@ -778,43 +771,28 @@ public class gameFrame extends javax.swing.JFrame {
         homeLabel.removeAll();
         homeLabel.setIcon(dealClearImgIcon);
         homeLabel.setVisible(true);
-        
-        JLabel loadingLabel= new JLabel("Loading...");
-        
-        loadingLabel.setBounds(590, 320, 200, 200);
-        loadingLabel.setForeground(Color.DARK_GRAY);
-        Font f = new Font("Serif", Font.BOLD, 24);
-        loadingLabel.setFont(f);
-        loadingLabel.setVisible(true);
-        
-        JLabel loadingAnimation= new JLabel();
-
-           ImageIcon good = new ImageIcon(getClass().getResource("laoding.gif"));
-            
-            loadingAnimation.setIcon(good);
-            loadingAnimation.setBounds(500,100, good.getIconWidth(), good.getIconHeight());
-            loadingAnimation.setVisible(true);
-            homeLabel.add(loadingAnimation);
-        //loadingRunAnimation();
-            homeLabel.add(loadingLabel);
-            
-        
-
+        loadingRunAnimation();
+        timerForLoading.start();
     }//GEN-LAST:event_dealBtnActionPerformed
 
     private void loadingRunAnimation(){ // loading to the next turn
-        
- 
+
         Runnable r = new Runnable() {
             
 
             @Override
             public void run() {
-                 JLabel loadingAnimation= new JLabel();
-                 ImageIcon good = new ImageIcon(getClass().getResource("laoding.gif"));
-                 loadingAnimation.setIcon(good);
-                 loadingAnimation.setBounds(500,100, good.getIconWidth(), good.getIconHeight());
-                 loadingAnimation.setVisible(true);
+                loadingAnimation.setIcon(load);
+                loadingAnimation.setBounds(500,100, load.getIconWidth(), load.getIconHeight());
+                loadingAnimation.setVisible(true);
+                homeLabel.add(loadingAnimation);
+                JLabel loadingLabel= new JLabel("Loading...");
+                loadingLabel.setBounds(590, 320, 200, 200);
+                loadingLabel.setForeground(Color.BLACK);
+                Font f = new Font("Serif", Font.BOLD, 24);
+                loadingLabel.setFont(f);
+                loadingLabel.setVisible(true);
+                homeLabel.add(loadingLabel);
 
                 ActionListener animate = new ActionListener() { 
                 
@@ -823,58 +801,32 @@ public class gameFrame extends javax.swing.JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                        
-                        ImageIcon im = new ImageIcon(getClass().getResource("laoding.gif"));
+                        
                         if (index<20) {
                         index++;
                         
                         } else {
-                                timer.stop();
+                                timerForLoading.stop();
                                 index=0;
                                 openNewRoundFunc();
-                               
-                                
-                                
-                                
-                            }
-                            
-                            }
-                            
-                        };  
-
-               timer = new Timer(15,animate);
-
-                //final JToggleButton b = new JToggleButton("Start/Stop");// creating the button
-                ActionListener startStop = new ActionListener() { // creating the action listener
-
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (b.isSelected()) { // if the button is selected
-                            timer.start();
-         
-                        } else {
-                            timer.stop();
-                            
                         }
                     }
                 };
-                b.addActionListener(startStop); // adding for the button b the action listener
-                
-                jToggleDealBtn.addActionListener(startStop);
-                homeLabel.add(jToggleDealBtn, BorderLayout.PAGE_END);
-                homeLabel.add(b, BorderLayout.PAGE_END); //adding to gui the button with his place
-                b.setBounds(620, 480, 70, 40);
-                
+                timerForLoading= new Timer(12,animate);
                 
             };
         };
         r.run();
     }
 
-    private void openNewRoundFunc(){
+    private void openNewRoundFunc(){ // openning a new round after loading
 
         this.dispose();
         new gameFrame(view, g).setVisible(true);
-}
+    }
+    
+    
+    
     private void settingsAfterDeal(){
         String menu= "xxx2.png"; 
         ImageIcon x = new ImageIcon(getClass().getResource(menu));
@@ -924,7 +876,6 @@ public class gameFrame extends javax.swing.JFrame {
          hitBtn.setVisible(true);
          homeLabel.add(hitBtn);
          }
-        // b.setVisible(false);
     }
     /**
      * @param args the command line arguments

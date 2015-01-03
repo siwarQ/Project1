@@ -8,12 +8,12 @@ public class Player implements Serializable {
 	 */
 	private static final long serialVersionUID = -6787079487402440625L;
 	//***************************************** Variables ******************************************
-	/**KEY field, player's ID*/
-	private String ID;
+	/**KEY field, player's passWord*/
+        private String passWord;
 	/**user name*/
 	private String userName;
 	/**password*/
-	private String passWord;
+	
 	/**players first name*/
 	private String firstName;
 	/**players last name*/
@@ -51,11 +51,10 @@ public class Player implements Serializable {
 	}
 	
 	
-	protected Player(String iD, String userName, String passWord,
+	protected Player( String userName, String passWord,
 			String firstName, String lastName, int maxScore,
 			int winningCounter, int loosingCounter) {
 		super();
-		ID = iD;
 		this.userName = userName;
 		this.passWord = passWord;
 		this.firstName = firstName;
@@ -70,21 +69,10 @@ public class Player implements Serializable {
 	}
 
 	//***************************************** GETTERS AND SETTERS******************************************
+
+
+
 	
-	/**
-	 * @return the iD
-	 */
-	protected String getID() {
-		return ID;
-	}
-
-
-	/**
-	 * @param iD the iD to set
-	 */
-	protected void setID(String iD) {
-		ID = iD;
-	}
 
 
 	/**
@@ -256,7 +244,7 @@ public class Player implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Player [ID=" + ID + ", userName=" + userName + ", passWord="
+		return "Player [userName=" + userName + ", passWord="
 				+ passWord + ", firstName=" + firstName + ", lastName="
 				+ lastName + ", maxScore=" + maxScore + ", winningCounter="
 				+ winningCounter + ", loosingCounter=" + loosingCounter + "]";

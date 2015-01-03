@@ -1,7 +1,6 @@
 package model;
 import java.util.ArrayList;
 import java.util.Collections;
-import static model.Round.getSerialNum;
 
 
 
@@ -22,8 +21,7 @@ public class Round {
 	private ArrayList<Card> deck;
         // boolean check
     private boolean check = true;
-    
-    private int status;
+  
 	
 	
 

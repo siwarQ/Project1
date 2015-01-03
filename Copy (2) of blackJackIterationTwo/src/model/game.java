@@ -291,6 +291,10 @@ public class game implements Serializable{
 		//adding them to each player and dealer's hand
 		Hand playerTemp = new Hand(TypeOfHand.User);
 		Hand dealer = new Hand(TypeOfHand.Dealer);
+		this.Deck.add(c1);
+		this.Deck.add(c2);
+		this.Deck.add(c3);
+		this.Deck.add(c4);
 		playerTemp.addCard(c1);
 		playerTemp.addCard(c2);
 		dealer.addCard(c3);
@@ -432,7 +436,10 @@ public class game implements Serializable{
 	}
 	
 	
-        
+     public boolean checkHighScore(int score)
+     {
+    	  return this.player.updateHighScore(score);
+     }
 	// this function calculaters total score for this game
 	public int calculateScoreForGame(){
 	
@@ -441,9 +448,9 @@ public class game implements Serializable{
 		System.err.println("what am i-------------------------"+this.getStatus());
 		//if (this.rounds.get(size).isCheck() || this.flag!=1 )
 		if (this.getStatus())
-		{	
-		 System.err.println("wonnnnnnnnnnnn");
+		{
 		 scoreForGame+=score;
+		 checkHighScore(scoreForGame);
 		 this.numOfWinnings++;
 		
 		}
@@ -451,23 +458,21 @@ public class game implements Serializable{
 		{
 			if (scoreForGame==0)
 			{
-				System.err.println("score 0");
-                                this.numOfLoses++;
+                this.numOfLoses++;
 				return scoreForGame;
 			}
 			else if (scoreForGame-score<0)
 			{
-				System.err.println("score minussssssssss");
 				scoreForGame=0;
 			}
 			else 
 			{
-				System.err.println("loserrrrrrrrrrrr");
 				scoreForGame-=score; 
 			}
 			this.numOfLoses++;
 						
 		}
+		System.err.println("Highest score************"+this.player.getMaxScore());
 		return scoreForGame;	
 	}
 	/**

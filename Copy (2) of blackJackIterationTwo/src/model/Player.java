@@ -3,40 +3,6 @@ package model;
 import java.io.Serializable;
 
 public class Player implements Serializable {
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((passWord == null) ? 0 : passWord.hashCode());
-		return result;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Player other = (Player) obj;
-		if (passWord == null) {
-			if (other.passWord != null)
-				return false;
-		} else if (!passWord.equals(other.passWord))
-			return false;
-		return true;
-	}
-
-
 	/**
 	 * 
 	 */
@@ -53,7 +19,7 @@ public class Player implements Serializable {
 	/**players last name*/
 	private String lastName;
 	/**max score of player*/
-	private int maxScore;
+	private int maxScore=0;
 	/**winning and loosing counters*/
 	private int winningCounter;
 	private int loosingCounter;
@@ -251,6 +217,38 @@ public class Player implements Serializable {
 	public void updateLosingCounter(){
 		this.loosingCounter++;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((passWord == null) ? 0 : passWord.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Player other = (Player) obj;
+		if (passWord == null) {
+			if (other.passWord != null)
+				return false;
+		} else if (!passWord.equals(other.passWord))
+			return false;
+		return true;
+	}
+
 
 
 	/* (non-Javadoc)

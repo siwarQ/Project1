@@ -198,8 +198,8 @@ public Card  hit(){
                     System.err.println("The sum of cards after hit: "+this.PlayerHand.getAmountOfCards());
                    }
                 
-                
-                return c;
+              this.deck.add(c);
+              return c;
 		
 	}
 
@@ -222,7 +222,7 @@ public ArrayList<Card> stand(){
     }
     
     setCheck(false);
-    
+    this.deck.add(c);
     return dealerCards;
 }
 

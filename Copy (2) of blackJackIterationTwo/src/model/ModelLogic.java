@@ -55,7 +55,6 @@ public class ModelLogic implements Serializable  {
 	 */
 	public static ModelLogic getInstance() {
 		if(! exists){
-                    System.err.println("IMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
 			sData = SysData.getInstance(); // creating the sDatat instance
 			
 			if(sData != null){ 
@@ -92,7 +91,7 @@ public class ModelLogic implements Serializable  {
           SysData.executeInput();
           for (Player p: sData.getPlayers() ){
               if (p.getUserName().equals(player.getUserName()) && p.getPassWord().equals(player.getPassWord())){
-                  System.err.println("FOUND ONEEEEEEEEEEEEEEEEEE: " + p.toString());
+                  this.player=p;
                   return p;
               }
               
@@ -123,6 +122,7 @@ public class ModelLogic implements Serializable  {
             this.deckCounter = 0;
             ArrayList<Card> temp = sData.getCards();
         game g = new game(1, this.player, temp); // creating game 1
+        System.err.println("thhhhhhhhhhhhhheeeee plaaaaaayerrrrrr"+this.player.toString());
 		//g.setDeck(sData.getCards()); // setting the deck to the one returning from getCards() func
 		g.startGame();
                 //System.err.print(g.toString());

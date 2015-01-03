@@ -1,7 +1,13 @@
 package model;
 
+import java.io.Serializable;
 
-public class Card {
+
+public class Card implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8115462181311711822L;
 	//HELLO LEE
 	// hello leee
 	//hello siwar

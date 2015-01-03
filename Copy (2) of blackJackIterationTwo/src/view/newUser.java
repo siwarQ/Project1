@@ -13,14 +13,9 @@ import javax.swing.JOptionPane;
  */
 public class newUser extends javax.swing.JFrame {
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	/**
-     * Creates new form newUser
-     */
-    
+
+	private static final long serialVersionUID = 5601289102658046667L;
+
     private ViewLogic view;
     
     public newUser(ViewLogic v) {
@@ -144,7 +139,9 @@ public class newUser extends javax.swing.JFrame {
         {
            if (view.addNewUser(userNameTxt.getText(),passTxt.getText(),firstNameTxt.getText(),lastNameTxt.getText()))
            {
-             JOptionPane.showMessageDialog(this, "Registration was successful! Enjoy the game :)","", JOptionPane.YES_OPTION);  
+             view.executeSysExit();
+           JOptionPane.showMessageDialog(this, "Information saved :)","Message",JOptionPane.INFORMATION_MESSAGE);
+           //System.exit(0);
            }
            else
            {

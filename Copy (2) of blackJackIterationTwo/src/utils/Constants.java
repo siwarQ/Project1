@@ -10,7 +10,7 @@ package utils;
  */
 public final class Constants {
     
-    public final static String FILENAME = "SData2.ser";
+    public final static String FILENAME = "./players.ser";
     
     
 }

@@ -16,10 +16,13 @@ public class MainFrameDESK extends javax.swing.JFrame {
     /**
 	 * 
 	 */
+	private static final long serialVersionUID = -2731163289150296331L;
+	/**
+	 * 
+	 */
     
     private ViewLogic view;
     private  Player p;
-	private static final long serialVersionUID = 1L;
 	/**
      * Creates new form NewJFrame2
      */
@@ -53,6 +56,11 @@ public class MainFrameDESK extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
@@ -131,6 +139,7 @@ public class MainFrameDESK extends javax.swing.JFrame {
        }
         if (checkPlayer())
         {
+            view.executeSysExit();
        gameFrame game = new gameFrame(view,p);
        game.setVisible(true);
        this.setVisible(false);
@@ -151,10 +160,15 @@ public class MainFrameDESK extends javax.swing.JFrame {
         // TODO add your handling code here:
        newUser nu = new newUser(view);
        nu.setVisible(true);
+       view.executeSysExit();
        
      
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosed
 
     private boolean checkPlayer()
     {
@@ -163,7 +177,9 @@ public class MainFrameDESK extends javax.swing.JFrame {
         Player checking = view.checkLogIn(userName, passWord);
         if (checking!=null){
             p=checking;
+            view.executeSysExit();
             return true;
+            
         }
         else
             return false; 

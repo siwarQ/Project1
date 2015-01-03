@@ -23,6 +23,10 @@ import model.game;
 
 
 public class ViewLogic implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9038452627289746649L;
 	//***************************************** Variables *********************************************
 	/**Singleton instance of this class, loaded on the first execution of ViewLogic.getInstance()*/
 	private static ViewLogic instance;
@@ -33,7 +37,6 @@ public class ViewLogic implements Serializable {
     /** MainFrameDESK reference pointer*/
     private MainFrameDESK mf;
     /**Serilizing ViewLogic class*/
-	private static final long serialVersionUID = 1L;
 
 	//***************************************** Constructors ******************************************
 	/**
@@ -57,6 +60,11 @@ public class ViewLogic implements Serializable {
 			}
 		return null;
 	}
+    
+    public void executeSysExit()
+        {
+            controller.executeSysExit();
+        }
     
    
         

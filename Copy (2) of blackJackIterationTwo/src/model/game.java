@@ -1,11 +1,16 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import utils.MyFileLogWriter;
 
-public class game {
+public class game implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8461086951674612269L;
 	//***************************************** Variables ******************************************
 	/**KEY field, Game's serialNumber*/
 	private int serialNumber;

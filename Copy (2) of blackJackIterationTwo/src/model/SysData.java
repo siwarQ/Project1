@@ -4,7 +4,6 @@
  */
 package model;
 
-import controller.systemManager;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -25,15 +24,20 @@ public class SysData implements Serializable  {
 	 /**
 	 * 
 	 */
+	private static final long serialVersionUID = 3482080340125280481L;
+	/**
+	 * 
+	 */
 	//***************************************** Variables *********************************************
 	/**Singleton instance of this class, loaded on the first execution of SysData.getInstance()*/  
 	private static SysData instance;
 	/**serlizing the sysData class*/
-	private static final long serialVersionUID = 1L;	
+        
+        private static boolean exists = false;
 	/**Stores all the players*/
-	private static ArrayList<Player> players= new ArrayList<>(); 
+	private static ArrayList<Player> players;
 	/**Stores all the cards*/
-        private  ArrayList<Card> cards;
+        private static  ArrayList<Card> cards;
         
         private game currentGame;
     
@@ -43,20 +47,25 @@ public class SysData implements Serializable  {
 	 * Full C'tor, for singleton support. 
 	 */
     private SysData(){
-        players = new ArrayList<>();
+     //   players = new ArrayList<Player>();
         cards= new ArrayList<Card>();
+        System.err.println("IM IN THE CONSTRUCTORRRRRR");
+      //  players.add(new Player("aaa", "111"));
       
     }
 
 
     protected static SysData getInstance() {
         executeInput(); // creating the output file
+        System.err.println("NOT NULL");
 		if(instance==null){
-			instance = new SysData(); // creating sysData instance
-                         //players = new ArrayList<>();  
+                    System.err.println("IMMMMMMMMMMMMMMMMMMMMMMMMMMMM//////////////////////");
+                        exists = true;
+			instance = new SysData(); // creating sysData instance  
 			return instance; // returning the instance of sData
 		}
         else{
+                    exists = true;
              return instance;
         }
 	}
@@ -64,7 +73,7 @@ public class SysData implements Serializable  {
     
     
          
-        public Player checkLogIn(String name, String passWord){ //////////////////////////////////////////////////////////////
+       /* public Player checkLogIn(String name, String passWord){ //////////////////////////////////////////////////////////////
                   Player p1= new Player("leew", "100", "lee", "amiel");
                   System.err.println(p1.toString());
                   players.add(p1);
@@ -79,12 +88,15 @@ public class SysData implements Serializable  {
         	}
         	System.err.println("no players");
         	return null;      	
-        }
+        }*/
       public boolean addNewUser( String userName, String pass, String firstName, String lastName)
          {
              Player p = new Player(userName, pass, firstName, lastName);
-             if ( players.add(p))
+             executeOutput();
+             if ( players.add(p)){
+                 
                  return true;
+             }
              else
                  return false;
          }
@@ -167,7 +179,7 @@ public class SysData implements Serializable  {
 	 * @param ArrayList<Card> arr
 	 */
      public void setCards(ArrayList<Card> arr) {
-    	 this.cards =arr ;
+    	 SysData.cards =arr ;
 	}
 	/**
 	 * @return the players
@@ -183,30 +195,70 @@ public class SysData implements Serializable  {
      * Creating output input file
      */ 
 
-	protected static void executeInput() {
-		
-        File f = new File(Constants.FILENAME);
-        if (f.exists()) {
-            try {
-                FileInputStream fis = new FileInputStream(Constants.FILENAME);
-                ObjectInputStream in = new ObjectInputStream(fis);
-                instance = (SysData) in.readObject();
-                in.close();
-                fis.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            } catch (ClassNotFoundException ex) {
-                ex.printStackTrace();
-            }
-        } 
+	 public static void executeInput() {
+		// TODO Auto-generated method stub      //<<<--- for 3rd HW.
+            
+                //    File f = new File(Constants.FILENAME);
+                    players = new ArrayList<>();
+                    
+    	try
+    	{
+    		FileInputStream fileIn = new FileInputStream(Constants.FILENAME);
+    		ObjectInputStream in = new ObjectInputStream(fileIn);
+    		Object obj = in.readObject();
+    		if(obj instanceof ArrayList<?>){
+    			ArrayList<?> al = (ArrayList<?>) obj;
+    			for(int i=0; i<al.size();i++){
+    				Object o = al.get(i);
+    				if(o instanceof Player)
+    				{
+                                    System.err.println(((Player) o).toString());
+                                    players.add((Player) o);
+    				}
+    			}
+    		}
+    		in.close();
+    		fileIn.close();
+    	}catch(IOException i)
+    	{
+    		i.printStackTrace();
+    		return;
+    	}catch(ClassNotFoundException c)
+    	{
+    		System.out.println("Users Array not found");
+    		c.printStackTrace();
+    		return;
+    	}
+                    
+        /*
+               FileInputStream fis = new FileInputStream(Constants.FILENAME) ;
+                    ObjectInputStream in = new ObjectInputStream(fis);
+                    Object obj = in.readObject();
+                        if(obj instanceof ArrayList<?>){
+                                ArrayList<?> al = (ArrayList<?>) obj;
+                                for(int i=0; i<al.size();i++){
+                                        Object o = al.get(i);
+                                        if(o instanceof Player) 
+                                        {
+                                                players.add((Player) o);
+                                        }
+                                }
+                        }
+                        
+                    //instance = (SysData) in.readObject();
+                    in.close();
+                    fis.close();
+           
+        } */
 	}
 
-	public void executeOutput() {				
+	public void executeOutput() {				//<<<--- for 3rd HW.
 	        try {
             FileOutputStream fos = new FileOutputStream(Constants.FILENAME);
             ObjectOutputStream out = new ObjectOutputStream(fos);
-            out.writeObject(instance);
+            out.writeObject(players);
             out.close();
+            fos.close();
         } catch (IOException ex) {
             ex.printStackTrace();
         }

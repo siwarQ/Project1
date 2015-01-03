@@ -16,7 +16,10 @@ public class wainFrame extends javax.swing.JFrame {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 5416264658769530503L;
+	/**
+	 * 
+	 */
 	private ViewLogic view;
     private game g;
 

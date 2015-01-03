@@ -16,6 +16,10 @@ import utils.MyFileLogWriter;
  */
 public class ModelLogic implements Serializable  {
     	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2421267785539300695L;
 	//***************************************** Variables *********************************************
 	/**Singleton instance of this class, loaded on the first execution of ModelLogic.getInstance()*/
 	private static ModelLogic instance;
@@ -24,15 +28,15 @@ public class ModelLogic implements Serializable  {
 	/**SysData reference pointer*/
 	private static SysData sData ; 
 	/**Serilizing the ModelLogic class*/
-	private static final long serialVersionUID = 1L;
 	/** the current game */
 	private game currentGame;
 	/** indication of winning */
 	private int flag = 0;
 	
 	private Player player;
+        private int deckCounter;
         
-        private static ArrayList<Player> players;
+        //private static ArrayList<Player> players;
 
 	//***************************************** Constructors ******************************************
 	/**
@@ -51,14 +55,17 @@ public class ModelLogic implements Serializable  {
 	 */
 	public static ModelLogic getInstance() {
 		if(! exists){
+                    System.err.println("IMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
 			sData = SysData.getInstance(); // creating the sDatat instance
 			
 			if(sData != null){ 
 				sData.buildCards(); // activating the biulding cards function
                                 
-				SysData.executeInput(); // creating the input file
+				//sData.executeInput();
 				exists = true; // accessing this func may be done only once
 				instance  = new ModelLogic(); // creating the model logic instance
+                                
+                               // SysData.executeInput(); // creating the input file
 				return instance; // returning model logic instance
 			}
 		}return null;
@@ -80,15 +87,42 @@ public class ModelLogic implements Serializable  {
         
         
       public Player checkLogIn(String name, String passWord){
-          this.player = sData.checkLogIn(name, passWord);
-        return  this.player;
+          
+          Player player = new Player(name,passWord);
+          SysData.executeInput();
+          for (Player p: sData.getPlayers() ){
+              if (p.getUserName().equals(player.getUserName()) && p.getPassWord().equals(player.getPassWord())){
+                  System.err.println("FOUND ONEEEEEEEEEEEEEEEEEE: " + p.toString());
+                  return p;
+              }
+              
+              
+          }
+         // this.player = sData.checkLogIn(name, passWord);
+        return  null;
       }
+      
+      
         public boolean addNewUser( String userName, String pass, String firstName, String lastName)
          {
-             return sData.addNewUser(userName, pass, firstName, lastName);
+             // public boolean addNewUser( String userName, String pass, String firstName, String lastName)
+         
+             Player p = new Player(userName, pass, firstName, lastName);
+           //  sData.getPlayers().add(p);
+             if ( sData.getPlayers().add(p)){
+                 sData.executeOutput();
+                 return true;
+             }
+             else
+                 return false;
+         //return sData.addNewUser(userName, pass, firstName, lastName);
          }
+        
         public game startGame(){
-        game g = new game(1, this.player, sData.getCards()); // creating game 1
+            System.err.println("SIZE: -------------------"+sData.getCards().size());
+            this.deckCounter = 0;
+            ArrayList<Card> temp = sData.getCards();
+        game g = new game(1, this.player, temp); // creating game 1
 		//g.setDeck(sData.getCards()); // setting the deck to the one returning from getCards() func
 		g.startGame();
                 //System.err.print(g.toString());
@@ -99,7 +133,10 @@ public class ModelLogic implements Serializable  {
         
         
         public void nextRound(){
-        	this.currentGame.setDeck(sData.getCards()); // setting the first deck for a new round
+            System.err.println();
+            System.err.println("SIZE: -------------------"+sData.getCards().size());
+            ArrayList<Card> temp = sData.getCards();
+        	this.currentGame.setDeck(temp); // setting the first deck for a new round
         	this.currentGame.startGame();
             this.currentGame.setCounterOfRounds(this.currentGame.getCounterOfRounds()+1);
 

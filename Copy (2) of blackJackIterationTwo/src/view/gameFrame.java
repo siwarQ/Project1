@@ -33,7 +33,10 @@ public class gameFrame extends javax.swing.JFrame {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -6580542711963684128L;
+		/**
+	 * 
+	 */
         /**view logic instance */
         private ViewLogic view;
         private  Player p;
@@ -393,6 +396,20 @@ public class gameFrame extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        jDesktopPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jDesktopPane1MouseExited(evt);
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/xxx.png"))); // NOI18N
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -652,6 +669,18 @@ public class gameFrame extends javax.swing.JFrame {
     private void jToggleDealBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleDealBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleDealBtnActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosing
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+ view.executeSysExit();        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosed
+
+    private void jDesktopPane1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDesktopPane1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jDesktopPane1MouseExited
 
     private void settingsAfterDeal(){
         String menu= "xxx2.png"; 

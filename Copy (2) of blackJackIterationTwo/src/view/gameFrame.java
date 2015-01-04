@@ -441,8 +441,9 @@ public class gameFrame extends javax.swing.JFrame {
         dealBtn.setBounds(620, 490, 70, 30);
         jDesktopPane1.add(dealBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        cubsLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/cubss.png"))); // NOI18N
         cubsLabel.setText("jLabel1");
-        cubsLabel.setBounds(970, 80, 180, 90);
+        cubsLabel.setBounds(940, 80, 250, 100);
         jDesktopPane1.add(cubsLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         homeLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/xxx.png"))); // NOI18N

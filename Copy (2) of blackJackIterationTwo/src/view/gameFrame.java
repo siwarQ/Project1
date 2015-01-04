@@ -15,6 +15,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -40,6 +43,7 @@ public class gameFrame extends javax.swing.JFrame {
 	 * 
 	 */
         /**view logic instance */
+        private int flagForNewRound = 0;
         private ViewLogic view;
         private  Player p;
         private int cardAfterDeal = 0;
@@ -80,7 +84,7 @@ public class gameFrame extends javax.swing.JFrame {
          this.setResizable(false);
          
       
-        
+        jButton1.setVisible(false);
          
         playersHand = new ArrayList<>() ;
         dealersHand = new ArrayList<>() ;
@@ -114,6 +118,7 @@ public class gameFrame extends javax.swing.JFrame {
         view = v;
         g=gi;
         //backCard = null;
+        jButton1.setVisible(false);
         //setting label design
          this.setResizable(false);
          dealBtn.setVisible(false);
@@ -144,10 +149,15 @@ public class gameFrame extends javax.swing.JFrame {
         //jButton1.setBackground(Color.GREEN.darker());
       
     }
+      
+      private void doIt (){
+          cardAfterDeal =0;
+         tellHimToStop = 0;
+         flagNotShuffle = 0;
+      }
     
     //siwar
        private void runAnimation(){
-
         hitBtn.setText("");
  
         Runnable r = new Runnable() {
@@ -169,8 +179,16 @@ public class gameFrame extends javax.swing.JFrame {
 
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                       
                         ImageIcon im = new ImageIcon(getClass().getResource("hiddenCard.jpg"));
+                       if (flagForNewRound ==1){ // oppening new round
+                        
+                        animation.setIcon(im);
+                        animation.setBounds(800, 120, im.getIconHeight(), im.getIconWidth());
+                        animation.setVisible(true);
+                        homeLabel.add(animation, BorderLayout.CENTER);// adding the first label to the center
+                        tellHimToStop = 0;
+                        flagForNewRound = 0;
+                       }
                         if (index<20) {
                         index++;
                         if (whichWay == 0){
@@ -224,8 +242,8 @@ public class gameFrame extends javax.swing.JFrame {
                                 animation.setVisible(false);
                                 timer.stop();
                                 settingsAfterDeal();
-                                
-                                
+                                timer.removeActionListener(this);
+                                whichWay =0;   
                             }
                             b.setVisible(false);
                         }   
@@ -246,6 +264,7 @@ public class gameFrame extends javax.swing.JFrame {
                         }
                     }
                 };
+                
                 b.addActionListener(startStop); // adding for the button b the action listener
                 
                 jToggleDealBtn.addActionListener(startStop);
@@ -268,6 +287,7 @@ public class gameFrame extends javax.swing.JFrame {
                 homeLabel.add(jTextField1);
                 jTextField2.setVisible(true);
                 homeLabel.add(jTextField2);
+
             }
         };
         r.run();
@@ -400,6 +420,7 @@ public class gameFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
+        jButton1 = new javax.swing.JButton();
         dealBtn = new javax.swing.JButton();
         cubsLabel = new javax.swing.JLabel();
         homeLabel = new javax.swing.JLabel();
@@ -432,6 +453,15 @@ public class gameFrame extends javax.swing.JFrame {
                 jDesktopPane1MouseExited(evt);
             }
         });
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jButton1.setBounds(620, 490, 73, 23);
+        jDesktopPane1.add(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         dealBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -568,6 +598,20 @@ public class gameFrame extends javax.swing.JFrame {
         homeLabel.add(JDealer);
         JDealer.setVisible(true); 
     }
+    
+    private void makeSound(String mySound)
+    {
+        try
+        {
+        InputStream input = getClass().getResourceAsStream(mySound);
+        AudioInputStream audioIn = AudioSystem.getAudioInputStream(input);
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioIn);  
+        clip.start();
+          } catch (Exception ex) {
+                Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
+          }
+    }
     private void hitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hitBtnActionPerformed
         // TODO add your handling code here:
         
@@ -578,12 +622,8 @@ public class gameFrame extends javax.swing.JFrame {
         settingStringsOfArr("playersHand");//setting the card's labels
         
         if (view.checkWin()== -1){ 
-             try {
-                InputStream in;
-//                in = new FileInputStream("C:\\Users\\Lee\\git\\Project1\\Copy (2) of blackJackIterationTwo\\src\\view\\lost.wav");
-               in = this.getClass().getResourceAsStream("../Sounds/lost.wav");
-                AudioStream a = new AudioStream(in);
-                AudioPlayer.player.start(a);
+             
+            makeSound("../Sounds/lost.wav");
              ImageIcon test1 = new ImageIcon(getClass().getResource("bust.gif"));
              view.setStatus(false);
             jplayerStatus.setIcon(test1);
@@ -598,17 +638,11 @@ public class gameFrame extends javax.swing.JFrame {
             clearBtn.setVisible(true);
             homeLabel.add(clearBtn);
             return;
-              } catch (Exception ex) {
-                Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
         }
         if (view.checkWin()== 1){
-            try {
-                InputStream in;
-              //  in = new FileInputStream("C:\\Users\\Lee\\git\\Project1\\Copy (2) of blackJackIterationTwo\\src\\view\\Ta Da1.wav");
-                in = this.getClass().getResourceAsStream("../Sounds/Ta Da1.wav");
-                AudioStream a = new AudioStream(in);
-                AudioPlayer.player.start(a);
+             
+                makeSound("../Sounds/Ta Da1.wav");
                 ImageIcon test = new ImageIcon(getClass().getResource("win5.gif"));
                 view.setStatus(true);
                 jplayerStatus.setIcon(test);
@@ -621,9 +655,6 @@ public class gameFrame extends javax.swing.JFrame {
                 settingTranspert(clearBtn);
                 clearBtn.setVisible(true);
                 homeLabel.add(clearBtn);
-            } catch (Exception ex) {
-                Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
         
         ///LEE
@@ -652,12 +683,7 @@ public class gameFrame extends javax.swing.JFrame {
         }
         settingStringsOfArr("dealersHand");
         if (view.checkWin() == 1){
-               try {
-                InputStream in;
-              //  in = new FileInputStream("C:\\Users\\Lee\\git\\Project1\\Copy (2) of blackJackIterationTwo\\src\\view\\Ta Da1.wav");
-                 in = this.getClass().getResourceAsStream("../Sounds/Ta Da1.wav");
-                 AudioStream a = new AudioStream(in);
-                AudioPlayer.player.start(a);
+            makeSound("../Sounds/Ta Da1.wav");
             ImageIcon test = new ImageIcon(getClass().getResource("win5.gif"));
             view.setStatus(true);
             jplayerStatus.setIcon(test);
@@ -670,9 +696,6 @@ public class gameFrame extends javax.swing.JFrame {
             settingTranspert(clearBtn);
             clearBtn.setVisible(true);
             homeLabel.add(clearBtn);
-             } catch (Exception ex) {
-                Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
         if (view.checkWin() == -1){
             System.err.println("Dealer wins");
@@ -762,8 +785,6 @@ public class gameFrame extends javax.swing.JFrame {
 
     private void dealBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dealBtnActionPerformed
         System.err.println("DEAL BUTTON");
-       /* this.dispose();
-        new gameFrame(view, g).setVisible(true);*/
         jDesktopPane1.removeAll();
         jDesktopPane1.revalidate();
         jDesktopPane1.repaint();
@@ -775,6 +796,15 @@ public class gameFrame extends javax.swing.JFrame {
         loadingRunAnimation();
         timerForLoading.start();
     }//GEN-LAST:event_dealBtnActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        //tellHimToStop = 0;
+        flagForNewRound =1;
+        runAnimation();
+        jButton1.setVisible(false);
+        //doIt();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void loadingRunAnimation(){ // loading to the next turn
 
@@ -809,6 +839,7 @@ public class gameFrame extends javax.swing.JFrame {
                         } else {
                                 timerForLoading.stop();
                                 index=0;
+                                timerForLoading.removeActionListener(this);
                                 openNewRoundFunc();
                         }
                     }
@@ -822,8 +853,21 @@ public class gameFrame extends javax.swing.JFrame {
 
     private void openNewRoundFunc(){ // openning a new round after loading
 
-        this.dispose();
-        new gameFrame(view, g).setVisible(true);
+        /*this.dispose();
+        new gameFrame(view, g).setVisible(true);*/
+        jDesktopPane1.removeAll();
+        jDesktopPane1.revalidate();
+        jDesktopPane1.repaint();
+        
+        jDesktopPane1.add(homeLabel);
+        homeLabel.removeAll();
+        homeLabel.setIcon(new ImageIcon(getClass().getResource("xxx.png")));
+        jButton1.setVisible(true);
+         
+        homeLabel.setVisible(true);
+        homeLabel.add(jButton1);
+        homeLabel.add(cubsLabel);
+       
     }
     
     
@@ -850,12 +894,7 @@ public class gameFrame extends javax.swing.JFrame {
         JDealer.setVisible(true);
         
          if (view.checkWinOnStart()== 1){
-             try {
-             InputStream in;
-            // in = new FileInputStream("C:\\Users\\Lee\\git\\Project1\\Copy (2) of blackJackIterationTwo\\src\\view\\Ta Da1.wav");
-             in = this.getClass().getResourceAsStream("../Sounds/Ta Da1.wav");
-             AudioStream a = new AudioStream(in);
-             AudioPlayer.player.start(a); 
+             makeSound("../Sounds/Ta Da1.wav");
             ImageIcon test = new ImageIcon(getClass().getResource("win5.gif"));
              view.setStatus(true);
             jplayerStatus.setIcon(test);
@@ -868,9 +907,6 @@ public class gameFrame extends javax.swing.JFrame {
             settingTranspert(clearBtn);
             clearBtn.setVisible(true);
             homeLabel.add(clearBtn);
-              } catch (Exception ex) {
-                Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
          else
          {
@@ -890,6 +926,7 @@ public class gameFrame extends javax.swing.JFrame {
     private javax.swing.JButton dealBtn;
     private javax.swing.JButton hitBtn;
     private javax.swing.JLabel homeLabel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jDealerStatus;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel6;

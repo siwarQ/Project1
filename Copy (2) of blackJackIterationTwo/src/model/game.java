@@ -270,28 +270,30 @@ public class game implements Serializable{
       protected void setwinOnStart(int winOnStart ) {
 	this.winOnStart =winOnStart;
 }
-      //siwar
-     // this function starts the game
+  
+      /**
+  	 * @param the function starts the game
+  	 */
     protected game startGame(){
 
   	this.OpenRound(); // openning a new round
   	this.Deal(); // activating DEAL FUNCTION
-        return this; // returning the game which created
+     return this; // returning the game which created
       }
-	
-	// this function opens a new round and calls the shuffle function 
+    /**
+  	 * @param the function opens a new round and calls the shuffle function
+  	 */
 	public void OpenRound(){
-            this.winOnStart = 0;
+        this.winOnStart = 0;
 		Round r = new Round(); ///// you must enter dealer hand and player hand
-		this.Deck=r.shuffle(this.Deck);	
-                
+		this.Deck=r.shuffle(this.Deck);	         
 		this.rounds.add(r);
-                
-		
+                	
 	}
 	
-	
-	// This function gives both the dealer and the player two cards
+	 /**
+  	 * @param the function gives both the dealer and the player two cards
+  	 */
 	public void Deal(){
 		//saving all cards for the first iteration
 		Card c1 = this.Deck.remove(0); 
@@ -318,8 +320,7 @@ public class game implements Serializable{
 		//setting the dealer's and players hand
 		rounds.get(sizeOfCurrentRound).setDealerHand(dealer);
 		rounds.get(sizeOfCurrentRound).setPlayerHand(playerTemp);
-                
-                
+                       
                 
         // for the tests in the first itiration
         System.out.println("Test for the results after shuffling the deck -> two cards for player and two for the dealer: ");
@@ -327,21 +328,15 @@ public class game implements Serializable{
 		System.out.println("Dealer:"+rounds.get(sizeOfCurrentRound).getDealerHand().toString());
 		System.out.println("Player:"+rounds.get(sizeOfCurrentRound).getPlayerHand().toString());
         System.out.println();
-        //this.sizeOfCurrentRound++;
 		
 	}
 	
-
+	 /**
+  	 * @param the hit function - give player another card
+  	 */
 	public String hitFunc(){
-
-        //SIWAR 
-        System.err.println("ENTERRING HIT FUNC");
 	Card card;
-            //System.err.println("size of array: "+ this.currentGame.toString());
-            System.err.println("size of round: "+this.getRounds().size());
 	Round round = this.getRounds().get(this.sizeOfCurrentRound);
-	
-	
 	card = round.hit();
 	this.amountOfPlayerCards = round.getPlayerHand().getAmountOfCards();
             
@@ -376,9 +371,10 @@ public class game implements Serializable{
             return card.getImage();
 	}
 	
-	public ArrayList<String> standFunc(){
-        //siwar
-           
+	 /**
+  	 * @param the function let the dealer to play and stop the game for player
+  	 */
+	public ArrayList<String> standFunc(){    
            ArrayList<String> arr = new ArrayList<>();
            ArrayList<Card> dealerCards = new ArrayList<>();
            Round round = this.getRounds().get(this.sizeOfCurrentRound);
@@ -392,8 +388,6 @@ public class game implements Serializable{
            // get the amount of dealer cards in order to check it and compare it to the player's amount of cards
            this.amountOfPlayerCards = round.getPlayerHand().getAmountOfCards();
            this.amountOfDealerCards = round.getDealerHand().getAmountOfCards();
-           System.err.println("the player's sum: "+ this.amountOfPlayerCards);
-           System.err.println("the dealer's sum: "+ this.amountOfDealerCards);
            //if the dealer's amount of cards is more than 21: the dealer loses
            if (this.amountOfDealerCards  > 21){
                this.flag = 1;
@@ -412,7 +406,9 @@ public class game implements Serializable{
            return arr;
        }
 	
-	
+	 /**
+  	 * @param the function get array of player hand
+  	 */
 	public ArrayList<String> PlayerHand(){
         Round round = this.getRounds().get(this.sizeOfCurrentRound);
         ArrayList<String> arr = new ArrayList<>();
@@ -422,6 +418,9 @@ public class game implements Serializable{
         return arr ;
     }
     
+	 /**
+  	 * @param the function get array of dealer hand
+  	 */
     public ArrayList<String> DealerHand(){
         Round round = this.getRounds().get(this.sizeOfCurrentRound);
         ArrayList<String> arr = new ArrayList<>();
@@ -445,7 +444,9 @@ public class game implements Serializable{
 				+ ", sizeOfCurrentRound=" + sizeOfCurrentRound + "]";
 	}
 	
-	
+	/**
+  	 * @param the function check if the player has new record. if so-return true.else false.
+  	 */
      public boolean checkHighScore(int score)
      {
          if (this.player.updateHighScore(score)){
@@ -453,7 +454,9 @@ public class game implements Serializable{
          }
     	  return false;
      }
-	// this function calculaters total score for this game
+     /**
+   	 * @param this function calculaters total score.
+   	 */
 	public int calculateScoreForGame(){
 	
 		int size =this.rounds.size()-1;
@@ -461,8 +464,8 @@ public class game implements Serializable{
 		if (this.getStatus())
 		{
 		 scoreForGame+=score;
-                 boolean t =checkHighScore(scoreForGame);	 
-                 this.setNewRecord(t);
+         boolean t =checkHighScore(scoreForGame);	 
+         this.setNewRecord(t);
 		 this.numOfWinnings++;
 		
 		}

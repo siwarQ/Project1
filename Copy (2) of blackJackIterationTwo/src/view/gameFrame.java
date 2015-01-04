@@ -218,6 +218,7 @@ public class gameFrame extends javax.swing.JFrame {
                                 
                                 setFirstCardsPlayer(0);
                                 animation.setVisible(false);
+                                  makeSound("../Sounds/cardPlace2.wav");
                                 timer.stop();
                                 index=0;
                                 
@@ -225,6 +226,7 @@ public class gameFrame extends javax.swing.JFrame {
                             if (tellHimToStop==2){
                                 setFirstCardsPlayer(1);
                                 animation.setVisible(false);
+                                makeSound("../Sounds/cardPlace2.wav");
                                 timer.stop();
                                 whichWay=1;
                                 index=0;
@@ -233,6 +235,7 @@ public class gameFrame extends javax.swing.JFrame {
                             if (tellHimToStop==3){
                                 setFirstCardsDealer(0);
                                 animation.setVisible(false);
+                                 makeSound("../Sounds/cardPlace2.wav");
                                 timer.stop();
                                 index=0;
                                 
@@ -240,6 +243,7 @@ public class gameFrame extends javax.swing.JFrame {
                             if (tellHimToStop==4){
                                 setFirstCardsDealer(1);
                                 animation.setVisible(false);
+                                 makeSound("../Sounds/cardPlace2.wav");
                                 timer.stop();
                                 settingsAfterDeal();
                                 timer.removeActionListener(this);
@@ -614,11 +618,9 @@ public class gameFrame extends javax.swing.JFrame {
     }
     private void hitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hitBtnActionPerformed
         // TODO add your handling code here:
-        
-        //SIWAR
-         // HIT FUNCTION
+
         String s = view.hitButton(); // getting next card
-        System.err.println("what is the card after hit button: "+s);
+        makeSound("../Sounds/cardPlace2.wav");
         settingStringsOfArr("playersHand");//setting the card's labels
         
         if (view.checkWin()== -1){ 
@@ -799,11 +801,11 @@ public class gameFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        //tellHimToStop = 0;
+     
         flagForNewRound =1;
         runAnimation();
         jButton1.setVisible(false);
-        //doIt();
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void loadingRunAnimation(){ // loading to the next turn

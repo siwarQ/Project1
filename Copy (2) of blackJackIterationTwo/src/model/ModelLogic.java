@@ -34,8 +34,6 @@ public class ModelLogic implements Serializable  {
 	private int flag = 0;
 	
 	private Player player;
-        
-        //private static ArrayList<Player> players;
 
 	//***************************************** Constructors ******************************************
 	/**
@@ -72,18 +70,29 @@ public class ModelLogic implements Serializable  {
         
 	
 	//***************************************** CRUD Methods ******************************************
-    
+	/**
+	 * 
+	 * @param get the array of cards
+	 */
         public ArrayList<Card> getCards(){
             return sData.getCards(); // returning the deck ready for dealing
         }
         
+        
+        /**
+    	 * 
+    	 * @param set status for game- if the player won - true,else false.
+    	 */
         public void setStatus(boolean s)
         {
         this.currentGame.setStatus(s);	
         }
         
         
-        
+        /**
+    	 * 
+    	 * @param get name and password of player and check if the player exists. if so return the player.
+    	 */ 
       public Player checkLogIn(String name, String passWord){
           
           Player player = new Player(name,passWord);
@@ -96,37 +105,40 @@ public class ModelLogic implements Serializable  {
               
               
           }
-         // this.player = sData.checkLogIn(name, passWord);
         return  null;
       }
       
-      
+      /**
+  	 * 
+  	 * @param add new user to the players of the game. return true if the player was added succesfully.
+  	 */
         public boolean addNewUser( String userName, String pass, String firstName, String lastName)
          {
-             // public boolean addNewUser( String userName, String pass, String firstName, String lastName)
-         
              Player p = new Player(userName, pass, firstName, lastName);
-           //  sData.getPlayers().add(p);
              if ( sData.getPlayers().add(p)){
                  sData.executeOutput();
                  return true;
              }
              else
                  return false;
-         //return sData.addNewUser(userName, pass, firstName, lastName);
          }
         
+        /**
+    	 * 
+    	 * @param 
+    	 */
         public game startGame(){
- 
-            //this.deckCounter = 0;
-            ArrayList<Card> temp = sData.getCards();
+         ArrayList<Card> temp = sData.getCards();
         game g = new game(1, this.player, temp); // creating game 1
 		g.startGame();
                 this.currentGame = g;
         return g; // returning the game which created
 	}
         
-        
+        /**
+    	 * 
+    	 * @param set the next round settings
+    	 */ 
         public void nextRound(){
             this.currentGame.setNewRecord(false);
             ArrayList<Card> temp = sData.getCards();
@@ -136,16 +148,26 @@ public class ModelLogic implements Serializable  {
 
         }
         
+        /**
+    	 * 
+    	 * @param return the total score for game
+    	 */
         public int calculateScoreForGame(){
-           return currentGame.calculateScoreForGame();
-           // return currentGame.getScoreForGame();
-            
+           return currentGame.calculateScoreForGame();           
         }
         
+        /**
+    	 * 
+    	 * @param get the record for the player
+    	 */
         public boolean checkNewRecord(){
             return currentGame.getNewRecord();
         }
         
+        /**
+    	 * 
+    	 * @param get the array of cards
+    	 */
         public int getWinningsCounter(){
         	if (this.currentGame !=null){
         		return this.currentGame.getNumOfWinnings();

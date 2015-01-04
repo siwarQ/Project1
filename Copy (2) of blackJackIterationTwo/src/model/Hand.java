@@ -114,8 +114,9 @@ public class Hand {
 		this.cards = cards;
 	}
 
-
-	// function which checks if amount of values is legal
+	/**
+	 * @param function which checks if amount of values is legal
+	 */
 	public boolean isLegal(int a){
              if (this.TypeOfHand.equals(model.TypeOfHand.User)){
 		if (a >= 21){
@@ -134,25 +135,17 @@ public class Hand {
 		
 	}
 	
-	// function which add a card to the dealer/player's hand
+	/**
+	 * @param  function which add a card to the dealer/player's hand
+	 */
 	public boolean addCard(Card c){ 
             if (c.getLetter()== Letter.A)
                 {
                     if ((amountOfCards+11)<=21)
                     {
                         c.setValue(11);
-                      System.err.println("The cards Value:"+c.getValue());
                     }
                 }
-            if (this.TypeOfHand.equals(model.TypeOfHand.Dealer))
-                System.err.println("The dealer cards are: "+this.cards.toString());
-            else
-                System.err.println("The player cards are: "+this.cards.toString());
-		////////////////////////////////////////////////////////CHECK ASSSS
-		//int a = this.amountOfCards+ c.getValue();
-		// submit changes so we can check if player winning/loosing
-		//this.amountOfCards 
-                System.err.println("The amount is:"+this.amountOfCards);
 		if (isLegal(this.amountOfCards))
 		{
 			this.amountOfCards+= c.getValue();
@@ -163,22 +156,21 @@ public class Hand {
                 else{
                     this.amountOfCards+= c.getValue();
                     this.cards.add(c);
-                    
-                    //System.err.println("IT IS NOT LEGAL");
                     return false;
                 }
 	}
-
+	/**
+	 * @param get code- serial number of hand
+	 */
 	public int getCode() {
 		return code;
 	}
-
+	/**
+	 * @param set code- serial number of hand
+	 */
 	public void setCode(int code) {
 		this.code = code;
 	}
-	
-	
-	
 	
 
 }

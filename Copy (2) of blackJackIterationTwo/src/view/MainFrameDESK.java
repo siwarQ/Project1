@@ -140,7 +140,7 @@ public class MainFrameDESK extends javax.swing.JFrame {
         if (checkPlayer())
         {
             view.executeSysExit();
-       gameFrame game = new gameFrame(view,p, null);
+       gameFrame game = new gameFrame(view,p);
        game.setVisible(true);
        this.setVisible(false);
         }

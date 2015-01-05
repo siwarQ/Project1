@@ -61,7 +61,7 @@ public class gameFrame extends javax.swing.JFrame {
         public int tellHimToStop = 0;
         public int flagNotShuffle = 0;
         game g = null;
-        String dealClearMenuSrc= "hp1.jpg"; 
+        String dealClearMenuSrc= "hpfixed1.jpg"; 
         ImageIcon dealClearImgIcon = new ImageIcon(getClass().getResource(dealClearMenuSrc));
         JLabel loadingAnimation= new JLabel();
                         //ImageIcon im = new ImageIcon(getClass().getResource("laoding.gif"));
@@ -74,53 +74,7 @@ public class gameFrame extends javax.swing.JFrame {
 	/**
      * Creates new form gameFrame
      */
-//    public gameFrame(ViewLogic v,Player player, game Game) {
-//        // initlizing method
-//        
-//        initComponents();
-//        
-//        g=Game;
-//        view = v;
-//        p= player;
-//        settingTranspert(helpBtn);
-//        settingTranspert(stopBtn);
-//        stopBtn.setVisible(false);
-//        runAnimationForHelp();
-//        
-//        dealBtn.setVisible(false);
-//        settingTranspert(dealBtn);
-//        //setting label design
-//         this.setResizable(false);
-//         
-//      
-//        jButton1.setVisible(false);
-//         
-//        playersHand = new ArrayList<>() ;
-//        dealersHand = new ArrayList<>() ;
-//         
-//         settingTranspert(hitBtn);
-//         settingTranspert(standBtn);
-//         settingTranspert(clearBtn);
-//         clearBtn.setVisible(false);
-//         cubsLabel.setOpaque(false);
-//         jToggleDealBtn.setOpaque(false);
-//         jToggleDealBtn.setContentAreaFilled(false);
-//         jToggleDealBtn.setBorderPainted(false);
-//         jToggleDealBtn.setText("");
-//      
-//         jToggleDealBtn.setVisible(true);
-//         runAnimation();
-//         jToggleDealBtn= b;
-//         homeLabel.add(jToggleDealBtn);
-//         b.setOpaque(false);
-//         b.setContentAreaFilled(false);
-//         b.setBorderPainted(false);
-//         b.setText(""); 
-//        
-//        //jButton1.setBackground(Color.GREEN.darker());
-//         
-//      
-//    }
+
         
         public gameFrame(ViewLogic v,Player player) {
         // initlizing method
@@ -132,8 +86,9 @@ public class gameFrame extends javax.swing.JFrame {
         p= player;
         System.err.println("suprise------------"+p.toString());
         //backCard = null;
-                settingTranspert(helpBtn);
+        settingTranspert(helpBtn);
         settingTranspert(stopBtn);
+        settingTranspert(homeBtn);
         stopBtn.setVisible(false);
         runAnimationForHelp();
         dealBtn.setVisible(false);
@@ -151,7 +106,6 @@ public class gameFrame extends javax.swing.JFrame {
          settingTranspert(standBtn);
          settingTranspert(clearBtn);
          clearBtn.setVisible(false);
-         cubsLabel.setOpaque(false);
          jToggleDealBtn.setOpaque(false);
          jToggleDealBtn.setContentAreaFilled(false);
          jToggleDealBtn.setBorderPainted(false);
@@ -176,8 +130,9 @@ public class gameFrame extends javax.swing.JFrame {
         view = v;
         g=gi;
         
-                        settingTranspert(helpBtn);
+        settingTranspert(helpBtn);
         settingTranspert(stopBtn);
+        settingTranspert(homeBtn);
         stopBtn.setVisible(false);
         runAnimationForHelp();
         //backCard = null;
@@ -608,12 +563,11 @@ public class gameFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
-        jLabel1 = new javax.swing.JLabel();
         helpBtn = new javax.swing.JToggleButton();
         jButton1 = new javax.swing.JButton();
         dealBtn = new javax.swing.JButton();
-        cubsLabel = new javax.swing.JLabel();
         stopBtn = new javax.swing.JToggleButton();
+        homeBtn = new javax.swing.JButton();
         homeLabel = new javax.swing.JLabel();
         clearBtn = new javax.swing.JButton();
         standBtn = new javax.swing.JButton();
@@ -645,26 +599,20 @@ public class gameFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/helpBtnnn.jpg"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        jLabel1.setBounds(70, 70, 110, 110);
-        jDesktopPane1.add(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         helpBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 helpBtnActionPerformed(evt);
             }
         });
-        helpBtn.setBounds(70, 80, 110, 50);
+        helpBtn.setBounds(130, 90, 50, 50);
         jDesktopPane1.add(helpBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jButton1.setText("jButton1");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jButton1.setBounds(620, 490, 73, 30);
+        jButton1.setBounds(630, 470, 70, 40);
         jDesktopPane1.add(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         dealBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -672,13 +620,8 @@ public class gameFrame extends javax.swing.JFrame {
                 dealBtnActionPerformed(evt);
             }
         });
-        dealBtn.setBounds(620, 490, 70, 30);
+        dealBtn.setBounds(620, 470, 70, 50);
         jDesktopPane1.add(dealBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        cubsLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/cubss.png"))); // NOI18N
-        cubsLabel.setText("jLabel1");
-        cubsLabel.setBounds(940, 80, 250, 100);
-        jDesktopPane1.add(cubsLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         stopBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -688,7 +631,15 @@ public class gameFrame extends javax.swing.JFrame {
         stopBtn.setBounds(570, 210, 90, 40);
         jDesktopPane1.add(stopBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        homeLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/hp1.jpg"))); // NOI18N
+        homeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                homeBtnActionPerformed(evt);
+            }
+        });
+        homeBtn.setBounds(73, 90, 50, 50);
+        jDesktopPane1.add(homeBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        homeLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/hpfixed1.jpg"))); // NOI18N
         homeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 homeLabelMouseClicked(evt);
@@ -763,12 +714,14 @@ public class gameFrame extends javax.swing.JFrame {
         jStars.setBounds(270, 180, 140, 250);
         jDesktopPane1.add(jStars, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jTextField1.setText("jTextField1");
-        jTextField1.setBounds(30, 220, 59, 20);
+        jTextField1.setBounds(30, 220, 82, 23);
         jDesktopPane1.add(jTextField1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        jTextField2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jTextField2.setText("jTextField2");
-        jTextField2.setBounds(50, 450, 59, 20);
+        jTextField2.setBounds(50, 450, 82, 23);
         jDesktopPane1.add(jTextField2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -844,8 +797,9 @@ public class gameFrame extends javax.swing.JFrame {
         if (view.checkWin()== -1){ 
              
             makeSound("../Sounds/lost.wav");
-             ImageIcon test1 = new ImageIcon(getClass().getResource("bust.gif"));
+             ImageIcon test1 = new ImageIcon(getClass().getResource("bustedGif.gif"));
              view.setStatus(false);
+             jplayerStatus.setBounds(670, 250,test1.getIconWidth(), test1.getIconHeight());
             jplayerStatus.setIcon(test1);
             homeLabel.add(jplayerStatus);
             jplayerStatus.setVisible(true);
@@ -856,6 +810,7 @@ public class gameFrame extends javax.swing.JFrame {
             homeLabel.setIcon(dealClearImgIcon);
             settingTranspert(clearBtn);
             clearBtn.setVisible(true);
+            helpBtn.setVisible(true);
             homeLabel.add(clearBtn);
             return;
             
@@ -917,11 +872,12 @@ public class gameFrame extends javax.swing.JFrame {
             homeLabel.add(clearBtn);
         }
         if (view.checkWin() == -1){
-            System.err.println("Dealer wins");
-            jDealerStatus.setText("Win!");
-            view.setStatus(false);
-            homeLabel.add(jDealerStatus);
-            jDealerStatus.setVisible(true);
+            makeSound("../Sounds/lost.wav");
+            ImageIcon test1 = new ImageIcon(getClass().getResource("lostGif.gif"));
+             jplayerStatus.setBounds(670, 250,test1.getIconWidth(), test1.getIconHeight());
+             jplayerStatus.setIcon(test1);
+            homeLabel.add(jplayerStatus);
+            jplayerStatus.setVisible(true);
             standBtn.setVisible(false);
             hitBtn.setVisible(false);
             homeLabel.setIcon(dealClearImgIcon);
@@ -964,6 +920,13 @@ public class gameFrame extends javax.swing.JFrame {
         homeLabel.removeAll();
         homeLabel.setIcon(dealClearImgIcon);
         homeLabel.setVisible(true);
+        jTextField1.setVisible(true);
+        jTextField2.setVisible(true);
+        homeLabel.add(jTextField1);
+        homeLabel.add(jTextField2);
+        homeBtn.setVisible(true);
+        homeLabel.add(homeBtn);
+        
         
         
         JLabel reviewLabel = new JLabel("Total Score:");
@@ -987,10 +950,10 @@ public class gameFrame extends javax.swing.JFrame {
         newRecord.setOpaque(false);
         if (view.checkNewRecord()){
             System.err.print("new record-----------------------------------------------"+view.checkNewRecord());
-           ImageIcon good = new ImageIcon(getClass().getResource("nr2.gif"));
+           ImageIcon good = new ImageIcon(getClass().getResource("nrr.png"));
             
             newRecord.setIcon(good);
-            newRecord.setBounds(250, 250, good.getIconWidth(), good.getIconHeight());
+            newRecord.setBounds(390, 300, good.getIconWidth(), good.getIconHeight());
             homeLabel.add(newRecord);
             newRecord.setVisible(true);
         }
@@ -1000,7 +963,10 @@ public class gameFrame extends javax.swing.JFrame {
         homeLabel.add(scoreForRound);
         settingTranspert(dealBtn);
         dealBtn.setVisible(true);
-        homeLabel.add(dealBtn);   
+        helpBtn.setVisible(true);
+        homeLabel.add(dealBtn); 
+        homeLabel.add(helpBtn);
+        
     }//GEN-LAST:event_clearBtnActionPerformed
 
     private void dealBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dealBtnActionPerformed
@@ -1035,6 +1001,12 @@ public class gameFrame extends javax.swing.JFrame {
     private void stopBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_stopBtnActionPerformed
+
+    private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
+        // TODO add your handling code here:
+        new MainFrameDESK(view).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_homeBtnActionPerformed
 
     private void loadingRunAnimation(){ // loading to the next turn
 
@@ -1091,13 +1063,15 @@ public class gameFrame extends javax.swing.JFrame {
         
         jDesktopPane1.add(homeLabel);
         homeLabel.removeAll();
-        homeLabel.setIcon(new ImageIcon(getClass().getResource("hp1.jpg")));
+        homeLabel.setIcon(new ImageIcon(getClass().getResource("hpfixed1.jpg")));
+        homeBtn.setVisible(true);
+        homeLabel.add(homeBtn);
         settingTranspert(jButton1);
         jButton1.setVisible(true);
          
         homeLabel.setVisible(true);
         homeLabel.add(jButton1);
-        homeLabel.add(cubsLabel);
+        
         settingTranspert(helpBtn);
         settingTranspert(stopBtn);
         stopBtn.setVisible(false);
@@ -1108,7 +1082,7 @@ public class gameFrame extends javax.swing.JFrame {
     
     
     private void settingsAfterDeal(){
-        String menu= "hp2.jpg"; 
+        String menu= "hpfixed2.jpg"; 
         ImageIcon x = new ImageIcon(getClass().getResource(menu));
         
       //  dealBtn.setVisible(false);
@@ -1117,6 +1091,8 @@ public class gameFrame extends javax.swing.JFrame {
         standBtn.setVisible(true);
         homeLabel.add(hitBtn);
         homeLabel.add(standBtn);
+        homeBtn.setVisible(true);
+        homeLabel.add(homeBtn);
         
         ///LEE
         String playerAmount =Integer.toString(view.getPlayerHand());
@@ -1157,15 +1133,14 @@ public class gameFrame extends javax.swing.JFrame {
     private javax.swing.JLabel JDealer;
     private javax.swing.JLabel JPlayer;
     private javax.swing.JButton clearBtn;
-    private javax.swing.JLabel cubsLabel;
     private javax.swing.JButton dealBtn;
     private javax.swing.JToggleButton helpBtn;
     private javax.swing.JButton hitBtn;
+    private javax.swing.JButton homeBtn;
     private javax.swing.JLabel homeLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jDealerStatus;
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jStars;

@@ -73,12 +73,12 @@ public class gameFrame extends javax.swing.JFrame {
 	/**
      * Creates new form gameFrame
      */
-    public gameFrame(ViewLogic v,Player player) {
+    public gameFrame(ViewLogic v,Player player, game Game) {
         // initlizing method
         
         initComponents();
         
-        
+        g=Game;
         view = v;
         p= player;
         settingTranspert(helpBtn);
@@ -120,48 +120,7 @@ public class gameFrame extends javax.swing.JFrame {
          
       
     }
-      public gameFrame(ViewLogic v, game gi) {
-        // initlizing method
-        initComponents();
-        view = v;
-        
-        g=gi;
-        settingTranspert(helpBtn);
-        settingTranspert(stopBtn);
-        stopBtn.setVisible(false);
-        runAnimationForHelp();
-        //backCard = null;
-        jButton1.setVisible(false);
-        //setting label design
-         this.setResizable(false);
-         dealBtn.setVisible(false);
-         settingTranspert(dealBtn);
-      
-        
-         
-        playersHand = new ArrayList<>() ;
-        dealersHand = new ArrayList<>() ;
-         
-         settingTranspert(hitBtn);
-         settingTranspert(standBtn);
-         
-         jToggleDealBtn.setOpaque(false);
-         jToggleDealBtn.setContentAreaFilled(false);
-         jToggleDealBtn.setBorderPainted(false);
-         jToggleDealBtn.setText("");
-      
-         jToggleDealBtn.setVisible(true);
-         runAnimation();
-         jToggleDealBtn= b;
-         homeLabel.add(jToggleDealBtn);
-         b.setOpaque(false);
-         b.setContentAreaFilled(false);
-         b.setBorderPainted(false);
-         b.setText(""); 
-        
-        //jButton1.setBackground(Color.GREEN.darker());
-      
-    }
+    
       
      private void settingTranspert(JToggleButton button){
         button.setOpaque(false);
@@ -169,21 +128,16 @@ public class gameFrame extends javax.swing.JFrame {
         button.setBorderPainted(false);      
     }
      
-      private void runAnimationForHelp(){
+     private void runAnimationForHelp(){
       
         Runnable r = new Runnable() {
             
-
             @Override
             public void run() {
-                
-                
                  // creating the label and giving him the first index in label
                 animationforHelp.setBounds(380, -430, c.getIconWidth(),c.getIconHeight());
                 animationforHelp.setVisible(true);
                 homeLabel.add(animationforHelp, BorderLayout.CENTER);// adding the first label to the center
-                //homeLabel.a
-                
 
                 ActionListener animate = new ActionListener() { 
                 
@@ -199,6 +153,7 @@ public class gameFrame extends javax.swing.JFrame {
                         animationforHelp.setIcon(c);
                         animationforHelp.setBounds(380, -250+(index*10), c.getIconWidth(),c.getIconHeight());
                         animationforHelp.setVisible(true);//////////////////////////////
+                        homeLabel.add(animationforHelp, 10,0);
                         }else {
                             timerHelp.stop();
                             //stopBtn.setBounds(580, 240, 90,50);
@@ -239,6 +194,7 @@ public class gameFrame extends javax.swing.JFrame {
                 animationForStopHelp.setBounds(380, -10, c.getIconWidth(),c.getIconHeight());
                 animationForStopHelp.setVisible(true);
                 homeLabel.add(animationForStopHelp, BorderLayout.CENTER);// adding the first label to the center
+                homeLabel.add(animationForStopHelp, 10,0);
                 
 
                 ActionListener animate = new ActionListener() { 
@@ -315,7 +271,7 @@ public class gameFrame extends javax.swing.JFrame {
                        if (flagForNewRound ==1){ // oppening new round
                         
                         animation.setIcon(im);
-                        animation.setBounds(800, 120, im.getIconHeight(), im.getIconWidth());
+                        animation.setBounds(800, 120, im.getIconWidth(), im.getIconHeight());
                         animation.setVisible(true);
                         homeLabel.add(animation, BorderLayout.CENTER);// adding the first label to the center
                         tellHimToStop = 0;
@@ -325,12 +281,12 @@ public class gameFrame extends javax.swing.JFrame {
                         index++;
                         if (whichWay == 0){
                         animation.setIcon(im);
-                        animation.setBounds(800-index*10, 120+ index*10, im.getIconHeight(), im.getIconWidth());
+                        animation.setBounds(800-index*10, 120+ index*10,  im.getIconWidth(), im.getIconHeight());
                         animation.setVisible(true);//////////////////////////////
                         }
                         else {
                         animation.setIcon(im);
-                        animation.setBounds(800-index*10, 120, im.getIconHeight(), im.getIconWidth());
+                        animation.setBounds(800-index*10, 120, im.getIconWidth(), im.getIconHeight());
                         animation.setVisible(true);//////////////////////////////
                         }
                         } else {
@@ -937,6 +893,7 @@ public class gameFrame extends javax.swing.JFrame {
         
         homeLabel.add(reviewLabel);
         homeLabel.add(scoreForRound);
+        settingTranspert(dealBtn);
         dealBtn.setVisible(true);
         homeLabel.add(dealBtn);   
     }//GEN-LAST:event_clearBtnActionPerformed
@@ -951,8 +908,9 @@ public class gameFrame extends javax.swing.JFrame {
         homeLabel.removeAll();
         homeLabel.setIcon(dealClearImgIcon);
         homeLabel.setVisible(true);
-        loadingRunAnimation();
-        timerForLoading.start();
+        openNewRoundFunc();
+        //loadingRunAnimation();
+        //timerForLoading.start();
     }//GEN-LAST:event_dealBtnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -1029,6 +987,7 @@ public class gameFrame extends javax.swing.JFrame {
         jDesktopPane1.add(homeLabel);
         homeLabel.removeAll();
         homeLabel.setIcon(new ImageIcon(getClass().getResource("hp1.jpg")));
+        settingTranspert(jButton1);
         jButton1.setVisible(true);
          
         homeLabel.setVisible(true);

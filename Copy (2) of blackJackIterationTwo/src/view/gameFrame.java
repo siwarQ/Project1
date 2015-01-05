@@ -44,7 +44,7 @@ public class gameFrame extends javax.swing.JFrame {
 	 */
         /**view logic instance */
         JLabel help = new  JLabel();
-        ImageIcon c = new ImageIcon(getClass().getResource("HELP1.png"));
+        ImageIcon c = new ImageIcon(getClass().getResource("helpBord.jpg"));
         Timer timerHelp;
         Timer timerForStopHelp;
         final JLabel animationforHelp = new JLabel(c);

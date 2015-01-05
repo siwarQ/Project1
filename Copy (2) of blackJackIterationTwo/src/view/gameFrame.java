@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 package view;
-import sun.audio.*;
+
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -43,6 +43,12 @@ public class gameFrame extends javax.swing.JFrame {
 	 * 
 	 */
         /**view logic instance */
+        JLabel help = new  JLabel();
+        ImageIcon c = new ImageIcon(getClass().getResource("HELP1.png"));
+        Timer timerHelp;
+        Timer timerForStopHelp;
+        final JLabel animationforHelp = new JLabel(c);
+        final JLabel animationForStopHelp = new JLabel(c);
         private int flagForNewRound = 0;
         private ViewLogic view;
         private  Player p;
@@ -55,7 +61,7 @@ public class gameFrame extends javax.swing.JFrame {
         public int tellHimToStop = 0;
         public int flagNotShuffle = 0;
         game g = null;
-        String dealClearMenuSrc= "xxx.png"; 
+        String dealClearMenuSrc= "hp1.jpg"; 
         ImageIcon dealClearImgIcon = new ImageIcon(getClass().getResource(dealClearMenuSrc));
         JLabel loadingAnimation= new JLabel();
                         //ImageIcon im = new ImageIcon(getClass().getResource("laoding.gif"));
@@ -75,8 +81,10 @@ public class gameFrame extends javax.swing.JFrame {
         
         view = v;
         p= player;
-        System.err.println("suprise------------"+p.toString());
-        //backCard = null;
+        settingTranspert(helpBtn);
+        settingTranspert(stopBtn);
+        stopBtn.setVisible(false);
+        runAnimationForHelp();
         
         dealBtn.setVisible(false);
         settingTranspert(dealBtn);
@@ -116,7 +124,12 @@ public class gameFrame extends javax.swing.JFrame {
         // initlizing method
         initComponents();
         view = v;
+        
         g=gi;
+        settingTranspert(helpBtn);
+        settingTranspert(stopBtn);
+        stopBtn.setVisible(false);
+        runAnimationForHelp();
         //backCard = null;
         jButton1.setVisible(false);
         //setting label design
@@ -150,13 +163,132 @@ public class gameFrame extends javax.swing.JFrame {
       
     }
       
-      private void doIt (){
-          cardAfterDeal =0;
-         tellHimToStop = 0;
-         flagNotShuffle = 0;
-      }
+     private void settingTranspert(JToggleButton button){
+        button.setOpaque(false);
+        button.setContentAreaFilled(false);
+        button.setBorderPainted(false);      
+    }
+     
+      private void runAnimationForHelp(){
+      
+        Runnable r = new Runnable() {
+            
+
+            @Override
+            public void run() {
+                
+                
+                 // creating the label and giving him the first index in label
+                animationforHelp.setBounds(380, -430, c.getIconWidth(),c.getIconHeight());
+                animationforHelp.setVisible(true);
+                homeLabel.add(animationforHelp, BorderLayout.CENTER);// adding the first label to the center
+                //homeLabel.a
+                
+
+                ActionListener animate = new ActionListener() { 
+                
+                    private int index = 0;
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        
+                       
+                        if (index<25) {
+                        index++;
+                        
+                        animationforHelp.setIcon(c);
+                        animationforHelp.setBounds(380, -250+(index*10), c.getIconWidth(),c.getIconHeight());
+                        animationforHelp.setVisible(true);//////////////////////////////
+                        }else {
+                            timerHelp.stop();
+                            //stopBtn.setBounds(580, 240, 90,50);
+                            stopBtn.setVisible(true);
+                            //homeLabel.add(stopBtn);
+                            animationforHelp.setVisible(false);
+                            runAnimationStopHelp();
+                        }}};
+                timerHelp = new Timer(20,animate);
+                ActionListener startStop = new ActionListener() { // creating the action listener
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (helpBtn.isSelected()) { // if the button is selected
+                            timerHelp.start();
+         
+                        } else {
+                            timerHelp.stop();
+                        }
+                    }
+                };
+                helpBtn.addActionListener(startStop); // adding for the button b the action listener
+                homeLabel.add(helpBtn,BorderLayout.PAGE_END);
+            }};
+        r.run();
+    }
+      
+      private void runAnimationStopHelp(){
+      
+        Runnable r = new Runnable() {
+            
+
+            @Override
+            public void run() {
+                
+                
+                 // creating the label and giving him the first index in label
+                animationForStopHelp.setBounds(380, -10, c.getIconWidth(),c.getIconHeight());
+                animationForStopHelp.setVisible(true);
+                homeLabel.add(animationForStopHelp, BorderLayout.CENTER);// adding the first label to the center
+                
+
+                ActionListener animate = new ActionListener() { 
+                
+                    private int index = 1;
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        
+                       
+                        if (index<26) {
+                        index++;
+                        
+                        animationForStopHelp.setIcon(c);
+                        animationForStopHelp.setBounds(380, -(10*index), c.getIconWidth(),c.getIconHeight());
+                        animationForStopHelp.setVisible(true);//////////////////////////////
+                        }else {
+                            timerForStopHelp.stop();
+                            animationforHelp.setBounds(280, -250+5, c.getIconWidth(),c.getIconHeight());
+                            animationforHelp.setVisible(false);
+                            homeLabel.add(animationforHelp);
+                            stopBtn.setVisible(false);
+                            runAnimationForHelp();
+                        }   
+                    }
+                };
+               timerForStopHelp = new Timer(20,animate);
+
+                //final JToggleButton b = new JToggleButton("Start/Stop");// creating the button
+                ActionListener startStop = new ActionListener() { // creating the action listener
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (stopBtn.isSelected()) { // if the button is selected
+                            timerForStopHelp.start();
+         
+                        } 
+                    }
+                };
+                stopBtn.addActionListener(startStop); // adding for the button b the action listener
+                stopBtn.setBounds(578, 225, 95,100);
+                stopBtn.setVisible(true);
+                homeLabel.add(stopBtn,BorderLayout.PAGE_END);
+            }
+        };
+        r.run();
+    }
+
     
-    //siwar
+    //HIDDEN CARD SNIP
        private void runAnimation(){
         hitBtn.setText("");
  
@@ -424,9 +556,12 @@ public class gameFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
+        jLabel1 = new javax.swing.JLabel();
+        helpBtn = new javax.swing.JToggleButton();
         jButton1 = new javax.swing.JButton();
         dealBtn = new javax.swing.JButton();
         cubsLabel = new javax.swing.JLabel();
+        stopBtn = new javax.swing.JToggleButton();
         homeLabel = new javax.swing.JLabel();
         clearBtn = new javax.swing.JButton();
         standBtn = new javax.swing.JButton();
@@ -458,13 +593,26 @@ public class gameFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/helpBtnnn.jpg"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        jLabel1.setBounds(70, 70, 110, 110);
+        jDesktopPane1.add(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        helpBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpBtnActionPerformed(evt);
+            }
+        });
+        helpBtn.setBounds(70, 80, 110, 50);
+        jDesktopPane1.add(helpBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         jButton1.setText("jButton1");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jButton1.setBounds(620, 490, 73, 23);
+        jButton1.setBounds(620, 490, 73, 30);
         jDesktopPane1.add(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         dealBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -480,7 +628,15 @@ public class gameFrame extends javax.swing.JFrame {
         cubsLabel.setBounds(940, 80, 250, 100);
         jDesktopPane1.add(cubsLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        homeLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/xxx.png"))); // NOI18N
+        stopBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stopBtnActionPerformed(evt);
+            }
+        });
+        stopBtn.setBounds(570, 210, 90, 40);
+        jDesktopPane1.add(stopBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        homeLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/hp1.jpg"))); // NOI18N
         homeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 homeLabelMouseClicked(evt);
@@ -808,6 +964,15 @@ public class gameFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void helpBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpBtnActionPerformed
+        // TODO add your handling code here:
+        timerHelp.start();
+    }//GEN-LAST:event_helpBtnActionPerformed
+
+    private void stopBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_stopBtnActionPerformed
+
     private void loadingRunAnimation(){ // loading to the next turn
 
         Runnable r = new Runnable() {
@@ -863,19 +1028,23 @@ public class gameFrame extends javax.swing.JFrame {
         
         jDesktopPane1.add(homeLabel);
         homeLabel.removeAll();
-        homeLabel.setIcon(new ImageIcon(getClass().getResource("xxx.png")));
+        homeLabel.setIcon(new ImageIcon(getClass().getResource("hp1.jpg")));
         jButton1.setVisible(true);
          
         homeLabel.setVisible(true);
         homeLabel.add(jButton1);
         homeLabel.add(cubsLabel);
+        settingTranspert(helpBtn);
+        settingTranspert(stopBtn);
+        stopBtn.setVisible(false);
+        runAnimationForHelp();
        
     }
     
     
     
     private void settingsAfterDeal(){
-        String menu= "xxx2.png"; 
+        String menu= "hp2.jpg"; 
         ImageIcon x = new ImageIcon(getClass().getResource(menu));
         
       //  dealBtn.setVisible(false);
@@ -926,11 +1095,13 @@ public class gameFrame extends javax.swing.JFrame {
     private javax.swing.JButton clearBtn;
     private javax.swing.JLabel cubsLabel;
     private javax.swing.JButton dealBtn;
+    private javax.swing.JToggleButton helpBtn;
     private javax.swing.JButton hitBtn;
     private javax.swing.JLabel homeLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jDealerStatus;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jStars;
@@ -939,5 +1110,6 @@ public class gameFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleDealBtn;
     private javax.swing.JLabel jplayerStatus;
     private javax.swing.JButton standBtn;
+    private javax.swing.JToggleButton stopBtn;
     // End of variables declaration//GEN-END:variables
 }

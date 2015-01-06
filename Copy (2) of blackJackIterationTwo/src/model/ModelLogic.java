@@ -219,7 +219,7 @@ public class ModelLogic implements Serializable  {
                /**
 	 * @return the currentGame
 	 */
-	protected game getCurrentGame() {
+	public game getCurrentGame() {
 		return currentGame;
 	}
 	/**
@@ -228,6 +228,8 @@ public class ModelLogic implements Serializable  {
 	public void setCurrentGame(game currentGame) {
 		this.currentGame = currentGame;
 	}
+        
+        
                
         
         

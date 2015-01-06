@@ -14,6 +14,7 @@ public class Hand {
 	private ArrayList<Card> cards;
 	/** amount of cards*/
 	private int amountOfCards;
+        private int Aflg = 0;
 	
 	//***************************************** Constructors ******************************************
   	/**
@@ -139,13 +140,10 @@ public class Hand {
 	 * @param  function which add a card to the dealer/player's hand
 	 */
 	public boolean addCard(Card c){ 
-            if (c.getLetter()== Letter.A)
-                {
-                    if ((amountOfCards+11)<=21)
-                    {
-                        c.setValue(11);
-                    }
-                }
+            if (c.getLetter()== Letter.A && Aflg==0){
+                c.setValue(11);
+                Aflg = 1;
+            }
 		if (isLegal(this.amountOfCards))
 		{
 			this.amountOfCards+= c.getValue();

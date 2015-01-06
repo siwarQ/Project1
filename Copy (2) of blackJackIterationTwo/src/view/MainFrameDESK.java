@@ -33,7 +33,7 @@ public class MainFrameDESK extends javax.swing.JFrame {
         initComponents();
         view = V;
         settingTranspert(jButton1);
-        settingTranspert(jButton2);
+       // settingTranspert(jButton2);
         this.setResizable(false);
         
         // ImageIcon im = new ImageIcon(getClass().getResource("mm.jpg"));
@@ -62,6 +62,7 @@ public class MainFrameDESK extends javax.swing.JFrame {
         passwordText = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -71,6 +72,7 @@ public class MainFrameDESK extends javax.swing.JFrame {
             }
         });
 
+        nameText.setBorder(null);
         nameText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nameTextActionPerformed(evt);
@@ -78,6 +80,8 @@ public class MainFrameDESK extends javax.swing.JFrame {
         });
         nameText.setBounds(120, 410, 110, 30);
         jDesktopPane1.add(nameText, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        passwordText.setBorder(null);
         passwordText.setBounds(120, 460, 110, 20);
         jDesktopPane1.add(passwordText, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -91,13 +95,23 @@ public class MainFrameDESK extends javax.swing.JFrame {
         jButton1.setBounds(540, 490, 150, 190);
         jDesktopPane1.add(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        jButton2.setText("NEW USER");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jButton2.setBounds(60, 500, 120, 30);
+        jButton2.setBounds(190, 500, 120, 30);
         jDesktopPane1.add(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jButton3.setText("START GAME");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jButton3.setBounds(60, 500, 120, 30);
+        jDesktopPane1.add(jButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/mm.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -165,6 +179,27 @@ public class MainFrameDESK extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+               if (nameText.getText().equals("") && passwordText.getText().equals(""))
+       {
+        JOptionPane.showMessageDialog(this, "Please fill in User Name and Password", "Error", JOptionPane.ERROR_MESSAGE);        
+       return;
+       }
+        if (checkPlayer())
+        {
+            view.executeSysExit();
+       gameFrame game = new gameFrame(view,p);
+       game.setVisible(true);
+       this.setVisible(false);
+        }
+        else
+        {
+             JOptionPane.showMessageDialog(this, "InValid User Name/Password. Please try again. ", "Error", JOptionPane.ERROR_MESSAGE);
+             return;
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     private boolean checkPlayer()
     {
         String userName = nameText.getText();
@@ -187,6 +222,7 @@ public class MainFrameDESK extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField nameText;

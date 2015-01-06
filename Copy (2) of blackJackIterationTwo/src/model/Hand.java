@@ -36,7 +36,7 @@ public class Hand {
 	
 	protected Hand(int serialNum,TypeOfHand typeOfHand, int amountOfCards, ArrayList<Card> cards) { 
 		super();
-		this.serialNum = serialNum;
+		Hand.serialNum = serialNum;
 		TypeOfHand = typeOfHand;
 		this.amountOfCards = amountOfCards;
 		this.cards = cards;
@@ -55,7 +55,7 @@ public class Hand {
 	 * @param serialNum the serialNum to set
 	 */
 	protected void setSerialNum(int serialNum) {
-		this.serialNum = serialNum;
+		Hand.serialNum = serialNum;
 	}
 
 
@@ -143,6 +143,11 @@ public class Hand {
             if (c.getLetter()== Letter.A && Aflg==0){
                 c.setValue(11);
                 Aflg = 1;
+            }
+            else {
+            	if (c.getLetter()== Letter.A){
+            		c.setValue(1);
+            	}
             }
 		if (isLegal(this.amountOfCards))
 		{

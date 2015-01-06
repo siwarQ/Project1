@@ -300,13 +300,14 @@ public class game implements Serializable{
 		Card c2 = this.Deck.remove(0);
 		Card c3= this.Deck.remove(0);
 		Card c4 =this.Deck.remove(0);
-		//adding them to each player and dealer's hand
+		
 		Hand playerTemp = new Hand(TypeOfHand.User);
 		Hand dealer = new Hand(TypeOfHand.Dealer);
 		this.Deck.add(c1);
 		this.Deck.add(c2);
 		this.Deck.add(c3);
 		this.Deck.add(c4);
+		//adding them to each player and dealer's hand
 		playerTemp.addCard(c1);
 		playerTemp.addCard(c2);
 		dealer.addCard(c3);

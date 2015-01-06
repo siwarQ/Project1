@@ -4,7 +4,6 @@
  */
 package view;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import model.Player;

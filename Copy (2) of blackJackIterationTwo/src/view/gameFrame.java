@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.AudioInputStream;
@@ -1108,7 +1107,7 @@ public class gameFrame extends javax.swing.JFrame {
         timerHelp.start();
     }//GEN-LAST:event_newHelpBtnActionPerformed
 
-    private void loadingRunAnimation(){ // loading to the next turn
+   /* private void loadingRunAnimation(){ // loading to the next turn
 
         Runnable r = new Runnable() {
             
@@ -1151,7 +1150,7 @@ public class gameFrame extends javax.swing.JFrame {
             };
         };
         r.run();
-    }
+    }*/
 
     private void openNewRoundFunc(){ // openning a new round after loading
 

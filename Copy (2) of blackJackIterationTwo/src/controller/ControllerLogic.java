@@ -71,6 +71,10 @@ public class ControllerLogic implements Serializable {
 	
 	//***************************************** CRUD Methods ******************************************
                
+       public game restartGame(game myGame)
+       {
+          return model.restartGame(myGame);
+       }
 		// returning all cards from ModelLogic 
         public ArrayList<Card> getCards(){
             return model.getCards();
@@ -159,9 +163,7 @@ public class ControllerLogic implements Serializable {
             return model.getCurrentGame();
        }
         
-         public game newGame(){
-             return model.newGame();
-         }
+        
         
        public int getDealerHandAfterStand()
        {

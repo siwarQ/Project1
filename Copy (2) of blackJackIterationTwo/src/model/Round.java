@@ -174,7 +174,6 @@ public class Round {
 	{
 		int sum = 0;
                 totalScore = this.PlayerHand.getAmountOfCards();
-                 
 		if (code % 2 == 0 )
 			sum = totalScore *3;
 		else

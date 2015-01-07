@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import java.io.InputStream;
+
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -82,7 +82,7 @@ public class gameFrame extends javax.swing.JFrame {
         
         initComponents();      
         view = v;
-        p= player;
+        setP(player);
         settingTranspert(helpBtn);
         settingTranspert(stopBtn);
         settingTranspert(homeBtn);
@@ -349,7 +349,11 @@ public class gameFrame extends javax.swing.JFrame {
                                
                                 setFirstCardsPlayer(0);
                                 animation.setVisible(false);
-                                  makeSound("../Sounds/cardPlace2.wav");
+                                try {
+                                    makeSound("Sounds/cardPlace2.wav");
+                                } catch (LineUnavailableException ex) {
+                                    Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                                 timer.stop();
                                 index=0;
                                 
@@ -357,7 +361,11 @@ public class gameFrame extends javax.swing.JFrame {
                             if (tellHimToStop==2){
                                 setFirstCardsPlayer(1);
                                 animation.setVisible(false);
-                                makeSound("../Sounds/cardPlace2.wav");
+                                try {
+                                    makeSound("Sounds/cardPlace2.wav");
+                                } catch (LineUnavailableException ex) {
+                                    Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                                 timer.stop();
                                 whichWay=1;
                                 index=0;
@@ -366,7 +374,11 @@ public class gameFrame extends javax.swing.JFrame {
                             if (tellHimToStop==3){
                                 setFirstCardsDealer(0);
                                 animation.setVisible(false);
-                                 makeSound("../Sounds/cardPlace2.wav");
+                                try {
+                                    makeSound("Sounds/cardPlace2.wav");
+                                } catch (LineUnavailableException ex) {
+                                    Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                                 timer.stop();
                                 index=0;
                                 
@@ -374,7 +386,11 @@ public class gameFrame extends javax.swing.JFrame {
                             if (tellHimToStop==4){
                                 setFirstCardsDealer(1);
                                 animation.setVisible(false);
-                                 makeSound("../Sounds/cardPlace2.wav");
+                                try {
+                                    makeSound("Sounds/cardPlace2.wav");
+                                } catch (LineUnavailableException ex) {
+                                    Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                                 timer.stop();
                                 settingsAfterDeal();
                                 timer.removeActionListener(this);
@@ -813,8 +829,16 @@ public class gameFrame extends javax.swing.JFrame {
      * get string of sound source and play the sound.
      * @param mySound 
      */
-    private void makeSound(String mySound)
+    private void makeSound(String mySound) throws LineUnavailableException
     {
+        try {
+        AudioInputStream audioIn = AudioSystem.getAudioInputStream(ViewLogic.class.getResource(mySound));
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioIn);
+			clip.start();
+                        } catch (UnsupportedAudioFileException | IOException e) {
+		}
+        /*
         try
         {
         InputStream input = getClass().getResourceAsStream(mySound);
@@ -825,6 +849,7 @@ public class gameFrame extends javax.swing.JFrame {
           } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
                 Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
           }
+          * */
     }
     /**
      * the setting after hit button.
@@ -832,13 +857,20 @@ public class gameFrame extends javax.swing.JFrame {
      */
     private void hitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hitBtnActionPerformed
         // TODO add your handling code here:    
-        String s = view.hitButton(); // getting next card
-        makeSound("../Sounds/cardPlace2.wav");
+        view.hitButton(); // getting next card
+            try {
+                makeSound("Sounds/cardPlace2.wav");
+            } catch (LineUnavailableException ex) {
+                Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         settingStringsOfArr("playersHand");//setting the card's labels
         
         if (view.checkWin()== -1){ 
-             
-            makeSound("../Sounds/lost.wav");
+            try {
+                makeSound("Sounds/lost.wav");
+            } catch (LineUnavailableException ex) {
+                Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
              ImageIcon test1 = new ImageIcon(getClass().getResource("bustedGif.gif"));
              view.setStatus(false);
              jplayerStatus.setBounds(670, 250,test1.getIconWidth(), test1.getIconHeight());
@@ -858,8 +890,11 @@ public class gameFrame extends javax.swing.JFrame {
             
         }
         if (view.checkWin()== 1){
-             
-                makeSound("../Sounds/Ta Da1.wav");
+            try {             
+                makeSound("Sounds/Ta Da1.wav");
+            } catch (LineUnavailableException ex) {
+                Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
                 ImageIcon test = new ImageIcon(getClass().getResource("win5.gif"));
                 view.setStatus(true);
                 jplayerStatus.setIcon(test);
@@ -897,10 +932,14 @@ public class gameFrame extends javax.swing.JFrame {
      */
     private void standBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_standBtnActionPerformed
         // TODO add your handling code here:
-        ArrayList<String> arr = this.view.standButton();
+         this.view.standButton();
         settingStringsOfArr("dealersHand");
         if (view.checkWin() == 1){
-            makeSound("../Sounds/Ta Da1.wav");
+             try {
+                 makeSound("Sounds/Ta Da1.wav");
+             } catch (LineUnavailableException ex) {
+                 Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
+             }
             ImageIcon test = new ImageIcon(getClass().getResource("win5.gif"));
             view.setStatus(true);
             jplayerStatus.setIcon(test);
@@ -914,7 +953,11 @@ public class gameFrame extends javax.swing.JFrame {
             homeLabel.add(clearBtn);
         }
         if (view.checkWin() == -1){
-            makeSound("../Sounds/lost.wav");
+             try {
+                 makeSound("Sounds/lost.wav");
+             } catch (LineUnavailableException ex) {
+                 Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
+             }
             ImageIcon test1 = new ImageIcon(getClass().getResource("lostGif.gif"));
             view.setStatus(false);
              jplayerStatus.setBounds(670, 250,test1.getIconWidth(), test1.getIconHeight());
@@ -1095,9 +1138,8 @@ public class gameFrame extends javax.swing.JFrame {
     private void newGameBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newGameBtnActionPerformed
         // TODO add your handling code here:
         view.executeSysExit(); // getting all data from the saving file
-       // view.newGame();
-        view.loadStringCard(); // calling start game function
-        g = view.getCurrentGame();
+    //    view.loadStringCard(); // calling start game function
+        g = view.restartGame(g);
         numberOfRound=0;
         
         // removing all settings from the home label
@@ -1196,7 +1238,11 @@ public class gameFrame extends javax.swing.JFrame {
         JDealer.setVisible(true);
         
          if (view.checkWinOnStart()== 1){
-             makeSound("../Sounds/Ta Da1.wav");
+            try {
+                makeSound("Sounds/Ta Da1.wav");
+            } catch (LineUnavailableException ex) {
+                Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
             ImageIcon test = new ImageIcon(getClass().getResource("win5.gif"));
              view.setStatus(true);
             jplayerStatus.setIcon(test);
@@ -1216,7 +1262,14 @@ public class gameFrame extends javax.swing.JFrame {
          homeLabel.add(hitBtn);
          }
     }
-    /**
+    public Player getP() {
+		return p;
+	}
+
+	public void setP(Player p) {
+		this.p = p;
+	}
+	/**
      * @param args the command line arguments
      */
     

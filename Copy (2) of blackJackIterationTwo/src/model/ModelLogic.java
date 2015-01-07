@@ -138,15 +138,13 @@ public class ModelLogic implements Serializable  {
         return g; // returning the game which created
 	}
         
-        
-        public game newGame(){
-            ArrayList<Card> temp = sData.getCards();
-            this.currentGame.setRounds(new ArrayList<Round>());
-            this.currentGame.setCounterOfRounds(0);
-            this.currentGame= currentGame.startGame();
-            return currentGame;
-        }
-        
+          public game restartGame(game myGame)
+        {
+            game g= new game();
+            g=this.currentGame.restartGame(myGame);
+            g.setDeck(sData.getCards());
+           return g;
+        }   
         /**
     	 * 
     	 * @param set the next round settings

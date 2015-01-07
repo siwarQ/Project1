@@ -289,6 +289,15 @@ public class game implements Serializable{
 		this.rounds.add(r);
                 	
 	}
+          public game restartGame(game myGame)
+        {
+            myGame.getRounds().clear();
+            myGame.scoreForGame=0;
+            myGame.counterOfRounds=0;
+            myGame.numOfLoses=0;
+            myGame.numOfWinnings=0;
+           return myGame;
+        }
 	
 	 /**
   	 * @param the function gives both the dealer and the player two cards
@@ -487,7 +496,6 @@ public class game implements Serializable{
 			this.numOfLoses++;
 						
 		}
-		System.err.println("Highest score************"+this.player.getMaxScore());
 		return scoreForGame;	
 	}
 	/**

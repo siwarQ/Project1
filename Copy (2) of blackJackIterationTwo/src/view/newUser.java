@@ -27,6 +27,7 @@ public class newUser extends javax.swing.JFrame {
         lastNameTxt.setOpaque(false);
         userNameTxt.setOpaque(false);
         passWordTxt.setOpaque(false);
+        this.setResizable(false);
         
     }
     

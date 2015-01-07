@@ -86,6 +86,10 @@ public class ViewLogic implements Serializable {
              return controller.addNewUser(userName, pass, firstName, lastName);
          }
          
+        public game restartGame(game myGame)
+       {
+          return controller.restartGame(myGame);
+       }
          public Player checkLogIn(String userName, String passWord){
              return controller.checkLogIn(userName, passWord);             
          }
@@ -157,9 +161,7 @@ public class ViewLogic implements Serializable {
             return controller.getCurrentGame();
        }
          
-         public game newGame(){
-             return controller.newGame();
-         }
+         
         
          public int getDealerHand()
         {

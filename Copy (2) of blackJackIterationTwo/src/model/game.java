@@ -13,7 +13,8 @@ public class game implements Serializable{
 	private static final long serialVersionUID = -8461086951674612269L;
 	//***************************************** Variables ******************************************
 	/**KEY field, Game's serialNumber*/
-	private int serialNumber;
+        private static int serialNumForGame=0;
+        private int codeForGame =0;
 	/**array list of rounds of game*/
 	private ArrayList<Round> rounds;
 	/**deck of the game*/
@@ -46,10 +47,10 @@ public class game implements Serializable{
   	/**
   	 * Full C'tor
   	 */
-	protected game(int serialNumber, Player player, ArrayList<Card> deck) {
+	protected game( Player player, ArrayList<Card> deck) {
 		super();
                 MyFileLogWriter.initializeMyFileWriter();
-		this.serialNumber = serialNumber;
+                this.codeForGame = ++serialNumForGame;
 		this.rounds = new ArrayList<>();
 		this.counterOfRounds =0 ;
 		this.player = player;
@@ -62,7 +63,7 @@ public class game implements Serializable{
 	public game(int serialNumber) {
 			super();
 	         MyFileLogWriter.initializeMyFileWriter();
-			this.serialNumber = serialNumber;
+			this.codeForGame = ++serialNumForGame;
 			this.rounds = new ArrayList<>();
 			this.counterOfRounds =0 ;
 			this.player = new Player();
@@ -74,7 +75,7 @@ public class game implements Serializable{
                         
 		super();
         MyFileLogWriter.initializeMyFileWriter();
-		this.serialNumber = serialNumber;
+		this.codeForGame = ++serialNumForGame;
 		this.rounds = rounds;
 		this.counterOfRounds = counterOfRounds;
 		this.player = player;
@@ -188,16 +189,14 @@ public class game implements Serializable{
 	 * @return the serialNumber
 	 */
 	protected int getSerialNumber() {
-		return serialNumber;
+		return this.codeForGame;
 	}
 
 
 	/**
 	 * @param serialNumber the serialNumber to set
 	 */
-	protected void setSerialNumber(int serialNumber) {
-		this.serialNumber = serialNumber;
-	}
+	
 
 
 	/**
@@ -439,7 +438,7 @@ public class game implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "game [serialNumber=" + serialNumber + ", rounds=" + rounds
+		return "game [serialNumber=" + codeForGame + ", rounds=" + rounds
 				+ ", Deck=" + Deck + ", counterOfRounds=" + counterOfRounds
 				+ ", player=" + player + ", scoreForGame=" + scoreForGame
 				+ ", sizeOfCurrentRound=" + sizeOfCurrentRound + "]";

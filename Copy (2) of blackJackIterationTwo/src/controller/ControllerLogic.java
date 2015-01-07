@@ -159,6 +159,9 @@ public class ControllerLogic implements Serializable {
             return model.getCurrentGame();
        }
         
+         public game newGame(){
+             return model.newGame();
+         }
         
        public int getDealerHandAfterStand()
        {

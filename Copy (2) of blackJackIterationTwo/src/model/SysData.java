@@ -46,19 +46,15 @@ public class SysData implements Serializable  {
 	 * Full C'tor, for singleton support. 
 	 */
     private SysData(){
-     //   players = new ArrayList<Player>();
         cards= new ArrayList<Card>();
-        System.err.println("IM IN THE CONSTRUCTORRRRRR");
-      //  players.add(new Player("aaa", "111"));
-      
     }
 
-
+    /**
+	 * getter for instance
+	 */
     protected static SysData getInstance() {
         executeInput(); // creating the output file
-        System.err.println("NOT NULL");
 		if(instance==null){
-                    System.err.println("IMMMMMMMMMMMMMMMMMMMMMMMMMMMM//////////////////////");
                         setExists(true);
 			instance = new SysData(); // creating sysData instance  
 			return instance; // returning the instance of sData
@@ -68,26 +64,10 @@ public class SysData implements Serializable  {
              return instance;
         }
 	}
-    
-    
-    
-         
-       /* public Player checkLogIn(String name, String passWord){ //////////////////////////////////////////////////////////////
-                  Player p1= new Player("leew", "100", "lee", "amiel");
-                  System.err.println(p1.toString());
-                  players.add(p1);
-        	for(Player p: players){
-        		if (p.getUserName().equals(name) && p.getPassWord().equals(passWord)){
-        			System.err.println("Player: "+ p.toString());
-                               // s= p.getUserName();
-        			return p;
-        			
-        			
-        		}
-        	}
-        	System.err.println("no players");
-        	return null;      	
-        }*/
+    /**
+	 * Function add new user for the array of users.
+	 * @return true if player was added succesfully. 
+	 */
       public boolean addNewUser( String userName, String pass, String firstName, String lastName)
          {
              Player p = new Player(userName, pass, firstName, lastName);
@@ -99,7 +79,9 @@ public class SysData implements Serializable  {
              else
                  return false;
          }
-    
+      /**
+  	 * Function build deck of cards.
+  	 */
     protected void buildCards(){
         
         currentGame = new game(1);
@@ -190,13 +172,11 @@ public class SysData implements Serializable  {
 
 //********************************** Layer's closure procedure methods ****************************
     
-    /*
+    /**
      * Creating output input file
      */ 
-
 	 public static void executeInput() {
-		// TODO Auto-generated method stub      //<<<--- for 3rd HW.
-            
+		// TODO Auto-generated method stub
                 //    File f = new File(Constants.FILENAME);
                     players = new ArrayList<>();
                     
@@ -229,29 +209,9 @@ public class SysData implements Serializable  {
     		return;
     	}
                     
-        /*
-               FileInputStream fis = new FileInputStream(Constants.FILENAME) ;
-                    ObjectInputStream in = new ObjectInputStream(fis);
-                    Object obj = in.readObject();
-                        if(obj instanceof ArrayList<?>){
-                                ArrayList<?> al = (ArrayList<?>) obj;
-                                for(int i=0; i<al.size();i++){
-                                        Object o = al.get(i);
-                                        if(o instanceof Player) 
-                                        {
-                                                players.add((Player) o);
-                                        }
-                                }
-                        }
-                        
-                    //instance = (SysData) in.readObject();
-                    in.close();
-                    fis.close();
-           
-        } */
 	}
 
-	public void executeOutput() {				//<<<--- for 3rd HW.
+	public void executeOutput() {				
 	        try {
             FileOutputStream fos = new FileOutputStream(Constants.FILENAME);
             ObjectOutputStream out = new ObjectOutputStream(fos);

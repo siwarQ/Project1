@@ -125,15 +125,27 @@ public class ModelLogic implements Serializable  {
         
         /**
     	 * 
-    	 * @param 
+    	 * @param start the game. creates a game object.
+    	 * @return the game that was created. 
     	 */
         public game startGame(){
+            
          ArrayList<Card> temp = sData.getCards();
-        game g = new game(1, this.player, temp); // creating game 1
+        game g = new game(this.player, temp); // creating game 1
 		g.startGame();
                 this.currentGame = g;
+                System.err.println("the gammmmmmmmmmmmmeeeeeee"+g.toString());
         return g; // returning the game which created
 	}
+        
+        
+        public game newGame(){
+            ArrayList<Card> temp = sData.getCards();
+            this.currentGame.setRounds(new ArrayList<Round>());
+            this.currentGame.setCounterOfRounds(0);
+            this.currentGame= currentGame.startGame();
+            return currentGame;
+        }
         
         /**
     	 * 
@@ -166,7 +178,7 @@ public class ModelLogic implements Serializable  {
         
         /**
     	 * 
-    	 * @param get the array of cards
+    	 * @param get te number of winning of player in the game.
     	 */
         public int getWinningsCounter(){
         	if (this.currentGame !=null){
@@ -176,6 +188,10 @@ public class ModelLogic implements Serializable  {
         	return 0;
         }
         
+        /**
+    	 * 
+    	 * @param get te number of loses of player in the game.
+    	 */
         public int getLostsCounter(){
         	if (this.currentGame !=null){
         		return this.currentGame.getNumOfLoses();
@@ -185,35 +201,42 @@ public class ModelLogic implements Serializable  {
         }
                     
 
-        
+        /**
+       	 * 
+       	 * @param calls the hit function in the currunt game.
+       	 * @ return the card that was deliverd by the hit function.
+       	 */        
         public String hitFunc(){
-
-            //SIWAR	
        		String card = this.currentGame.hitFunc();
                this.flag= this.currentGame.getFlag();
-              // this.currentGame.calculateScoreForGame();
                return card;
        				
        	}
         
-        
-        /*StandFunc compares the amount of cards between the dealer and the player and returns the array of cards */
+        /**
+       	 * 
+       	 * @param StandFunc compares the amount of cards between the dealer and the player. returns the array of cards
+       	 * @ return the array of cards.
+       	 */ 
         public ArrayList<String> standFunc(){
-        //siwar
         	ArrayList<String> setOfCardsToDealer = this.currentGame.standFunc();
             this.flag = this.currentGame.getFlag();
-            //this.currentGame.calculateScoreForGame();
             return setOfCardsToDealer;
         }
-               
-               public ArrayList<String> PlayerHand(){
-                 
-               	return this.currentGame.PlayerHand();
-               }
-               
-               public ArrayList<String> DealerHand(){
-                  
-               	return this.currentGame.DealerHand();
+        
+        /**
+       	 * 
+       	 * @ return the array of card in player hand.
+       	 */        
+          public ArrayList<String> PlayerHand(){
+                      	return this.currentGame.PlayerHand();
+           }
+          
+          /**
+         	 * @ return the array of card in delear hand.
+         	 */ 
+            public ArrayList<String> DealerHand(){
+                  	return this.currentGame.DealerHand();
                }
                
                /**
@@ -228,37 +251,41 @@ public class ModelLogic implements Serializable  {
 	public void setCurrentGame(game currentGame) {
 		this.currentGame = currentGame;
 	}
-        
-        
-               
-        
-        
-        
-        
+      
 	
 	public int getFlag(){
 		return this.flag;
                 
 	}
-	
+	/**
+	 * @return the player sum of cards for round.
+	 */
     public int getPlayerHand()
     {
         Round round = this.currentGame.getRounds().get(this.currentGame.sizeOfCurrentRound);
         return round.getPlayerAmount();       
     }
-    
+    /**
+	 * @return the dealer sum of cards for round.
+	 */
      public int getDealerHand()
     {
         Round round = this.currentGame.getRounds().get(this.currentGame.sizeOfCurrentRound);
         return round.getDelaerAmount();       
     }
      
+     /**
+ 	 * @return the delear sum of cards for round after the stand button was clicked.
+ 	 */
        public int getDealerHandAfterStand()
     {
         Round round = this.currentGame.getRounds().get(this.currentGame.sizeOfCurrentRound);
         return round.getDelaerAmountAfterStand();       
     }
      
+     /**
+   	 * @param the function return 1 if the player won on the first deal of cards. 
+   	 */  
      public int checkWinOnStart()
      {
          //this.currentGame.calculateScoreForGame();
@@ -276,9 +303,9 @@ public class ModelLogic implements Serializable  {
         
 	//********************************** Layer's closure procedure methods ****************************
     
-    /*
-     * Calls the method from SDATA which prints the output from executing the file
-     */   
+    /**
+	* @param Calls the method from SDATA which prints the output from executing the file
+	 */
 	public void executeSysExit()
 	{
 		sData.executeOutput();

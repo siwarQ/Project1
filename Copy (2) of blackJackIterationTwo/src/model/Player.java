@@ -39,10 +39,10 @@ public class Player implements Serializable {
 		this.winningCounter =0;
 		this.loosingCounter = 0;
 	}
-	
+	/**
+  	 * Partiel C'tor
+  	 */
 	protected Player(String userName, String passWord){
-		
-		//this.ID=null;
 		this.userName = userName;
 		this.passWord = passWord;
 		this.maxScore = 0;
@@ -50,7 +50,9 @@ public class Player implements Serializable {
 		this.loosingCounter = 0;
 	}
 	
-	
+	/**
+  	 * Partiel C'tor
+  	 */
 	protected Player( String userName, String passWord,
 			String firstName, String lastName, int maxScore,
 			int winningCounter, int loosingCounter) {
@@ -64,16 +66,13 @@ public class Player implements Serializable {
 		this.loosingCounter = loosingCounter;
 	}
 
-
+	/**
+  	 * Partiel C'tor
+  	 */
 	public Player() {
 	}
 
 	//***************************************** GETTERS AND SETTERS******************************************
-
-
-
-	
-
 
 	/**
 	 * @return the userName
@@ -185,9 +184,10 @@ public class Player implements Serializable {
 	protected void setLoosingCounter(int loosingCounter) {
 		this.loosingCounter = loosingCounter;
 	}
-	
-	
-	// function update a new highest score 
+
+	/**@param the function update if the player got a new record.
+	 * @return true if the player got a new record, else false.
+	 */
 	public boolean updateHighScore(int score){
 		if (this.maxScore < score){
 			this.maxScore = score;
@@ -196,15 +196,19 @@ public class Player implements Serializable {
 		return false;		
 	}
 	
-	// updating the winneng counter
+
+	/**@param  updating the winneng counter.
+	 */
 	public void updateWinningCounter(){
 		this.winningCounter++;
 	}
 	
-	// update the loosing counter
+	/**@param  updating the loses counter.
+	 */
 	public void updateLosingCounter(){
 		this.loosingCounter++;
 	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */

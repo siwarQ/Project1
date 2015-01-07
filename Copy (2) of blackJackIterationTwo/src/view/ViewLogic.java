@@ -156,6 +156,10 @@ public class ViewLogic implements Serializable {
          public game getCurrentGame(){
             return controller.getCurrentGame();
        }
+         
+         public game newGame(){
+             return controller.newGame();
+         }
         
          public int getDealerHand()
         {

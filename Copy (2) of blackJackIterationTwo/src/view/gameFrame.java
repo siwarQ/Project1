@@ -71,23 +71,18 @@ public class gameFrame extends javax.swing.JFrame {
         // using two different labels for different purposes 
         final JLabel animationforHelp = new JLabel(c); // for pressing on help 
         final JLabel animationForStopHelp = new JLabel(c); // for different positions in pressing ok on help
+        private int numberOfRound;
         
         
 	/**
      * Creates new form gameFrame
-     */
-
-        
+     */     
         public gameFrame(ViewLogic v,Player player) {
         // initlizing method
         
-        initComponents();
-        
-        
+        initComponents();      
         view = v;
         p= player;
-        System.err.println("suprise------------"+p.toString());
-        //backCard = null;
         settingTranspert(helpBtn);
         settingTranspert(stopBtn);
         settingTranspert(homeBtn);
@@ -95,14 +90,11 @@ public class gameFrame extends javax.swing.JFrame {
         runAnimationForHelp();
         dealBtn.setVisible(false);
         settingTranspert(dealBtn);
-        //setting label design
-         this.setResizable(false);
-         
-      
-        jButton1.setVisible(false);
-         
+        this.setResizable(false);
+        dealNewGBtn.setVisible(false);
         playersHand = new ArrayList<>() ;
         dealersHand = new ArrayList<>() ;
+        numberOfRound = 0;
          
          settingTranspert(hitBtn);
          settingTranspert(standBtn);
@@ -121,11 +113,12 @@ public class gameFrame extends javax.swing.JFrame {
          b.setContentAreaFilled(false);
          b.setBorderPainted(false);
          b.setText(""); 
-        
-        //jButton1.setBackground(Color.GREEN.darker());
-         
-      
+           
     }
+       
+      /**
+     * C'sr for the game frame with the same game
+     */  
       public gameFrame(ViewLogic v, game gi) {
         // initlizing method
         initComponents();
@@ -137,14 +130,11 @@ public class gameFrame extends javax.swing.JFrame {
         settingTranspert(homeBtn);
         stopBtn.setVisible(false);
         runAnimationForHelp();
-        //backCard = null;
-        jButton1.setVisible(false);
-        //setting label design
+        dealNewGBtn.setVisible(false);
          this.setResizable(false);
          dealBtn.setVisible(false);
          settingTranspert(dealBtn);
-      
-        
+         numberOfRound = 0;
          
         playersHand = new ArrayList<>() ;
         dealersHand = new ArrayList<>() ;
@@ -165,18 +155,22 @@ public class gameFrame extends javax.swing.JFrame {
          b.setContentAreaFilled(false);
          b.setBorderPainted(false);
          b.setText(""); 
-        
-        //jButton1.setBackground(Color.GREEN.darker());
-      
+
     }
     
-      
+     /**
+      * function for setting button as transparent for JToggleButton
+      * @param button 
+      */ 
      private void settingTranspert(JToggleButton button){
         button.setOpaque(false);
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);      
     }
      
+     /**
+      * function that create the animation for the help option
+      */
      private void runAnimationForHelp(){
       
         Runnable r = new Runnable() {
@@ -205,9 +199,7 @@ public class gameFrame extends javax.swing.JFrame {
                         homeLabel.add(animationforHelp, 10,0);
                         }else {
                             timerHelp.stop();
-                            //stopBtn.setBounds(580, 240, 90,50);
                             stopBtn.setVisible(true);
-                            //homeLabel.add(stopBtn);
                             animationforHelp.setVisible(false);
                             runAnimationStopHelp();
                         }}};
@@ -229,16 +221,14 @@ public class gameFrame extends javax.swing.JFrame {
             }};
         r.run();
     }
-      
+       /**
+      * function that stop the animation for the help option
+      */ 
       private void runAnimationStopHelp(){
       
         Runnable r = new Runnable() {
-            
-
             @Override
             public void run() {
-                
-                
                  // creating the label and giving him the first index in label
                 animationForStopHelp.setBounds(380, -10, c.getIconWidth(),c.getIconHeight());
                 animationForStopHelp.setVisible(true);
@@ -271,8 +261,6 @@ public class gameFrame extends javax.swing.JFrame {
                     }
                 };
                timerForStopHelp = new Timer(20,animate);
-
-                //final JToggleButton b = new JToggleButton("Start/Stop");// creating the button
                 ActionListener startStop = new ActionListener() { // creating the action listener
 
                     @Override
@@ -293,7 +281,9 @@ public class gameFrame extends javax.swing.JFrame {
     }
 
     
-    //HIDDEN CARD SNIP
+    /**
+     * function that run the animation for the card
+     */
        private void runAnimation(){
         hitBtn.setText("");
         
@@ -347,17 +337,16 @@ public class gameFrame extends javax.swing.JFrame {
                             if (tellHimToStop==1){
                                 if (g==null){
                                 g = view.loadStringCard(); // calling deal method
-                                    System.err.println("");
-                                 System.err.println("game 1");
-                                 updateTheMainButtons();
+                                numberOfRound++;
+                                updateTheMainButtons();
                                 }
                                 else {
                                     view.nextRound();
                                      clearBtn.setVisible(false);
-                                    System.err.println("game2");
-                                    updateTheMainButtons();
+                                     numberOfRound++;
+                                   updateTheMainButtons();
                                 }
-                                
+                               
                                 setFirstCardsPlayer(0);
                                 animation.setVisible(false);
                                   makeSound("../Sounds/cardPlace2.wav");
@@ -439,17 +428,25 @@ public class gameFrame extends javax.swing.JFrame {
         };
         r.run();
     }
-    
+       /**
+      * function for setting button as transparent for JButton
+      * @param button 
+      */ 
     private void settingTranspert(JButton button){
         button.setOpaque(false);
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);      
     }
-    //siwar
-    private void setFirstCardsPlayer(int i){ // setting the first Card
+   /**
+    *  setting the first Card for player
+    * @param i 
+    */
+    private void setFirstCardsPlayer(int i){ 
+        
          ArrayList<String> sources = new ArrayList<>();
          sources = view.getPlayerSHand();
          if (i==0){
+        
          ImageIcon imageIcon = new ImageIcon(getClass().getResource(sources.get(0)));
          this.playersHand.add((new JLabel()));
          homeLabel.add(this.playersHand.get(0));
@@ -473,8 +470,11 @@ public class gameFrame extends javax.swing.JFrame {
              
          }
     }
-   //siwar
-     private void setFirstCardsDealer(int num){ // setting the first Card
+   /**
+    * setting the first Card for dealer
+    * @param num 
+    */
+     private void setFirstCardsDealer(int num){ 
          ArrayList<String> sources = new ArrayList<>();
          sources = view.getDealerSHand();
          if (num==0){
@@ -498,6 +498,7 @@ public class gameFrame extends javax.swing.JFrame {
          runAnimation();   
          }
      }
+     
     /** This function sets the Right Label's for the specifec time ones its called */
     private void settingStringsOfArr(String whose){
         //LAODING IMAGES FOR CARDS FUNCTION
@@ -516,21 +517,16 @@ public class gameFrame extends javax.swing.JFrame {
                         j++;
                     }
                     int i=sources.size()-1;
-                    while (i>=0){
-                        System.err.println("this is the arr labels in player: "+ sources.toString());
-                        
+                    while (i>=0){                       
                         homeLabel.add(this.playersHand.get(i));
                         i--;
                     }
                     break;
-                    //siwar
                 case "dealersHand":
                     sources = view.getDealerSHand();
-                    //int k =0;
                      j=0;
                      
                     while (j< sources.size()){
-                        System.err.println("this is the arr labels in dealer: "+ sources.toString());
                         ImageIcon imageIcon;
                         if (cardAfterDeal==0){
                            imageIcon= new ImageIcon(getClass().getResource("hiddenCard.jpg"));
@@ -569,7 +565,7 @@ public class gameFrame extends javax.swing.JFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         helpBtn = new javax.swing.JToggleButton();
         homeBtn = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        dealNewGBtn = new javax.swing.JButton();
         dealBtn = new javax.swing.JButton();
         stopBtn = new javax.swing.JToggleButton();
         newGameBtn = new javax.swing.JButton();
@@ -623,13 +619,13 @@ public class gameFrame extends javax.swing.JFrame {
         homeBtn.setBounds(73, 90, 50, 50);
         jDesktopPane1.add(homeBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        dealNewGBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                dealNewGBtnActionPerformed(evt);
             }
         });
-        jButton1.setBounds(630, 470, 70, 40);
-        jDesktopPane1.add(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        dealNewGBtn.setBounds(630, 470, 70, 40);
+        jDesktopPane1.add(dealNewGBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         dealBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -793,6 +789,9 @@ public class gameFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_homeLabelMouseClicked
 
+    /**
+     * updates the label for - sum of the cards of player. after hit function.
+     */
     private void updatedPlayerCardsInHit()
     {
        String playerAmount =Integer.toString(view.getPlayerHand());
@@ -800,7 +799,9 @@ public class gameFrame extends javax.swing.JFrame {
         homeLabel.add(JPlayer);
         JPlayer.setVisible(true);     
     }
-    
+    /**
+     * updates the label for - sum of the cards of dealer.after hit function.
+     */
     private void updatedDelearCardsInHit()
     {
         String delearAmount =Integer.toString(view.getDealerHand());
@@ -808,7 +809,10 @@ public class gameFrame extends javax.swing.JFrame {
         homeLabel.add(JDealer);
         JDealer.setVisible(true); 
     }
-    
+    /**
+     * get string of sound source and play the sound.
+     * @param mySound 
+     */
     private void makeSound(String mySound)
     {
         try
@@ -822,11 +826,12 @@ public class gameFrame extends javax.swing.JFrame {
                 Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
           }
     }
+    /**
+     * the setting after hit button.
+     * @param evt 
+     */
     private void hitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hitBtnActionPerformed
-        // TODO add your handling code here:
-        
-        //runAnimation();
-        
+        // TODO add your handling code here:    
         String s = view.hitButton(); // getting next card
         makeSound("../Sounds/cardPlace2.wav");
         settingStringsOfArr("playersHand");//setting the card's labels
@@ -869,7 +874,6 @@ public class gameFrame extends javax.swing.JFrame {
                 homeLabel.add(clearBtn);
         }
         
-        ///LEE
         updatedPlayerCardsInHit();
         updatedDelearCardsInHit(); 
         
@@ -877,7 +881,9 @@ public class gameFrame extends javax.swing.JFrame {
            
     }//GEN-LAST:event_hitBtnActionPerformed
 
-    
+    /**
+     * updates the label for - sum of the cards of dealer. after deal function.
+     */
     private void updateSumOfCardForDealer()
     { 
         String delearAmount =Integer.toString(view.getDealerHandAgterStand());
@@ -885,25 +891,19 @@ public class gameFrame extends javax.swing.JFrame {
         homeLabel.add(JDealer);
         JDealer.setVisible(true);
     }
+    /**
+     *  the setting after stand button.
+     * @param evt 
+     */
     private void standBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_standBtnActionPerformed
         // TODO add your handling code here:
-    
-        //SIWAR 
         ArrayList<String> arr = this.view.standButton();
-        if (arr.isEmpty()){
-            System.err.println("NULL");
-        }
-        
-        for (String s: arr){
-            System.err.println("Cards After Stand: "+s);
-        }
         settingStringsOfArr("dealersHand");
         if (view.checkWin() == 1){
             makeSound("../Sounds/Ta Da1.wav");
             ImageIcon test = new ImageIcon(getClass().getResource("win5.gif"));
             view.setStatus(true);
             jplayerStatus.setIcon(test);
-            //jplayerStatus.setText("Win!");
             homeLabel.add(jplayerStatus);
             jplayerStatus.setVisible(true);
             standBtn.setVisible(false);
@@ -952,7 +952,11 @@ public class gameFrame extends javax.swing.JFrame {
     private void jDesktopPane1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDesktopPane1MouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_jDesktopPane1MouseExited
-
+/**
+ * Clear function - this function clears all settings in home label
+ * Shows the score for the round
+ * @param evt
+ */
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
         // TODO add your handling code here:
         
@@ -982,7 +986,6 @@ public class gameFrame extends javax.swing.JFrame {
         int i = view.calculateScoreForGame();
         
         String score = i+"";
-        System.err.print("FRAME: "+i);
         JLabel scoreForRound = new JLabel(score);
         scoreForRound.setBounds(670, 100, 200, 200);
         scoreForRound.setForeground(Color.YELLOW);
@@ -993,7 +996,6 @@ public class gameFrame extends javax.swing.JFrame {
         JLabel newRecord = new JLabel();
         newRecord.setOpaque(false);
         if (view.checkNewRecord()){
-            System.err.print("new record-----------------------------------------------"+view.checkNewRecord());
            ImageIcon good = new ImageIcon(getClass().getResource("nrr.png"));
             newRecord.setIcon(good);
             newRecord.setBounds(390, 300, good.getIconWidth(), good.getIconHeight());
@@ -1012,7 +1014,9 @@ public class gameFrame extends javax.swing.JFrame {
         updateTheMainButtons();
         
     }//GEN-LAST:event_clearBtnActionPerformed
-
+/**
+ * this function updates the main buttons and labels above all different levels in the game 
+ */
     private void updateTheMainButtons()
     {
        goToStartScreenBtn.setVisible(true);
@@ -1021,12 +1025,17 @@ public class gameFrame extends javax.swing.JFrame {
        homeLabel.add(goToStartScreenBtn);
        homeLabel.add(newGameBtn);
        homeLabel.add(newHelpBtn);
-       num.setText("ROUND:"+g.getRounds().size());
+       num.setText("ROUND: "+numberOfRound);
        num.setVisible(true);
        homeLabel.add(num);
     }
+    
+    /**
+     * deal button for starting new round 
+     * @param evt 
+     */
     private void dealBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dealBtnActionPerformed
-        System.err.println("DEAL BUTTON");
+
         jDesktopPane1.removeAll();
         jDesktopPane1.revalidate();
         jDesktopPane1.repaint();
@@ -1036,147 +1045,130 @@ public class gameFrame extends javax.swing.JFrame {
         homeLabel.setIcon(dealClearImgIcon);
         homeLabel.setVisible(true);
         openNewRoundFunc();
-        updateTheMainButtons();
-        //loadingRunAnimation();
-        //timerForLoading.start();
     }//GEN-LAST:event_dealBtnActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    /**
+     * runs the animation for deal by clicking the deal button
+     * @param evt 
+     */
+    private void dealNewGBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dealNewGBtnActionPerformed
         // TODO add your handling code here:
      
-        flagForNewRound =1;
-        runAnimation();
-        jButton1.setVisible(false);
+        flagForNewRound =1; 
+        //runAnimation(); // run animation for slidding cards for player and dealer
+        dealNewGBtn.setVisible(false);
         
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+    }//GEN-LAST:event_dealNewGBtnActionPerformed
+/**
+ * help button for game instructions
+ * works in timer for sliding the help window
+ * @param evt 
+ */
     private void helpBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpBtnActionPerformed
         // TODO add your handling code here:
         timerHelp.start();
     }//GEN-LAST:event_helpBtnActionPerformed
-
+/**
+ * ok button on the help bord - this button slides back the help label 
+ * works with timer
+ * @param evt 
+ */
     private void stopBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_stopBtnActionPerformed
-
+/**
+ * home Button - for exiting the user account 
+ * goes back to the opening page
+ * @param evt 
+ */
     private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
         // TODO add your handling code here:
         new MainFrameDESK(view).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_homeBtnActionPerformed
 
+    /**
+     * new Game - this button sets the counters for score to zero 
+     * Create a new game for the same user
+     * @param evt 
+     */
     private void newGameBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newGameBtnActionPerformed
         // TODO add your handling code here:
-        view.executeSysExit();
-        System.err.println("the player&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+p);
-         view.loadStringCard();
+        view.executeSysExit(); // getting all data from the saving file
+       // view.newGame();
+        view.loadStringCard(); // calling start game function
         g = view.getCurrentGame();
+        numberOfRound=0;
         
-          jDesktopPane1.removeAll();
+        // removing all settings from the home label
+        jDesktopPane1.removeAll();
         jDesktopPane1.revalidate();
         jDesktopPane1.repaint();
-        
         jDesktopPane1.add(homeLabel);
         homeLabel.removeAll();
+        
         homeLabel.setIcon(new ImageIcon(getClass().getResource("hpfixed1.jpg")));
         homeBtn.setVisible(true);
         homeLabel.add(homeBtn);
-        settingTranspert(jButton1);
-        jButton1.setVisible(true);
-         
+        settingTranspert(dealBtn);
+        dealBtn.setVisible(true);
         homeLabel.setVisible(true);
-        homeLabel.add(jButton1);
+        homeLabel.add(dealBtn);
+        num.setText("");
+        num.setVisible(false);
         
         settingTranspert(helpBtn);
         settingTranspert(stopBtn);
-        stopBtn.setVisible(false);
-         updateTheMainButtons();
+        updateTheMainButtons();
+        num.setVisible(false);
         runAnimationForHelp();
         
-        
-        
-        
     }//GEN-LAST:event_newGameBtnActionPerformed
-
+/**
+ * home Btn- this button sends user to the opening page
+ * allows the user to switch user or register
+ * @param evt 
+ */
     private void goToStartScreenBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goToStartScreenBtnActionPerformed
         // TODO add your handling code here:
-          new MainFrameDESK(view).setVisible(true);
-        this.dispose();
+        new MainFrameDESK(view).setVisible(true); // calling open page constructor
+        this.dispose(); // closing this window
     }//GEN-LAST:event_goToStartScreenBtnActionPerformed
 
+    /**
+     * Help button - calls help timer and slides the help bord
+     * @param evt 
+     */
     private void newHelpBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newHelpBtnActionPerformed
         // TODO add your handling code here:
         timerHelp.start();
     }//GEN-LAST:event_newHelpBtnActionPerformed
 
-   /* private void loadingRunAnimation(){ // loading to the next turn
-
-        Runnable r = new Runnable() {
-            
-
-            @Override
-            public void run() {
-                loadingAnimation.setIcon(load);
-                loadingAnimation.setBounds(500,100, load.getIconWidth(), load.getIconHeight());
-                loadingAnimation.setVisible(true);
-                homeLabel.add(loadingAnimation);
-                JLabel loadingLabel= new JLabel("Loading...");
-                loadingLabel.setBounds(590, 320, 200, 200);
-                loadingLabel.setForeground(Color.BLACK);
-                Font f = new Font("Serif", Font.BOLD, 24);
-                loadingLabel.setFont(f);
-                loadingLabel.setVisible(true);
-                homeLabel.add(loadingLabel);
-
-                ActionListener animate = new ActionListener() { 
-                
-                    private int index = 0;
-
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                       
-                        
-                        if (index<20) {
-                        index++;
-                        
-                        } else {
-                                timerForLoading.stop();
-                                index=0;
-                                timerForLoading.removeActionListener(this);
-                                openNewRoundFunc();
-                        }
-                    }
-                };
-                timerForLoading= new Timer(12,animate);
-                
-            };
-        };
-        r.run();
-    }*/
-
-    private void openNewRoundFunc(){ // openning a new round after loading
-
-        /*this.dispose();
-        new gameFrame(view, g).setVisible(true);*/
-        jDesktopPane1.removeAll();
+    /**
+     * opening a new round after loading
+     */
+    private void openNewRoundFunc(){ 
+        //claenimg the current settings.
+       /* jDesktopPane1.removeAll();
         jDesktopPane1.revalidate();
         jDesktopPane1.repaint();
         
         jDesktopPane1.add(homeLabel);
-        homeLabel.removeAll();
+        homeLabel.removeAll();*/
         homeLabel.setIcon(new ImageIcon(getClass().getResource("hpfixed1.jpg")));
         homeBtn.setVisible(true);
         homeLabel.add(homeBtn);
-        settingTranspert(jButton1);
-        jButton1.setVisible(true);
+        settingTranspert(dealNewGBtn);
+        dealNewGBtn.setVisible(true);
          
         homeLabel.setVisible(true);
-        homeLabel.add(jButton1);
+        homeLabel.add(dealNewGBtn);
         
         settingTranspert(helpBtn);
         settingTranspert(stopBtn);
         stopBtn.setVisible(false);
         runAnimationForHelp();
+        updateTheMainButtons();
        
     }
     
@@ -1185,8 +1177,7 @@ public class gameFrame extends javax.swing.JFrame {
     private void settingsAfterDeal(){
         String menu= "hpfixed2.jpg"; 
         ImageIcon x = new ImageIcon(getClass().getResource(menu));
-        
-      //  dealBtn.setVisible(false);
+ 
         homeLabel.setIcon(x);
         hitBtn.setVisible(true);
         standBtn.setVisible(true);
@@ -1194,8 +1185,7 @@ public class gameFrame extends javax.swing.JFrame {
         homeLabel.add(standBtn);
         homeBtn.setVisible(true);
         homeLabel.add(homeBtn);
-        
-        ///LEE
+
         String playerAmount =Integer.toString(view.getPlayerHand());
         JPlayer.setText("Player-"+playerAmount);
         homeLabel.add(JPlayer);
@@ -1235,12 +1225,12 @@ public class gameFrame extends javax.swing.JFrame {
     private javax.swing.JLabel JPlayer;
     private javax.swing.JButton clearBtn;
     private javax.swing.JButton dealBtn;
+    private javax.swing.JButton dealNewGBtn;
     private javax.swing.JButton goToStartScreenBtn;
     private javax.swing.JToggleButton helpBtn;
     private javax.swing.JButton hitBtn;
     private javax.swing.JButton homeBtn;
     private javax.swing.JLabel homeLabel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jDealerStatus;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel6;

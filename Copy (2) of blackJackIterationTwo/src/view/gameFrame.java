@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ import java.util.logging.Logger;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -34,41 +37,40 @@ import model.game;
  * @author USER
  */
 public class gameFrame extends javax.swing.JFrame {
-
-    /**
-	 * 
-	 */
+    
+    /*
+     * Serlizabele number
+     */
 	private static final long serialVersionUID = -6580542711963684128L;
-		/**
-	 * 
-	 */
-        /**view logic instance */
-        JLabel help = new  JLabel();
-        ImageIcon c = new ImageIcon(getClass().getResource("helpBord.jpg"));
-        Timer timerHelp;
-        Timer timerForStopHelp;
-        final JLabel animationforHelp = new JLabel(c);
-        final JLabel animationForStopHelp = new JLabel(c);
-        private int flagForNewRound = 0;
+       //Basic variables for this class 
         private ViewLogic view;
         private  Player p;
-        private int cardAfterDeal = 0;
+        private game g = null;
         public ArrayList<JLabel> playersHand = new ArrayList<>() ;
         public ArrayList<JLabel> dealersHand = new ArrayList<>() ;
-        Timer timer;
-        Timer timerForLoading;
-        JToggleButton b = new JToggleButton("Start/Stop");// creating the 
+        // helping flags
+        private int flagForNewRound = 0; 
+        private int cardAfterDeal = 0;
         public int tellHimToStop = 0;
         public int flagNotShuffle = 0;
-        game g = null;
+        public int hitFlg = 0;
+        // ALL NEEDED TIMERS IN SYSTEM
+        Timer timer; // timer for pressing on deal and sliding cards
+        Timer timerForLoading;
+        Timer timerHelp; // timer for help button 
+        Timer timerForStopHelp; // timer for pressing ok on help button 
+        
+        // all labels and buttons needed for system
+        JToggleButton b = new JToggleButton("Start/Stop");// creating the sliding functionality
         String dealClearMenuSrc= "hpfixed1.jpg"; 
         ImageIcon dealClearImgIcon = new ImageIcon(getClass().getResource(dealClearMenuSrc));
         JLabel loadingAnimation= new JLabel();
-                        //ImageIcon im = new ImageIcon(getClass().getResource("laoding.gif"));
         ImageIcon load = new ImageIcon(getClass().getResource("laoding.gif"));
-        public int hitFlg = 0;
-        
-        //final JToggleButton deal = new JToggleButton("DEAL");// creating the button
+        JLabel help = new  JLabel();
+        ImageIcon c = new ImageIcon(getClass().getResource("helpBord.jpg"));
+        // using two different labels for different purposes 
+        final JLabel animationforHelp = new JLabel(c); // for pressing on help 
+        final JLabel animationForStopHelp = new JLabel(c); // for different positions in pressing ok on help
         
         
 	/**
@@ -816,7 +818,7 @@ public class gameFrame extends javax.swing.JFrame {
         Clip clip = AudioSystem.getClip();
         clip.open(audioIn);  
         clip.start();
-          } catch (Exception ex) {
+          } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
                 Logger.getLogger(gameFrame.class.getName()).log(Level.SEVERE, null, ex);
           }
     }
